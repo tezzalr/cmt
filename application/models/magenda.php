@@ -46,8 +46,18 @@ class Magenda extends CI_Model {
     function get_agenda_by_id($id){
     	$this->db->select('*');
     	$this->db->where('id',$id);
-    	$result = $this->db->get('agenda');
-    	return $result->row(0);
+    	$res = $this->db->get('agenda'); 
+    	$result = $res->row(0);
+    	$agenda = array(); $user = explode(',',$result->required);
+    	$agenda['agenda'] = $result;
+    	$agenda['people'] = $this->get_agenda_required($user);
+    	return $agenda;
+    }
+    
+    function get_agenda_required($arr_people){
+    	$this->db->where_in('id',$arr_people);
+    	$result = $this->db->get('user');
+    	return $result->result();
     }
     
     function get_all_programs(){

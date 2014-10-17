@@ -82,13 +82,7 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Description</label>
 				<div class="col-sm-10">
-					<textarea type="text" class="form-control" name="description"></textarea>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Follow Up</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="followup" name="followup" placeholder="Follow Up">
+					<textarea type="text" class="form-control" name="description"><br><br><b>---Follow Up---</b></textarea>
 				</div>
 			</div>
 			<div class="form-group">

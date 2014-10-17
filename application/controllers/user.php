@@ -11,7 +11,7 @@ class User extends CI_Controller {
     
     public function index()
     {
-    	$user = $this->session->userdata('user');
+    	$user = $this->session->userdata('user_cmt');
 		
 		if($user){
 			$users = $this->muser->get_all_user();
@@ -51,7 +51,7 @@ class User extends CI_Controller {
     	
     	$data['title'] = "Input User";
 		
-		$user = $this->session->userdata('user');
+		$user = $this->session->userdata('user_cmt');
 		$data['header'] = $this->load->view('shared/header',array('user' => $user, 'info' => $data_user),TRUE);
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
         $data['content'] = $this->load->view('user/input',array(),TRUE);
@@ -74,8 +74,8 @@ class User extends CI_Controller {
 					'is_logged_in' => true,
 					'role' => $user->role,
 				);
-			$this->session->set_userdata('user',$data);
-			redirect('home/');
+			$this->session->set_userdata('user_cmt',$data);
+			redirect('agenda/');
         }else{
             $params['type_login']="failed";
             $this->login($params);
@@ -112,7 +112,7 @@ class User extends CI_Controller {
     }
     
     public function logout(){
-        $this->session->unset_userdata('user');
+        $this->session->unset_userdata('user_cmt');
         redirect('/user/login');
     }
     

@@ -51,9 +51,11 @@
 											<div>
 												<?php 
 													foreach ($agendas[$i] as $agd){?>
-													<div style="float:right; color:grey"><?php echo date("g A", strtotime($agd->start));?></div>
-													<div style="float:left"><a href="#" onclick="show_detail(<?php echo $agd->id?>)"><?php echo $agd->title;?></a></div>
-													<div style="clear:both"></div>
+													<div style="margin-bottom:5px;">
+														<div style="float:right; color:grey"><?php echo date("g A", strtotime($agd->start));?></div>
+														<div style="float:left; width:79%"><a href="#" onclick="show_detail(<?php echo $agd->id?>)"><?php echo $agd->title;?></a></div>
+														<div style="clear:both"></div>
+													</div>
 												<?php }?>
 											</div>
 											<div style="clear:both"></div>

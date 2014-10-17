@@ -8,7 +8,7 @@ class Agenda extends CI_Controller {
         $this->load->model('muser');
         $this->load->model('magenda');
         
-        $session = $this->session->userdata('user');
+        $session = $this->session->userdata('user_cmt');
         
         if(!$session){
             redirect('user/login');
@@ -21,7 +21,7 @@ class Agenda extends CI_Controller {
     {
 		$data['title'] = "Agenda";
 		
-		$user = $this->session->userdata('user');
+		$user = $this->session->userdata('user_cmt');
 		
 		if($this->uri->segment(3) && $this->uri->segment(4)){$month = $this->uri->segment(3); $year = $this->uri->segment(4);}
 		else{$month = date('m'); $year = date('Y');}
@@ -44,11 +44,12 @@ class Agenda extends CI_Controller {
     
     public function get_detail(){
        	$id = $this->input->get('id');
+       	$user = $this->session->userdata('user_cmt');
     	$agenda = $this->magenda->get_agenda_by_id($id); 
 		if($agenda){
 			$json['status'] = 1;
-            $json['message'] = $data['content'] = $this->load->view('agenda/detail_agenda',array('agenda' => $agenda),TRUE);
-            $json['title'] = $agenda->title;
+            $json['message'] = $data['content'] = $this->load->view('agenda/detail_agenda',array('agenda' => $agenda,'user'=>$user),TRUE);
+            $json['title'] = $agenda['agenda']->title;
 		}else{
 			$json['status'] = 0;
 		}
@@ -60,7 +61,7 @@ class Agenda extends CI_Controller {
     	$data['title'] = "Input Agenda";
 		
 		$users = $this->muser->get_all_user();
-		$user = $this->session->userdata('user');
+		$user = $this->session->userdata('user_cmt');
 		
 		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
@@ -71,7 +72,7 @@ class Agenda extends CI_Controller {
     
     public function submit_agenda(){
       	$id = $this->uri->segment(3);
-      	$user = $this->session->userdata('user');
+      	$user = $this->session->userdata('user_cmt');
       	
       	$program['title'] = $this->input->post('title');
         $program['location'] = $this->input->post('location');
@@ -112,133 +113,5 @@ class Agenda extends CI_Controller {
         	//else{redirect('initiative/input_initiative/'.$segment);}
         }
     }
-    
-    /*Initiative*/
-    public function list_initiative(){
-    	$data['title'] = "List All Initiatives";
-		$segment = $this->uri->segment(3);
-		
-		//Header
-		$user = $this->session->userdata('user');
-		$pending_aprv = $this->mmilestone->get_pending_aprv($user['id'],$user['role']);
-		
-		$this->minitiative->check_initiative_status();
-		
-		$programs = $this->minitiative->get_all_programs_with_segment($segment);
-		$user_info = $this->muser->get_user_by_id($user['id']);
-		$roles = explode(',',$user['role']); $user_initiative="";
-		if((in_array('PIC',$roles))&&!(in_array('PMO',$roles))){
-			$user_initiative = explode(';',$user_info->initiative);	
-		}
-		
-		$form_new = $this->load->view('initiative/input_initiative',array('programs' => $programs,'segment' => $segment),TRUE);
-		
-		$initiatives = $this->minitiative->get_all_initiatives($user_initiative, $segment);
-		$data['header'] = $this->load->view('shared/header',array('user' => $user,'pending'=>$pending_aprv),TRUE);	
-		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('initiative/list_initiative',array('ints' => $initiatives,'programs' => $programs, 'form_new' => $form_new),TRUE);
-
-		$this->load->view('front',$data);
-    }
-    
-    public function detail_initiative(){
-    	$id = $this->uri->segment(3);
-    	$initiative['int'] = $this->minitiative->get_initiative_by_id($id);
-    	$user = $this->session->userdata('user');
-    	$roles = explode(',',$user['role']);
-    	$inits = explode(';',$user['initiative']); 
-    	if((in_array('PIC',$roles)&&(count($roles)==1))&& !(in_array($initiative['int']->code,$inits))){
-    		redirect('initiative/list_initiative');
-    	}
-    	else{
-			$initiative['stat'] = $this->minitiative->get_initiative_status($id)['status'];
-			$workblocks = $this->mworkblock->get_all_initiative_workblock($id);
-		
-			$user = $this->session->userdata('user');
-			$pending_aprv = $this->mmilestone->get_pending_aprv($user['id'],$user['role']);
-		
-			$data['title'] = "Initiative";
-			$data['header'] = $this->load->view('shared/header',array('user' => $user,'pending'=>$pending_aprv),TRUE);	
-			$data['footer'] = $this->load->view('shared/footer','',TRUE);
-			$data['content'] = $this->load->view('initiative/detail',array('initiative' => $initiative,'workblocks' => $workblocks),TRUE);
-
-			$this->load->view('front',$data);
-		}
-    }
-    
-    /*Program*/
-    public function list_programs(){
-    	$data['title'] = "List All Initiatives";
-		
-		$user = $this->session->userdata('user');
-		$pending_aprv = $this->mmilestone->get_pending_aprv($user['id'],$user['role']);
-		
-		$programs = $this->minitiative->get_all_programs();
-		
-		$data['header'] = $this->load->view('shared/header',array('user' => $user,'pending'=>$pending_aprv),TRUE);	
-		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('initiative/list_program',array('programs' => $programs),TRUE);
-
-		$this->load->view('front',$data);
-    }
-    
-    public function input_program(){
-    	$data['title'] = "List All Initiatives";
-		
-		$user = $this->session->userdata('user');
-		$pending_aprv = $this->mmilestone->get_pending_aprv($user['id'],$user['role']);
-		
-		$data['header'] = $this->load->view('shared/header',array('user' => $user,'pending'=>$pending_aprv),TRUE);	
-		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('initiative/input_program',array(),TRUE);
-
-		$this->load->view('front',$data);
-    }
-    
-    public function submit_program(){
-      	$program['title'] = $this->input->post('title');
-        $program['code'] = $this->input->post('code');
-        $program['segment'] = $this->input->post('segment');
-        
-        if($this->minitiative->insert_program($program)){
-        	redirect('initiative/list_programs');
-        }else{redirect('initiative/input_program');}
-    }
-    
-    public function delete_program(){
-        if($this->minitiative->delete_program()){
-    		$json['status'] = 1;
-    	}
-    	else{
-    		$json['status'] = 0;
-    	}
-    	$this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-	}
-	
-	public function delete_initiative(){
-        if($this->minitiative->delete_initiative()){
-    		$json['status'] = 1;
-    	}
-    	else{
-    		$json['status'] = 0;
-    	}
-    	$this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-	}
-	
-	public function get_description(){
-       	$id = $this->input->get('id');
-    	$descrp = $this->minitiative->get_initiative_by_id($id); 
-		if($descrp){
-			$json['status'] = 1;
-            $json['message'] = $descrp->description;
-            $json['title'] = $descrp->title;
-		}else{
-			$json['status'] = 0;
-		}
-		$this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-	}
     
 }

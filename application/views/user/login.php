@@ -14,7 +14,7 @@ $(document).ready(function(){
 <div id="" class="container no_pad" style="height:100%">
 	<div class="col-md-6 login-form" style="margin 0 auto;  position: relative; top: 30%;">
 		<form class="form-signin" action="<?php echo base_url();?>user/userEnter" method="post" role="form" style="width:75%">
-			<h3 class="form-signin-heading">Mandiri Corplan 2020</h3>
+			<h3 class="form-signin-heading">Web CMT</h3>
 			<p class="desc_login_form">Please login here: </p>
 			<input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
 			<input type="password" class="form-control" placeholder="Password" name="password" required>
@@ -33,6 +33,6 @@ $(document).ready(function(){
 		<div style="float:right;">
 			<img src="<?php echo base_url()?>assets/img/general/mandiri.png" style="width:190px"><br>
 		</div><div style="clear:both"></div>
-		<div style="margin-top:10px"><img src="<?php echo base_url()?>assets/img/general/Transformasi.png" style="width:100%"></div>
+		<div style="margin-top:10px"></div>
 		</div>
 </div>
