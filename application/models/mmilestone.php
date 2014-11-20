@@ -73,6 +73,16 @@ class Mmilestone extends CI_Model {
         }
     }
     
+    function get_milestone_by_id($id){
+        $this->db->where('id',$id);
+        $result = $this->db->get('milestone');
+        if($result->num_rows==1){
+            return $result->row(0);
+        }else{
+            return false;
+        }
+    }
+    
     function get_initiative_program_by_wb_id($wb_id){
 		$this->db->select('initiative.*');
 		$this->db->join('workblock', 'initiative.id = workblock.initiative_id');

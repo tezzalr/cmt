@@ -82,7 +82,7 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Description</label>
 				<div class="col-sm-10">
-					<textarea type="text" class="form-control" name="description"><br><br><b>---Follow Up---</b></textarea>
+					<textarea type="text" class="form-control" name="description"><br><br><b>---Follow Up---</b><br><br></textarea>
 				</div>
 			</div>
 			<div class="form-group">

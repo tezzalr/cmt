@@ -48,7 +48,7 @@ class Agenda extends CI_Controller {
     	$agenda = $this->magenda->get_agenda_by_id($id); 
 		if($agenda){
 			$json['status'] = 1;
-            $json['message'] = $data['content'] = $this->load->view('agenda/detail_agenda',array('agenda' => $agenda,'user'=>$user),TRUE);
+            $json['message'] = $this->load->view('agenda/detail_agenda',array('agenda' => $agenda,'user'=>$user),TRUE);
             $json['title'] = $agenda['agenda']->title;
 		}else{
 			$json['status'] = 0;
