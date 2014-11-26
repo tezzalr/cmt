@@ -59,13 +59,19 @@ class Agenda extends CI_Controller {
     
     public function input_agenda(){
     	$data['title'] = "Input Agenda";
+    	
+    	$id = $this->uri->segment(3);
 		
 		$users = $this->muser->get_all_user();
 		$user = $this->session->userdata('user_cmt');
+		$agenda = "";
+		if($id){
+			$agenda = $this->magenda->get_agenda_by_id($id);
+		}
 		
 		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('agenda/input_agenda',array('agenda' => '', 'cmters' => $users),TRUE);
+		$data['content'] = $this->load->view('agenda/input_agenda',array('agenda' => '', 'cmters' => $users, 'agenda' => $agenda,'user' => $user),TRUE);
 
 		$this->load->view('front',$data);
     }

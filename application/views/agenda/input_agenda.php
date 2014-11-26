@@ -82,7 +82,7 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Description</label>
 				<div class="col-sm-10">
-					<textarea type="text" class="form-control" name="description"><br><br><b>---Follow Up---</b><br><br></textarea>
+					<textarea type="text" class="form-control" name="description"><br><br><b>---Follow Up---</b></textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -90,7 +90,7 @@ $(document).ready(function(){
 				<div class="col-sm-10">
 					<?php foreach($cmters as $cmt){?>
 					<label class="checkbox-inline">
-						<input type="checkbox" name="required[]" value="<?php echo $cmt->id?>"> <?php echo $cmt->name?>
+						<input type="checkbox" name="required[]" value="<?php echo $cmt->id?>" <?php if($user['id']==$cmt->id){echo "checked";}?>> <?php echo $cmt->name?>
 					</label>
 					<?php }?>
 				</div>
