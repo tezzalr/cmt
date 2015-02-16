@@ -5,6 +5,7 @@ class Home extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
+        $this->load->model('mmycash');
         
     }
     /**
@@ -15,9 +16,7 @@ class Home extends CI_Controller {
 
 		$data['title'] = "Beranda";
 		
-		$user = $this->session->userdata('user');
-		
-		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
 		$data['content'] = $this->load->view('home/index',array(),TRUE);
 

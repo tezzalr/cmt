@@ -6,6 +6,9 @@ body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
 }
+a{
+	color:#122E8A;
+}	
 body a:hover{
 	color:#444;
 }
@@ -19,8 +22,8 @@ body a:hover{
 	background-color:#0B3861;
 	color:white;
 }
-.headertab th {
-	text-align:center
+.table{
+	font-size:16px;
 }
 /* Wrapper for page content to push down footer */
 #wrap {
@@ -70,10 +73,6 @@ body a:hover{
 	color: #B50D15;
 }
 
-.breadmy a{
-	color:#0D177A;
-}
-
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -83,10 +82,6 @@ body a:hover{
 }
 .container .text-muted {
   margin: 20px 0;
-}
-.container{
-	//height:88%;
-	//overflow:scroll;
 }
 
 #footer > .container {

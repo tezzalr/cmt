@@ -266,16 +266,31 @@
 		elseif($initial ==  "SF"){return 'Syndication Fee';}
 		elseif($initial ==  "OW_nii"){return 'NII Others';}
 		elseif($initial ==  "OW_fbi"){return 'FBI Others';}
+		elseif($initial ==  "VC"){return 'Value Chain';}
+		elseif($initial ==  "WM"){return 'Wealth Management';}
+		elseif($initial ==  "EDC"){return 'EDC';}
+		elseif($initial ==  "ATM"){return 'ATM';}
+		elseif($initial ==  "Micro"){return 'Micro';}
+		elseif($initial ==  "CC"){return 'Credit Card';}
+		elseif($initial ==  "CM"){return 'Cash Management';}
+		elseif($initial ==  "cicil_Emas"){return 'Cicil Emas';}
+		elseif($initial ==  "DPLK"){return 'DPLK';}
+		elseif($initial ==  "MAGI"){return 'Mandiri AXA General Insurance';}
+		elseif($initial ==  "MTF"){return 'Mandiri Tunas Finance';}
+		elseif($initial ==  "Mansek"){return 'Mandiri Sekuritas';}
     }
     
     function get_tot_income($ws, $al, $month,$pow){
-    	$arr_tot_inc = array();
-    	
+    	$arr_tot_inc = array('ws'=>0,'al'=>0,'tot'=>0,'each_ws'=>0,'each_al'=>0);
+    	if($ws && $al){
     	$arr_tot_inc['ws'] = ((($ws->WCL_nii +  $ws->IL_nii +  $ws->SL_nii + $ws->CASA_nii + $ws->TR_nii + $ws->OW_nii + $ws->TD_nii + 
-    					$ws->CASA_fbi + $ws->FX_fbi + $ws->SCF_fbi + $ws->Trade_fbi + $ws->PWE_fbi + $ws->BG_fbi + $ws->OIR_fbi + $ws->OW_fbi)/$month*12) + $ws->IL_fbi + $ws->SL_fbi + $ws->WCL_fbi)/pow(10,$pow);
+    					$ws->CASA_fbi + $ws->FX_fbi + $ws->SCF_fbi + $ws->Trade_fbi + $ws->PWE_fbi + $ws->BG_fbi + $ws->OIR_fbi + $ws->OW_fbi)/$month*12) + $ws->IL_fbi + $ws->SL_fbi + $ws->WCL_fbi  + $ws->ECM_fbi + $ws->DCM_fbi + $ws->MA_fbi)/pow(10,$pow);
     	$arr_tot_inc['al'] = ($al->WM_nii + $al->DPLK_fbi + $al->PCD_nii + $al->VCCD_nii + $al->VCCD_fbi + $al->VCL_nii + $al->VCL_fbi+ $al->VCLnDF_nii + $al->VCLnDF_fbi + $al->Micro_Loan_nii + $al->Micro_Loan_fbi + 
 					$al->MKM_nii + $al->KPR_nii + $al->Auto_nii + $al->CC_nii + $al->EDC_fbi + $al->ATM_fbi + $al->AXA_fbi + $al->MAGI_fbi + $al->retail_fbi + $al->cicil_Emas_fbi)/$month*12/pow(10,$pow);
 		$arr_tot_inc['tot'] = $arr_tot_inc['ws'] + $arr_tot_inc['al'];
+		$arr_tot_inc['each_ws'] = $ws;
+		$arr_tot_inc['each_al'] = $al;
+		}
 		return $arr_tot_inc;
     }
     
@@ -317,3 +332,43 @@
     	elseif($month == 11){return "Nov";}
     	elseif($month == 12){return "Des";}
     }
+    
+    function get_month_full_name($month){
+    	if($month == 1){return "January";}
+    	elseif($month == 2){return "February";}
+    	elseif($month == 3){return "March";}
+    	elseif($month == 4){return "April";}
+    	elseif($month == 5){return "Mei";}
+    	elseif($month == 6){return "June";}
+    	elseif($month == 7){return "July";}
+    	elseif($month == 8){return "August";}
+    	elseif($month == 9){return "September";}
+    	elseif($month == 10){return "October";}
+    	elseif($month == 11){return "November";}
+    	elseif($month == 12){return "Desember";}
+    }
+    
+    function get_product_anal_prod(){
+    	$prod = array(); $i=0;
+    	$inisial = array("Trade","BG","SCF","VC","WM","EDC","ATM","Micro","CC","CM","cicil_Emas","DPLK","MAGI","MTF","FX","Mansek","OIR");
+    	foreach($inisial as $asu){
+    		$prod[$i]['ins'] = $asu;
+    		$prod[$i]['name'] = change_real_name($asu);
+    		$i++;
+    	}
+    	return $prod;
+    }
+    
+    function get_product_income_type($product){
+    	$prod_nii = array("CASA", "TD", "IL", "SL", "WCL", "TR", "WM");
+    	$prod_fbi = array("FX", "SCF", "Trade", "PWE", "BG", "OIR", "OW", "ECM", "DCM", "MA");
+    	if(in_array($product, $prod_nii)){return 'nii';}
+    	elseif(in_array($product, $prod_fbi)){return 'fbi';}
+    }
+	
+	function not_avg_bal($product){
+		$res = true;
+		$prod_avg = array("CASA", "TD", "IL", "SL", "WCL");
+		if(in_array($product,$prod_avg)){$res = false;}
+		return $res;
+	}

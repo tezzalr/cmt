@@ -15,11 +15,11 @@ $(document).ready(function(){
 				required: true,
 			},
 			password: {
-				//required: true,
+				required: true,
 				minlength: 5
 			},
 			verify_password: {
-				//required: true,
+				required: true,
 				equalTo: "#password"
 			},
 			name: "required",
@@ -47,20 +47,19 @@ $(document).ready(function(){
 		<div class="form-signin">
 		<h3 class="form-signin-heading">New User</h3>
 		<p class="desc_login_form">Enter new user</p>
-		<form class="form-horizontal" action="<?php if($info){echo base_url()."user/register/".$info->id;}else{echo base_url()."user/register";}?>" method ="post" id="formsignup" role="form">
+		<form class="form-horizontal" action="<?php echo base_url();?>user/register" method ="post" id="formsignup" role="form">
 			 <div class="form-group">
 				<label class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<?php if($info){echo $info->name;}?>">
+					<input type="text" class="form-control" id="name" name="name" placeholder="Name">
 				</div>
 			</div>
 			 <div class="form-group">
 				<label class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php if($info){echo $info->username;}?>">
+					<input type="text" class="form-control" name="username" id="username" placeholder="Username">
 				</div>
 			</div>
-			<?php if(!$info){?>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
@@ -73,13 +72,25 @@ $(document).ready(function(){
 					<input type="password" class="form-control" id="verify_password" name="verify_password" placeholder="Confirm Password">
 				</div>
 			</div>
-			<?php }?>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Anchor</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="anchor" id="anchor" placeholder="Anchor">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Product</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="product" id="product" placeholder="Product">
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
 					<select id="" class="form-control" name="role">
-						<option value='User' <?php if($info){if($info->role=="User"){echo "selected";}}?>>User</option>
-						<option value='admin' <?php if($info){if($info->role=="admin"){echo "selected";}}?>>Admin</option>
+						<option value='admin' >Admin</option>
+						<option value='cmt' >CMT</option>
+						<option value='rm' >RM</option>
 					</select>
 				</div>
 			</div>

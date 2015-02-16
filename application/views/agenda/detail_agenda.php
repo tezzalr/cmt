@@ -10,7 +10,7 @@
 	</div>
 	<div style="clear:both"></div>
 	<div style="margin-top:20px"><?php echo $agenda['agenda']->description?></div><hr>
-	<?php if($agenda['agenda']->maker_id == $user['id']){?><div style="margin-top:20px; text-align:center">
+	<?php if(($agenda['agenda']->maker_id == $user['id']) || $user['role']=='admin'){?><div style="margin-top:20px; text-align:center">
 		<a href="<?php echo base_url()?>agenda/input_agenda/<?php echo $agenda['agenda']->id?>" class="btn btn-warning  btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
 		<a href="<?php echo base_url()?>agenda/delete_agenda/<?php echo $agenda['agenda']->id?>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
 	</div>

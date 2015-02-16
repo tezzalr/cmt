@@ -1,33 +1,42 @@
+<?php 
+	$user = $this->session->userdata('userdb');
+?>
 <style>
 	.header_top a{
-		color:white;
+		color:#0B0A51;
 	}
 	.header_top a:hover{
 		color:white;
 	}
-	.aprv-alert{
-		background-color:#f2dede;
-		padding:5px
-	}
-	.aprv-alert span{
-		color:#a94442
-	}
-	.lala{
-		font-size:11px
-	}
 </style>
-<div style="width:100%; background-color:black; color:white; padding:5px; padding-left:60px; ">
-	<div class="header_top" style="float:left; margin-right:20px;"><img src="<?php echo base_url()?>assets/img/general/mandiri.png" style="width:70px"></div>
-	<div class="header_top" style="float:left; margin-right:20px; padding-top:5px;"><a href="<?php echo base_url()?>agenda/">Agenda</a></div>
+<div style="width:100%; background-color:#D4D5D9; padding-left:60px; height:30px; padding-top:5px;">
+	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>anchor">Anchor</a></div>
+	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>product/top_transaksi/CASA">Produk</a></div>
+	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>monthly/share_anchor">Monthly Report</a></div>
+	<!--<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>update/activity_wall">Activity Update</a></div>-->
+	<div class="header_top" style="float:right; margin-right:20px;"><a href="<?php echo base_url()?>user/logout">Logout</a></div>
 	
-	<div class="header_top" style="float:right; margin-right:20px; padding-top:5px;"><?php echo date("d/M/y", strtotime(date('Y-m-d')));?></div>
-	<div class="header_top" style="float:right; margin-right:20px; padding-top:5px;"><a href="<?php echo base_url()?>user/logout">Logout</a></div>
-	<div class="header_top" style="float:right; margin-right:20px; padding-top:5px;"><a href="<?php echo base_url()?>workblock/detail"><?php echo $user['name']?></a></div>
-	<?php if($user['role']=='admin'){?>
-		<div class="header_top" style="float:right; margin-right:20px; padding-top:5px;"><a href="<?php echo base_url()?>user/">User</a></div>
+	<?php if($user){?>
+		<div class="header_top" style="float:right; margin-right:20px;"><a href="<?php echo base_url()?>user/input_user"><?php echo $user['name']?></a></div>
 	<?php }?>
+	<?php if($user['role']=="admin"){?>
+		<div class="header_top" style="float:right; margin-right:20px;"><a href="<?php echo base_url()?>user/input_user">User</a></div>
+	<?php }?>
+	
 	<div style="clear:both"></div>
 </div>
+<div style="float:right; padding:5px 25px 5px 5px;">
+<form method="post" action="<?php echo base_url()?>anchor/change_report_month">
+	<?php $rpttime = $this->session->userdata('rpttime'); $lsttime = $this->session->userdata('lsttime');?>
+	<label style="margin-right:20px">Bulan laporan:</label>
+	<input type="hidden" name="last_url" value="<?php echo uri_string();?>">
+	<select id="mth" name="report_month" style="width:150px">
+		<?php for($i=1;$i<=$lsttime['month'];$i++){?>
+				<option value="<?php echo $i?>" <?php if($rpttime['month'] == $i){echo "selected";}?>><?php echo get_month_full_name($i)?></option>
+		<?php }?>
+	</select>
+	<input type="submit" class="btn btn-xs btn-default" value="Ubah" style="background-color:#0B0A51; border-color:#0B0B61; color:white;">
+</form>
 
-<script>
-</script>
+</div><div style="clear:both"></div>
+<hr style="margin: 0">

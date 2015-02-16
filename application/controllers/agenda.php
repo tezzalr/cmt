@@ -58,9 +58,10 @@ class Agenda extends CI_Controller {
 	}
     
     public function input_agenda(){
-    	$data['title'] = "Input Agenda";
-    	
     	$id = $this->uri->segment(3);
+    	
+    	if($id){$data['title'] = "Edit Agenda";}
+    	else{$data['title'] = "Input Agenda";}
 		
 		$users = $this->muser->get_all_user();
 		$user = $this->session->userdata('user_cmt');
@@ -71,7 +72,7 @@ class Agenda extends CI_Controller {
 		
 		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('agenda/input_agenda',array('agenda' => '', 'cmters' => $users, 'agenda' => $agenda,'user' => $user),TRUE);
+		$data['content'] = $this->load->view('agenda/input_agenda',array('cmters' => $users, 'agenda' => $agenda,'user' => $user),TRUE);
 
 		$this->load->view('front',$data);
     }
@@ -103,8 +104,8 @@ class Agenda extends CI_Controller {
     	}
         
         if($id){
-        	if($this->minitiative->update_initiative($program,$id)){redirect('initiative/list_initiative/'.$segment);}
-        	else{redirect('initiative/input_initiative/'.$segment);}
+        	if($this->magenda->update_agenda($program,$id)){redirect('agenda');}
+        	else{redirect('agenda/input_agenda/');}
         }
         else{
         	if($this->magenda->insert_agenda($program)){redirect('agenda');}
