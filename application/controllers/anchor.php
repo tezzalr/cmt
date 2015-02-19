@@ -13,9 +13,9 @@ class Anchor extends CI_Controller {
         
         $session = $this->session->userdata('userdb');
         
-        /*if(!$session){
+        if(!$session){
             redirect('user/login');
-        }*/
+        }
     }
     /**
      * Method for page (public)
@@ -94,7 +94,13 @@ class Anchor extends CI_Controller {
     }
     
     public function change_report_month(){
-    	$this->session->set_userdata('rptmth',$this->input->post('report_month'));
+    	$rpttime = array(
+						'month' => $this->input->post('report_month'),
+						'year' => $this->mrealization->get_last_year()
+					);
+					
+    	$this->session->set_userdata('rpttime',$rpttime);
+    	
     	$uri = $this->input->post('last_url');
     	redirect($uri);
     }

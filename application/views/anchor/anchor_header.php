@@ -7,5 +7,6 @@
 		<li><a href="<?php echo base_url()?>income/show/anchor/<?php echo $anchor->id;?>">Income</a></li>
 		<li><a href="<?php echo base_url()?>wallet/show/anchor/<?php echo $anchor->id;?>">Wallet</a></li>
 		<li><a href="<?php echo base_url()?>tren/show/anchor/<?php echo $anchor->id;?>/CASA/volume">Trend Product</a></li>
+		<li><a href="<?php echo base_url()?>plan/show/anchor/<?php echo $anchor->id;?>/CASA/volume">Action Plan</a></li>
 	</ul><div style="clear:both"></div>
 </div>

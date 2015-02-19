@@ -25,7 +25,7 @@ class Mrealization extends CI_Model {
     /*Anchor Function*/
     
     function get_anchor_ws_realization($anchor_id, $year){
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$this->db->where('anchor_id',$anchor_id);
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
@@ -37,7 +37,7 @@ class Mrealization extends CI_Model {
     }
     
     function get_anchor_al_realization($anchor_id, $year){
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$this->db->where('anchor_id',$anchor_id);
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
@@ -74,7 +74,7 @@ class Mrealization extends CI_Model {
     
     
     function get_anchor_total_income($anchor_id, $year){
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$ws_realization = $this->get_anchor_ws_realization($anchor_id, $year);
     	$al_realization = $this->get_anchor_al_realization($anchor_id, $year);
     	
@@ -112,7 +112,7 @@ class Mrealization extends CI_Model {
     
     /*Directorate Function*/
     function get_directorate_realization($direktorat, $year, $type){
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$db = $type.'_realization';
     	get_type_select_month($type,$this);
     	get_direktorat_where($direktorat,$this);
@@ -185,7 +185,7 @@ class Mrealization extends CI_Model {
     }
     
     function get_directorate_total_income($direktorat, $year){
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$ws_realization = $this->get_directorate_realization($direktorat, $year, 'wholesale');
     	$al_realization = $this->get_directorate_realization($direktorat, $year, 'alliance');
     	
