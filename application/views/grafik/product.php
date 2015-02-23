@@ -29,10 +29,48 @@
             },
             series: [{
                 name: '2014',
-                data: [<?php for($i=1;$i<=$last_month_data;$i++){$pengali = 1; if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){$pengali = 12/$i;} $mth_ty = 'mth_'.$i; echo round($this_year->$mth_ty/pow(10,$bagi)*$pengali,1).', ';}?>],
+                data: [<?php 
+                			$mth_bfr = 0; $growth_ty = array(); $sum_gw_ty = 0;
+                			for($i=1;$i<=$last_month_data;$i++){
+                				$pengali = 1; 
+                				if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){
+                					$pengali = 12/$i;
+                				} 
+                				$mth_ty = 'mth_'.$i;
+                				$ths_mth = $this_year->$mth_ty/pow(10,$bagi)*$pengali;
+                				if($mth_bfr && $ths_mth){
+                					$growth_ty[$i] = ($ths_mth/$mth_bfr)-1;
+                					$sum_gw_ty = $sum_gw_ty+$growth_ty[$i];
+                				}else{
+                					$growth_ty[$i] = 1;
+                					$sum_gw_ty = $sum_gw_ty+$growth_ty[$i];
+                				}
+                				$mth_bfr = $ths_mth;
+                				echo round($ths_mth,1).', ';
+                			}
+                		?>],
             }, {
             	name: '2013',
-                data: [<?php for($i=1;$i<=12;$i++){$pengali = 1; if($this->uri->segment(7)=="ann"  && not_avg_bal($this->uri->segment(5))){$pengali = 12/$i;} $mth_ly = 'mth_'.$i; echo round($ly_year->$mth_ly/pow(10,$bagi)*$pengali,1).', ';}?>],
+                data: [<?php 
+                			$mth_bfr = 0; $growth_ly = array(); $sum_gw_ly = 0;
+                			for($i=1;$i<=12;$i++){
+                				$pengali = 1; 
+                				if($this->uri->segment(7)=="ann"  && not_avg_bal($this->uri->segment(5))){
+                					$pengali = 12/$i;
+                				}
+                				$mth_ly = 'mth_'.$i;
+                				$ths_mth = $ly_year->$mth_ly/pow(10,$bagi)*$pengali;
+                				if($mth_bfr && $ths_mth){
+                					$growth_ly[$i] = ($ths_mth/$mth_bfr)-1;
+                					$sum_gw_ly = $sum_gw_ly+$growth_ly[$i];
+                				}else{
+                					$growth_ly[$i] = 1;
+                					$sum_gw_ly = $sum_gw_ly+$growth_ly[$i];
+                				}
+                				$mth_bfr = $ths_mth;
+                				echo round($ths_mth,1).', ';
+                				}
+                			?>],
             }<?php if($this->uri->segment(7)=="ann"){?>,{
             	name: 'Target 2014',
                 data: [<?php for($i=1;$i<=12;$i++){echo round($target,1).', ';}?>],
@@ -68,7 +106,14 @@
 					</form>
 			</div>
 			<div style="float: right">
+				<h4>Avg Growth 2014 : 
+					<?php echo round(($sum_gw_ty*100)/$last_month_data,2);?>%
+				</h4><!--asdasd-->
+				<h4>Avg Growth 2013 : 
+					<?php echo round(($sum_gw_ly*100)/12,2);?>%
+				</h4>
 				<?php if($this->uri->segment(7)=="ann"){?>
+				<hr>
 				<h4>Realisasi : 
 					<?php 
 						$ty = $this_year->$mth_ty/pow(10,$bagi)*$pengali;
