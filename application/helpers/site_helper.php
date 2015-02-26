@@ -14,7 +14,7 @@
    	 
 	function get_direktorat_where($direktorat,$model){
 		if($direktorat == 'CB'){
-			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'SYNDICATION, OIL & GAS')");
+			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V')");
 		}
 		elseif($direktorat == 'IB'){
 			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I' OR `group` = 'INSTITUTIONAL BANKING II')");
@@ -34,8 +34,8 @@
 		elseif($direktorat == 'AGB'){
 			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED')");
 		}
-		elseif($direktorat == 'SOG'){
-			$model->db->where("(`group` = 'SYNDICATION, OIL & GAS')");
+		elseif($direktorat == 'CB5'){
+			$model->db->where("(`group` = 'CORPORATE BANKING V')");
 		}
 		elseif($direktorat == 'IB1'){
 			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I')");
@@ -302,7 +302,7 @@
 		elseif($directorate == 'CB2'){$title = 'CORPORATE BANKING II';}
 		elseif($directorate == 'CB3'){$title = 'CORPORATE BANKING III';}
 		elseif($directorate == 'AGB'){$title = 'CORPORATE BANKING AGRO BASED';}
-		elseif($directorate == 'SOG'){$title = 'SYNDICATION, OIL & GAS';}
+		elseif($directorate == 'CB5'){$title = 'CORPORATE BANKING V';}
 		elseif($directorate == 'IB1'){$title = 'INSTITUTIONAL BANKING I';}
 		elseif($directorate == 'IB2'){$title = 'INSTITUTIONAL BANKING II';}
 		elseif($directorate == 'JCS'){$title = 'JAKARTA COMMERCIAL SALES';}

@@ -56,7 +56,7 @@ class Manchor extends CI_Model {
 		$this->db->or_where('group', 'CORPORATE BANKING I');
 		$this->db->or_where('group', 'CORPORATE BANKING II');
 		$this->db->or_where('group', 'CORPORATE BANKING III');
-		$this->db->or_where('group', 'SYNDICATION, OIL & GAS');
+		$this->db->or_where('group', 'CORPORATE BANKING V');
 		//$this->db->or_where('group', 'INSTITUTIONAL BANKING I');
 		//$this->db->or_where('group', 'INSTITUTIONAL BANKING II');
 		//$this->db->or_where('group', 'JAKARTA COMMERCIAL SALES');
@@ -97,7 +97,7 @@ class Manchor extends CI_Model {
     		$this->db->or_where('group', 'CORPORATE BANKING I');
     		$this->db->or_where('group', 'CORPORATE BANKING II');
     		$this->db->or_where('group', 'CORPORATE BANKING III');
-    		$this->db->or_where('group', 'SYNDICATION, OIL & GAS');
+    		$this->db->or_where('group', 'CORPORATE BANKING V');
     	}
     	elseif($direktorat == 'institutional' || $direktorat == 'IB'){
     		$this->db->where('group', 'INSTITUTIONAL BANKING I');
@@ -113,7 +113,7 @@ class Manchor extends CI_Model {
     		$this->db->or_where('group', 'CORPORATE BANKING I');
     		$this->db->or_where('group', 'CORPORATE BANKING II');
     		$this->db->or_where('group', 'CORPORATE BANKING III');
-    		$this->db->or_where('group', 'SYNDICATION, OIL & GAS');
+    		$this->db->or_where('group', 'CORPORATE BANKING V');
     		$this->db->or_where('group', 'INSTITUTIONAL BANKING I');
     		$this->db->or_where('group', 'INSTITUTIONAL BANKING II');
     	}

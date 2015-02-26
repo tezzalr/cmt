@@ -14,7 +14,7 @@
 					elseif($anchr->group=='CORPORATE BANKING I'){$code='CB1';}
 					elseif($anchr->group=='CORPORATE BANKING II'){$code='CB2';}
 					elseif($anchr->group=='CORPORATE BANKING III'){$code='CB3';}
-					elseif($anchr->group=='SYNDICATION, OIL & GAS'){$code='SOG';}?>
+					elseif($anchr->group=='CORPORATE BANKING V'){$code='CB5';}?>
 				<hr><h5 style="color:#EBB22D"><a style="color:orange" href="<?php echo base_url()?>realization/show/directorate/<?php echo $code?>"><?php echo $anchr->group; $grup = $anchr->group; }?></a></h5>
 				
 				<a href="<?php echo base_url()?>realization/show/anchor/<?php echo $anchr->id?>"><span><?php echo $anchr->name?></span><br></a>
