@@ -41,7 +41,7 @@ class Product extends CI_Controller {
     	$product = $this->uri->segment(3);
     	$rpttime = $this->session->userdata('rpttime');
     	$year = $rpttime['year'];
-    	$month = $this->session->userdata('rptmth');
+    	$month = $this->session->userdata('rpttime')['month'];
     	$total_prd = $this->manchor->get_total_vol_prd($product, $month, $year, 'wholesale_realization','');
     	$top_anchor_vol = $this->manchor->get_top_anchor_prd($product, $month, $year);
     	$top_anchor_nom_grow = $this->manchor->get_top_anchor_prd_nml_grw($product, $month, $year, 12, 'desc');
