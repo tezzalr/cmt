@@ -15,8 +15,8 @@
 	$trx_wallet = $wlt->CASA_nii + $wlt->FX_fbi + $wlt->SCF_fbi + $wlt->Trade_fbi + $wlt->PWE_fbi + $wlt->BG_fbi + $wlt->OIR_fbi;
 	$loan_wallet = $wlt->WCL_nii +  $wlt->IL_nii +  $wlt->SL_nii + $wlt->TR_nii;
 	
-	$trx_sow = $trx_income/$month*12/$trx_wallet/pow(10,9);
-	$loan_sow = $loan_income/$month*12/$loan_wallet/pow(10,9);
+	//$trx_sow = $trx_income/$month*12/$trx_wallet/pow(10,9);
+	//$loan_sow = $loan_income/$month*12/$loan_wallet/pow(10,9);
 	
 	$al_ytd = $al_income/$month*12;
 	$ws_ytd = $nii_income_ws/$month*12+(($rlzn->CASA_fbi + $rlzn->FX_fbi + $rlzn->SCF_fbi + $rlzn->Trade_fbi + $rlzn->PWE_fbi + $rlzn->BG_fbi + $rlzn->OIR_fbi + $rlzn->OW_fbi)/$month*12) + ($rlzn->IL_fbi + $rlzn->SL_fbi + $rlzn->WCL_fbi);

@@ -31,17 +31,17 @@
 		elseif($direktorat == 'CB3'){
 			$model->db->where("(`group` = 'CORPORATE BANKING III')");
 		}
-		elseif($direktorat == 'AGB'){
-			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED')");
+		elseif($direktorat == 'CB4'){
+			$model->db->where("(`group` = 'CORPORATE BANKING IV')");
 		}
 		elseif($direktorat == 'CB5'){
 			$model->db->where("(`group` = 'CORPORATE BANKING V')");
 		}
-		elseif($direktorat == 'IB1'){
-			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I')");
+		elseif($direktorat == 'CB6'){
+			$model->db->where("(`group` = 'CORPORATE BANKING VI')");
 		}
-		elseif($direktorat == 'IB2'){
-			$model->db->where("(`group` = 'INSTITUTIONAL BANKING II')");
+		elseif($direktorat == 'CB7'){
+			$model->db->where("(`group` = 'CORPORATE BANKING VII')");
 		}
 		elseif($direktorat == 'JCS'){
 			$model->db->where("(`group` = 'JAKARTA COMMERCIAL SALES')");
@@ -301,10 +301,10 @@
 		elseif($directorate == 'CB1'){$title = 'CORPORATE BANKING I';}
 		elseif($directorate == 'CB2'){$title = 'CORPORATE BANKING II';}
 		elseif($directorate == 'CB3'){$title = 'CORPORATE BANKING III';}
-		elseif($directorate == 'AGB'){$title = 'CORPORATE BANKING AGRO BASED';}
+		elseif($directorate == 'CB4'){$title = 'CORPORATE BANKING IV';}
 		elseif($directorate == 'CB5'){$title = 'CORPORATE BANKING V';}
-		elseif($directorate == 'IB1'){$title = 'INSTITUTIONAL BANKING I';}
-		elseif($directorate == 'IB2'){$title = 'INSTITUTIONAL BANKING II';}
+		elseif($directorate == 'IB1'){$title = 'CORPORATE BANKING VI';}
+		elseif($directorate == 'CB7'){$title = 'CORPORATE BANKING VII';}
 		elseif($directorate == 'JCS'){$title = 'JAKARTA COMMERCIAL SALES';}
 		elseif($directorate == 'RCS1'){$title = 'REGIONAL COMMERCIAL SALES I';}
 		elseif($directorate == 'RCS2'){$title = 'REGIONAL COMMERCIAL SALES II';}

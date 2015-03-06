@@ -52,7 +52,7 @@ class Manchor extends CI_Model {
     
     /*Anchor Function*/
     function get_anchor_sc(){
-		$this->db->where('group', 'CORPORATE BANKING AGRO BASED');
+		$this->db->where('group', 'CORPORATE BANKING IV');
 		$this->db->or_where('group', 'CORPORATE BANKING I');
 		$this->db->or_where('group', 'CORPORATE BANKING II');
 		$this->db->or_where('group', 'CORPORATE BANKING III');
@@ -93,11 +93,13 @@ class Manchor extends CI_Model {
     
     function get_anchor_by_direktorat($direktorat){
     	if($direktorat == 'corporate' || $direktorat == 'CB'){
-    		$this->db->where('group', 'CORPORATE BANKING AGRO BASED');
+    		$this->db->where('group', 'CORPORATE BANKING IV');
     		$this->db->or_where('group', 'CORPORATE BANKING I');
     		$this->db->or_where('group', 'CORPORATE BANKING II');
     		$this->db->or_where('group', 'CORPORATE BANKING III');
     		$this->db->or_where('group', 'CORPORATE BANKING V');
+    		$this->db->or_where('group', 'CORPORATE BANKING VI');
+    		$this->db->or_where('group', 'CORPORATE BANKING VII');
     	}
     	elseif($direktorat == 'institutional' || $direktorat == 'IB'){
     		$this->db->where('group', 'INSTITUTIONAL BANKING I');
@@ -109,13 +111,13 @@ class Manchor extends CI_Model {
     		$this->db->or_where('group', 'REGIONAL COMMERCIAL SALES II');
     	}
     	elseif($direktorat == 'CIB'){
-    		$this->db->where('group', 'CORPORATE BANKING AGRO BASED');
+    		$this->db->where('group', 'CORPORATE BANKING IV');
     		$this->db->or_where('group', 'CORPORATE BANKING I');
     		$this->db->or_where('group', 'CORPORATE BANKING II');
     		$this->db->or_where('group', 'CORPORATE BANKING III');
     		$this->db->or_where('group', 'CORPORATE BANKING V');
-    		$this->db->or_where('group', 'INSTITUTIONAL BANKING I');
-    		$this->db->or_where('group', 'INSTITUTIONAL BANKING II');
+    		$this->db->or_where('group', 'CORPORATE BANKING VI');
+    		$this->db->or_where('group', 'CORPORATE BANKING VII');
     	}
     	$this->db->order_by('group','asc');
     	$this->db->order_by('name','asc');

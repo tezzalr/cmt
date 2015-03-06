@@ -13,8 +13,11 @@
 			$arrres['wl'] = $arrres['wl']+$xsell['wal']->$wal;
 			$arrres['in'] =  $arrres['in']+$xsell['inc'][$inc];
 		}
-		$arrres['sw_ly'] = $arrres['in_ly']/$arrres['wl_ly']*100;
-		$arrres['sw'] = $arrres['in']/$arrres['wl']*100;
+		if($arrres['wl_ly']){$arrres['sw_ly'] = $arrres['in_ly']/$arrres['wl_ly']*100;}
+		else{$arrres['sw_ly'] = 0;}
+		if($arrres['wl']){$arrres['sw'] = $arrres['in']/$arrres['wl']*100;}
+		else{$arrres['sw'] = 0;}
+		//$arrres['sw'] = $arrres['in']/$arrres['wl']*100;
 		
 		return $arrres;
 	}
@@ -43,6 +46,7 @@
 	$loanres = calculate_array($loanarr, 'nii', $xsell);
 	$trxres = calculate_array($trxarr, 'fbi', $xsell);
 	$castrxres = calculate_array($castrxarr, 'fbi', $xsell);
+	
 ?>
 
 <div id="" class="container no_pad">

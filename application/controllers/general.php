@@ -5,10 +5,8 @@ class General extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model('mworkblock');
-        $this->load->model('mmilestone');
         
-        $session = $this->session->userdata('user');
+        $session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
@@ -19,14 +17,21 @@ class General extends CI_Controller {
      */
     public function index()
     {
+		$data['title'] = 'CMT Web';
+    	
+    	$user = $this->session->userdata('user');
 		
+		$data['header'] = "";	
+		$data['footer'] = "";
+		$data['content'] = $this->load->view('general/homepage',array(),TRUE);
+
+		$this->load->view('front',$data);
     }
     
     public function overview(){
     	$data['title'] = 'Overview Corplan';
     	
     	$user = $this->session->userdata('user');
-    	$pending_aprv = $this->mmilestone->get_pending_aprv($user['id'],$user['role']);
 		
 		$data['header'] = $this->load->view('shared/header',array('user' => $user,'pending'=>$pending_aprv),TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);

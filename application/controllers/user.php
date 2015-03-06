@@ -65,11 +65,11 @@ class User extends CI_Controller {
             );
             $this->session->set_userdata('userdb',$data);
             if($user->role == "admin"){
-                redirect('anchor');
+                redirect('general');
             }elseif($user->role == "cmt"){
-                redirect('anchor');
+                redirect('general');
             }elseif($user->role == "rm"){
-            	redirect('anchor');
+            	redirect('general');
             }
         }else{
             $params['type_login']="failed";
