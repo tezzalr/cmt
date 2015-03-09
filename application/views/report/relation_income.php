@@ -1,4 +1,10 @@
-<?php $year = date('Y');?>
+<?php 
+	$year = 2014;
+	$rl_inc['inc']['ws'] = 0.75*$rl_inc['inc']['ws'];
+	$rl_inc['inc_ly']['ws'] = 0.75*$rl_inc['inc_ly']['ws'];
+	$rl_inc['inc']['tot'] = $rl_inc['inc']['ws']+$rl_inc['inc']['al'];
+	$rl_inc['inc_ly']['tot'] = $rl_inc['inc_ly']['ws']+$rl_inc['inc_ly']['al'];
+?>
 <script type="text/javascript">
 	$(function () {
         $('#container_potensi').highcharts({

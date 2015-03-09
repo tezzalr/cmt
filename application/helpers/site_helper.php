@@ -303,7 +303,7 @@
 		elseif($directorate == 'CB3'){$title = 'CORPORATE BANKING III';}
 		elseif($directorate == 'CB4'){$title = 'CORPORATE BANKING IV';}
 		elseif($directorate == 'CB5'){$title = 'CORPORATE BANKING V';}
-		elseif($directorate == 'IB1'){$title = 'CORPORATE BANKING VI';}
+		elseif($directorate == 'CB6'){$title = 'CORPORATE BANKING VI';}
 		elseif($directorate == 'CB7'){$title = 'CORPORATE BANKING VII';}
 		elseif($directorate == 'JCS'){$title = 'JAKARTA COMMERCIAL SALES';}
 		elseif($directorate == 'RCS1'){$title = 'REGIONAL COMMERCIAL SALES I';}
