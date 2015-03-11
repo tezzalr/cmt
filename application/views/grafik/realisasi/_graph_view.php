@@ -18,7 +18,7 @@
 		if($i == 16){$target = $tgt->WCL_fbi + $tgt->IL_fbi;}elseif($i == 17){$target = $tgt->SL_fbi;}
 		else{$target = $tgt->$prd_name;}
 		if($rlzn[$prd_name_arr] || $target){
-			$arrprod_inc[$i]=$arr_name[$i].' <br>('.number_format($rlzn[$prd_name_arr],0,'.',',').'%)';
+			$arrprod_inc[$i]='<a href="">'.$arr_name[$i].'</a> <br>('.number_format($rlzn[$prd_name_arr],0,'.',',').'%)';
 			$arrinc_inc[$i]=$rlzn[$prd_name_arr];
 			if($rlzn[$prd_name_arr] < 100){$arrinc_mr_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_hj_arr[$i]=0;}
 			else{$arrinc_hj_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_mr_arr[$i]=0;}

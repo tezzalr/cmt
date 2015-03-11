@@ -26,6 +26,75 @@ class Plan extends CI_Controller {
         
     }
     
+    public function summary(){
+    	$rpttime = $this->session->userdata('rpttime');
+    	$arr_prod = array(); 
+    	for($i=1;$i<=15;$i++){
+    		$arr_prod[$i]['id'] = return_prod_name($i);
+    		$arr_prod[$i]['name'] = change_real_name($arr_prod[$i]['id']);
+    	}
+    	$arr_strategy = array(); $j=0;
+    	if($this->uri->segment(3)=='anchor'){
+			$anchor_id = $this->uri->segment(4);
+			$anchor = $this->manchor->get_anchor_by_id($anchor_id);
+    		
+    		for($i=1;$i<=15;$i++){
+    			$stgy = $this->mplan->get_strategy_by_prod($arr_prod[$i]['id'],$anchor_id);
+    			$plans = $this->mplan->get_plan($anchor_id, $arr_prod[$i]['id']);
+    			if($stgy){
+    				$arr_strategy[$arr_prod[$i]['id']]['strategy'] = $stgy;
+    				$arr_strategy[$arr_prod[$i]['id']]['name_prod'] = $arr_prod[$i]['name'];
+    				$arr_strategy[$arr_prod[$i]['id']]['ap'] = $plans;
+    			}	
+    		}
+    		
+			$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);
+			$data['title'] = "Action Plan - $anchor->name";
+			$id = $anchor_id;
+		}
+		elseif($this->uri->segment(3)=='directorate'){
+			
+		}
+    	//$list_ap = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('grafik/action_plan/summary',array('header' => $header, 
+												'strategies' => $arr_strategy, 'id' => $id, 
+												),TRUE);
+
+		$this->load->view('front',$data);
+    }
+    
+    public function edit_strategy(){
+    	$rpttime = $this->session->userdata('rpttime');
+    	
+		$anchor_id = $this->uri->segment(3);
+		$anchor = $this->manchor->get_anchor_by_id($anchor_id);
+    		
+    	//$plans = $this->mplan->get_plan($anchor_id, $product);
+    		
+		$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);
+		$data['title'] = "Action Plan - $anchor->name";
+		$id = $anchor_id;
+		$level = 'anchor';
+		
+		$arr_prod = array(); 
+    	for($i=1;$i<=15;$i++){
+    		$arr_prod[$i]['id'] = $this->mwallet->return_prod_name($i);
+    		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
+    	}
+    	//$list_ap = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('grafik/action_plan/strategy_form',array('header' => $header, 
+												'arr_prod' => $arr_prod, 'id' => $id, 'level' => $level, 
+												),TRUE);
+
+		$this->load->view('front',$data);
+    }
+    
     public function show(){
     	$rpttime = $this->session->userdata('rpttime');
     	$product = $this->uri->segment(5);
@@ -41,17 +110,7 @@ class Plan extends CI_Controller {
 			$level = 'anchor';
 		}
 		elseif($this->uri->segment(3)=='directorate'){
-			$directorate = $this->uri->segment(4);
-			$realization_now = $this->mrealization->get_dir_prd_realization_annual($product, $kind, $rpttime['year'],$directorate);
-    		$realization_ly = $this->mrealization->get_dir_prd_realization_annual($product, $kind, $rpttime['year']-1, $directorate);
-    		$target_ws = $this->mtarget->get_directorate_target($directorate,'wholesale');
-    		$prd_name = $product.$tambahan;
-    		$target = $target_ws->$prd_name;
 			
-			$header = $this->load->view('directorate/dir_header',array('directorate' => $directorate, 'id_ybs' => $directorate, 'code' => 'dir'),TRUE);
-			$data['title'] = "Tren Produk";
-			$id = $directorate;
-			$level = 'directorate';
 		}
 		$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){
@@ -76,6 +135,24 @@ class Plan extends CI_Controller {
     	$id = $this->uri->segment(4);
     	
     	redirect('plan/show/'.$level.'/'.$id."/".$prod.'/');
+    }
+    
+    public function submit_strategy(){
+    	$user = $this->session->userdata('userdb');
+    	
+    	$products = array("CASA","TD","WCL","IL","Trade","FX","BG");
+    	$anchor_id = $this->input->post('anchor');
+    	foreach($products as $prod){
+    		$program['anchor_id'] = $anchor_id;
+        	$program['user_id'] = $user['id'];
+        	$program['created'] = date("Y-m-d h:i:s");
+        	$program['strategy'] = $this->input->post($prod);
+        	$program['product'] = $prod;
+        	
+        	$this->mplan->insert_strategy($program);	
+    	}
+        
+    	redirect('plan/summary/anchor/'.$anchor_id);
     }
     
     public function submit_action_plan(){

@@ -19,6 +19,10 @@ class Mplan extends CI_Model {
     
     //INSERT or CREATE FUNCTION
     
+    function insert_strategy($program){
+        return $this->db->insert('strategy', $program);
+    }
+    
     function insert_plan($program){
         return $this->db->insert('plan', $program);
     }
@@ -36,6 +40,15 @@ class Mplan extends CI_Model {
     	$this->db->order_by('plan.id', 'desc');
     	$query = $this->db->get('plan');
         return $query->result();
+    }
+    
+    function get_strategy_by_prod($product,$anchor_id){
+    	$this->db->select('strategy.*,user.name as name');
+    	$this->db->where('anchor_id', $anchor_id);
+    	$this->db->where('strategy.product', $product);
+    	$this->db->join('user', 'user.id = strategy.user_id');
+    	$query = $this->db->get('strategy');
+        return $query->row(0);
     }
     
     function get_plan_by_id($id){
