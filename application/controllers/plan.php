@@ -79,17 +79,22 @@ class Plan extends CI_Controller {
 		$id = $anchor_id;
 		$level = 'anchor';
 		
-		$arr_prod = array(); 
+		$arr_prod = array(); $arr_strategy = array();
     	for($i=1;$i<=15;$i++){
     		$arr_prod[$i]['id'] = $this->mwallet->return_prod_name($i);
     		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
+    		$stgy = $this->mplan->get_strategy_by_prod($arr_prod[$i]['id'],$anchor_id);
+    		$arr_strategy[$arr_prod[$i]['id']] = "";
+    		if($stgy){
+				$arr_strategy[$arr_prod[$i]['id']] = $stgy;
+			}
     	}
     	//$list_ap = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
     	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
 		$data['content'] = $this->load->view('grafik/action_plan/strategy_form',array('header' => $header, 
-												'arr_prod' => $arr_prod, 'id' => $id, 'level' => $level, 
+												'arr_prod' => $arr_prod, 'id' => $id, 'stgy' => $arr_strategy, 
 												),TRUE);
 
 		$this->load->view('front',$data);
@@ -149,7 +154,19 @@ class Plan extends CI_Controller {
         	$program['strategy'] = $this->input->post($prod);
         	$program['product'] = $prod;
         	
-        	$this->mplan->insert_strategy($program);	
+        	if($program['strategy']){
+        		if($this->mplan->get_strategy_by_prod($prod,$anchor_id)){
+        			$this->mplan->update_strategy($program,$prod,$anchor_id);	
+        		}
+        		else{
+        			$this->mplan->insert_strategy($program);
+        		}
+        	}
+        	else{
+        		if($this->mplan->get_strategy_by_prod($prod,$anchor_id)){
+        			$this->mplan->delete_strategy($prod,$anchor_id);	
+        		}
+        	}
     	}
         
     	redirect('plan/summary/anchor/'.$anchor_id);

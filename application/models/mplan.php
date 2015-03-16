@@ -30,6 +30,14 @@ class Mplan extends CI_Model {
     function insert_plan_update($program){
         return $this->db->insert('plan_update', $program);
     }
+    
+    //UPDATE FUNCTION
+    
+    function update_strategy($program,$prod,$anchor_id){
+        $this->db->where('product',$prod);
+        $this->db->where('anchor_id',$anchor_id);
+        return $this->db->update('strategy', $program);
+    }
         
     //GET FUNCTION
     function get_plan($anchor_id,$product){
@@ -67,5 +75,19 @@ class Mplan extends CI_Model {
     	$this->db->order_by('plan_update.id', 'desc');
     	$query = $this->db->get('plan_update');
         return $query->result();
+    }
+    
+    //DELETE FUNCTION
+    
+    function delete_strategy($prod,$anchor_id){
+    	$this->db->where('product',$prod);
+        $this->db->where('anchor_id',$anchor_id);
+    	$this->db->delete('strategy');
+    	if($this->db->affected_rows()>0){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
     }
 }

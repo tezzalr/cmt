@@ -14,13 +14,15 @@
 			<?php foreach($strategies as $stg){?>
 				<tr>
 					<td width="10%"><a href="<?php echo base_url()?>plan/show/anchor/<?php echo $id."/".$stg['strategy']->product?>"><?php echo $stg['name_prod']?></td>
-					<td width="50%">
+					<td width="25%">
 						<div>
 							<div class="small-title">Strategy</div>
 							<div>
 								<?php echo $stg['strategy']->strategy?>
 							</div>
 						</div><hr>
+					</td>
+					<td width="25%">
 						<div>
 							<div class="small-title">Action Plan</div>
 							<div>
