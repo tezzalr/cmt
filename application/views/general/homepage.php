@@ -1,7 +1,7 @@
 <style>
 	.img_blur {
 		background-image: url("<?php echo base_url()?>assets/img/general/bgblur.png");
-		background-size: 100% 100%;
+		background-size: 100%;
 		height:100%;
 		width:100%;
 	}
@@ -26,7 +26,7 @@
 </style>
 <div style="" class="img_blur">
 	<div style="height:65%" class="element_top">
-		<h1 style="font-size:55px; margin:0px; margin-bottom:30px">Welcome to CMT Web</h1>
+		<h1 style="font-size:55px; margin:0px; margin-bottom:30px">Welcome to WSA Web</h1>
 		<p style="width:48%; font-size:16px; margin-bottom:40px;">Website ini berisi data Account Planning nasabah Anchor Client Bank Mandiri. Dalam website ini kami menyediakan data dan analisis dari target, pencapaian serta action plan untuk tiap-tiap Nasabah Anchor Client dari waktu ke waktu.</p>
 		<a href="<?php echo base_url()?>anchor" class="btn btn-info btn-lg">Daftar Anchor</a>
 	</div>

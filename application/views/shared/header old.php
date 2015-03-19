@@ -1,7 +1,7 @@
 <?php 
 	$user = $this->session->userdata('userdb');
 ?>
-<!--<style>
+<style>
 	.header_top a{
 		color:#0B0A51;
 	}
@@ -12,8 +12,8 @@
 <div style="width:100%; background-color:#ffff; padding-left:60px; height:50px; padding-top:5px;">
 	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>anchor">Anchor</a></div>
 	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>product/top_transaksi/CASA">Produk</a></div>
-	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>monthly/share_anchor">Monthly Report</a></div>
-	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>update/activity_wall">Activity Update</a></div>
+	<!--<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>monthly/share_anchor">Monthly Report</a></div>-->
+	<!--<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>update/activity_wall">Activity Update</a></div>-->
 	<div class="header_top" style="float:right; margin-right:20px;"><a href="<?php echo base_url()?>user/logout">Logout</a></div>
 	
 	<?php if($user){?>
@@ -25,6 +25,7 @@
 	
 	<div style="clear:both"></div>
 </div>
+<!--
 <div style="float:right; padding:5px 25px 5px 5px;">
 <form method="post" action="<?php echo base_url()?>anchor/change_report_month">
 	<?php $rpttime = $this->session->userdata('rpttime'); $lsttime = $this->session->userdata('lsttime');?>
@@ -41,23 +42,3 @@
 </div><div style="clear:both"></div>
 <hr style="margin: 0">
 -->
-<style>
-	.header_top a{
-		color:#0B0A51;
-	}
-	.header_top a:hover{
-		color:white;
-	}
-	.header_top{
-		width:100%; background-color:#f1f0eb; padding:0 20px 0 60px; height:50px; padding-top:12px;
-	}
-</style>
-
-<div class="header_top">
-	<div style="float:left">
-		<span style="font-size:20px">LOGO</span>
-	</div>
-	<div style="float:right">
-		<span class="glyphicon glyphicon-user"></span> <span style="font-size:13px"><?php echo $user['name']?></span>
-	</div>
-</div>

@@ -1,11 +1,12 @@
 <?php
-	$arrprod = array(); $arrinc_hj = array(); $arrinc_mr = array();
+	$arrprod = array(); $arrinc_hj = array(); $arrinc_mr = array(); $arrinc_kn = array();
 	for($i=1;$i<=15;$i++){
 		$prd_name = $prod[$i]."_vol";
 		if($rlzn[$prd_name] || $tgt->$prd_name){
 			$arrprod[$i]=$arr_name[$i].' <br>('.number_format($rlzn[$prd_name],0,'.',',').'%)';
-			if($rlzn[$prd_name] < 100){$arrinc_mr[$i]=$rlzn[$prd_name]; $arrinc_hj[$i]=0;}
-			else{$arrinc_hj[$i]=$rlzn[$prd_name]; $arrinc_mr[$i]=0;}
+			if($rlzn[$prd_name] < 95){$arrinc_mr[$i]=$rlzn[$prd_name]; $arrinc_hj[$i]=0; $arrinc_kn[$i]=0;}
+			elseif($rlzn[$prd_name] < 100 && $rlzn[$prd_name] > 95){$arrinc_kn[$i]=$rlzn[$prd_name]; $arrinc_hj[$i]=0; $arrinc_mr[$i]=0;}
+			else{$arrinc_hj[$i]=$rlzn[$prd_name]; $arrinc_mr[$i]=0; $arrinc_kn[$i]=0;}
 		}
 	}
 	
@@ -20,8 +21,9 @@
 		if($rlzn[$prd_name_arr] || $target){
 			$arrprod_inc[$i]='<a href="">'.$arr_name[$i].'</a> <br>('.number_format($rlzn[$prd_name_arr],0,'.',',').'%)';
 			$arrinc_inc[$i]=$rlzn[$prd_name_arr];
-			if($rlzn[$prd_name_arr] < 100){$arrinc_mr_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_hj_arr[$i]=0;}
-			else{$arrinc_hj_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_mr_arr[$i]=0;}
+			if($rlzn[$prd_name_arr] < 95){$arrinc_mr_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_hj_arr[$i]=0; $arrinc_kn_arr[$i]=0;}
+			elseif($rlzn[$prd_name_arr] < 100 && $rlzn[$prd_name_arr] > 95){$arrinc_kn_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_hj_arr[$i]=0; $arrinc_mr_arr[$i]=0;}
+			else{$arrinc_hj_arr[$i]=$rlzn[$prd_name_arr]; $arrinc_mr_arr[$i]=0; $arrinc_kn_arr[$i]=0;}
 		}
 	}
 ?>
@@ -65,6 +67,11 @@
                 //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
             	data: [<?php foreach($arrinc_hj as $inc){echo $inc.", ";}?>],
             	color: 'green'
+            },{
+                name: 'Hampir Tercapai',
+                //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
+            	data: [<?php foreach($arrinc_kn as $inc){echo $inc.", ";}?>],
+            	color: 'yellow'
             },{
                 name: 'Belum Tercapai',
                 //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
@@ -113,6 +120,11 @@
                 //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
             	data: [<?php foreach($arrinc_hj_arr as $inc){echo $inc.", ";}?>],
             	color: 'green'
+            },{
+                name: 'Hampir Tercapai',
+                //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
+            	data: [<?php foreach($arrinc_kn_arr as $inc){echo $inc.", ";}?>],
+            	color: 'yellow'
             },{
                 name: 'Belum Tercapai',
                 //data: [<?php echo $rlzn['CASA_vol']?>, <?php echo $rlzn['TD_vol']?>, <?php echo $rlzn['WCL_vol']?>, <?php echo $rlzn['IL_vol']?>, <?php echo $rlzn['SL_vol']?>, <?php echo $rlzn['TR_vol']?>, <?php echo $rlzn['FX_vol']?>, <?php echo $rlzn['SCF_vol']?>, <?php echo $rlzn['Trade_vol']?>, <?php echo $rlzn['BG_vol']?>, <?php echo $rlzn['OIR_vol']?>, <?php echo $rlzn['PWE_vol']?>],
