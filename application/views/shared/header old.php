@@ -9,7 +9,7 @@
 		color:white;
 	}
 </style>
-<div style="width:100%; background-color:#ffff; padding-left:60px; height:50px; padding-top:5px;">
+<div style="width:100%; background-color:#D4D5D9; padding-left:60px; height:30px; padding-top:5px;">
 	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>anchor">Anchor</a></div>
 	<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>product/top_transaksi/CASA">Produk</a></div>
 	<!--<div class="header_top" style="float:left; margin-right:20px;"><a href="<?php echo base_url()?>monthly/share_anchor">Monthly Report</a></div>-->
@@ -25,7 +25,6 @@
 	
 	<div style="clear:both"></div>
 </div>
-<!--
 <div style="float:right; padding:5px 25px 5px 5px;">
 <form method="post" action="<?php echo base_url()?>anchor/change_report_month">
 	<?php $rpttime = $this->session->userdata('rpttime'); $lsttime = $this->session->userdata('lsttime');?>
@@ -41,4 +40,3 @@
 
 </div><div style="clear:both"></div>
 <hr style="margin: 0">
--->

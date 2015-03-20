@@ -33,11 +33,12 @@
 	}
 	#hantu{
 		position: absolute; 
-		top:0;
+		top:25px;
+		width:100%;
 		z-index:11;
 	}
 </style>
-<div style="font-family:'Trebuchet MS', Helvetica, sans-serif; position:relative; z-index:1;">
+<div style="position:relative; z-index:1;">
 	<!--<div style="padding:10px">
 		<center>
 			<img width="15%" src="<?php echo base_url()?>assets/img/general/bmri.jpg">
@@ -53,34 +54,37 @@
 	</div>
 	<div style="height:415px;" id="detail_group">
 		<div style="display:none; position:relative; color:white" id="wrap_detail">
-			<div style="height:100px;">
+			<div style="height:100%;">
 				<img id="header_detail">
 			</div>
-			<div style="padding:20px;" id="content_detail_group">
+			<div style="padding:20px;">
 				<div id="hantu">
-					<h2>CORPORATE BANKING I</h2>
+					<div>
+						<h2 style="margin-bottom:0px">CORPORATE BANKING I</h2>
+						<span style="font-size:14px">5 Department 10 Anchor</span><br><br>
+					</div>
+					<div style="float:left; width:20%; padding-right:20px">
+						<h4 style="margin-bottom:0px">DEPARTMENT 1</h4>
+						<span style="font-size:12px">FMCG, F&B</span><hr style="margin:10px 0 10px 0;">
+						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
+					</div>
+					<div style="float:left; width:20%; padding-right:20px">
+						<h4 style="margin-bottom:0px">DEPARTMENT 2</h4>
+						<span style="font-size:12px">PHARMACEUTICAL & CHEMICAL</span><hr style="margin:10px 0 10px 0;">
+						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
+					</div>
+					<div style="float:left; width:20%; padding-right:20px">
+						<h4 style="margin-bottom:0px">DEPARTMENT 3</h4>
+						<span style="font-size:12px">RETAILER</span><hr style="margin:10px 0 10px 0;">
+						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
+					</div>
+					<div style="float:left; width:20%; padding-right:20px">
+						<h4 style="margin-bottom:0px">DEPARTMENT 4</h4>
+						<span style="font-size:12px">AUTOMOTIVE</span><hr style="margin:10px 0 10px 0;">
+						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
+					</div>
+					<div style="clear:both"></div>
 				</div>
-				<div style="float:left; width:20%">
-					<h4>Department 1</h4>
-					<div></div>
-				</div>
-				<div style="float:left; width:20%">
-					<h4>Department 2</h4>
-					<div></div>
-				</div>
-				<div style="float:left; width:20%">
-					<h4>Department 3</h4>
-					<div></div>
-				</div>
-				<div style="float:left; width:20%">
-					<h4>Department 4</h4>
-					<div></div>
-				</div>
-				<div style="float:left; width:20%">
-					<h4>Department 5</h4>
-					<div></div>
-				</div>
-				<div style="clear:both"></div>
 			</div>
 		</div>
 	</div>
