@@ -26,6 +26,26 @@ class Plan extends CI_Controller {
         
     }
     
+    public function pipeline(){
+    	$rpttime = $this->session->userdata('rpttime');
+    	$year = $rpttime['year'];
+    	$data_rl_inc = array();
+    	
+    	if($this->uri->segment(3)=='anchor'){
+    	}
+    	elseif($this->uri->segment(3)=='directorate'){
+    	}
+		
+		$sidebar = $this->load->view('shared/sidebar','',TRUE);
+		
+		$data['title'] = "Pipeline";
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('plan/pipeline',array('sidebar'=>$sidebar),TRUE);
+
+		$this->load->view('front',$data);
+    }
+    
     public function summary(){
     	$rpttime = $this->session->userdata('rpttime');
     	$arr_prod = array(); 

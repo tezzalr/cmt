@@ -53,21 +53,21 @@
 						<div>
 							<div class="small-title">Progress</div>
 							<div>
-								Sudah mengunjungi nasabah pada 2 Feb 2015 bersama Dania dari TB
+								
 							</div>
 							<hr>
 						</div>
 						<div>
 							<div class="small-title">Issue / Next Step</div>
 							<div>
-								Aplikasi tidak dapat diinstall di tempat nasabah
+								
 							</div>
 							<hr>
 						</div>
 						<div>
 							<div class="small-title">Support Needed</div>
 							<div>
-								Aplikasi yang canggih yang dapat bertahan 2 hari 2 malam dalam melayani nasabah
+								
 							</div>
 						</div>
 					</td>

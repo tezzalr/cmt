@@ -32,6 +32,11 @@
         <script type="text/javascript" src="<?php echo base_url();?>assets/js/highchart/highcharts.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>assets/js/highchart/modules/exporting.js"></script>
         
+        <!-- AmCharts -->
+        <script src="<?php echo base_url();?>assets/js/amcharts/amcharts.js" type="text/javascript"></script>
+		<script src="<?php echo base_url();?>assets/js/amcharts/pie.js" type="text/javascript"></script>
+		<script src="<?php echo base_url();?>assets/js/amcharts/serial.js" type="text/javascript"></script>
+        
         <script type="text/javascript" src="<?php echo base_url();?>assets/ckeditor/ckeditor.js"></script>
         
         <script type="text/javascript" src="<?php echo base_url();?>assets/js/grafik.js"></script>
@@ -43,7 +48,7 @@
     	
     	<?php echo $header; ?>
         <?php echo $content; ?>
-        <?php echo $footer; ?>
+        <!--<?php echo $footer; ?>-->
             
     </body>
 </html>

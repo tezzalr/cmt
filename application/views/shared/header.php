@@ -49,13 +49,16 @@
 		color:white;
 	}
 	.header_top{
-		width:100%; background-color:#f1f0eb; padding:0 20px 0 60px; height:50px; padding-top:12px;
+		width:100%; background-color:#f1f0ef; padding:0 20px 0 30px; height:30px; padding-top:5px; top:0;
+		position:fixed; opacity:0.9;
 	}
 </style>
 
 <div class="header_top">
 	<div style="float:left">
-		<span style="font-size:20px">LOGO</span>
+		<span style="">
+			<!--<img height=20px src="<?php echo base_url()?>assets/img/general/font-logo.png">-->
+		</span>
 	</div>
 	<div style="float:right">
 		<span class="glyphicon glyphicon-user"></span> <span style="font-size:13px"><?php echo $user['name']?></span>
