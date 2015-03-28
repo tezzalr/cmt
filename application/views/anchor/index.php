@@ -1,6 +1,8 @@
 <style>
 	body{
-		
+	  	background-color:#f4f4f4;
+	  	max-width:1280px;
+	  	margin: 0px auto;
 	}
 	.group_cb{
 		padding:5px;
@@ -64,7 +66,7 @@
 					<div style="color:grey; font-size:20px">New Version Release</div>
 					</center>
 				</div>
-				<div style="width:50%; float:left; padding-left:60px; -webkit-filter: grayscale(40%) blur(0px); opacity:0.2">
+				<div style="width:50%; float:left; padding-left:60px; -webkit-filter: grayscale(40%) blur(0px); opacity:0.2; overflow:hidden;">
 					<img height="434px" src="<?php echo base_url()?>assets/img/general/gedung.jpg">
 				</div>
 				<div style="clear:both"></div>
