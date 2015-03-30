@@ -26,7 +26,7 @@ class Extfile extends CI_Controller {
 	public function input_data_anchor(){
 		$exel = $this->read_excel("Data Anchor.xlsx",1);
     	$arrres = array(); $s=0;
-		for ($row = 1; $row <= $exel['row']; ++$row) {
+		for ($row = 2; $row <= $exel['row']; ++$row) {
 			$data = "";
 			for ($col = 0; $col < $exel['col']; ++$col) {
 				$arrres[$row][$col] = $exel['wrksheet']->getCellByColumnAndRow($col, $row)->getValue();
@@ -35,6 +35,7 @@ class Extfile extends CI_Controller {
 			$data['name'] = $arrres[$row][0];
 			$data['group'] = $arrres[$row][1];
 			$data['dept'] = $arrres[$row][3];
+			$data['show_anc'] = 1;
 			
 			$anchor = $this->manchor->get_anchor_by_name($data['name']);
 			
