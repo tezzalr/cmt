@@ -47,24 +47,40 @@
 
 <div style="position:relative; z-index:10; height:100%">
 	
-	<div style="padding:10px; margin-top:30px;">
+	<div style="padding:10px; margin-top:50px;">
 		<center>
 		<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
 		<div style="font-size:38px"><a style="color:black" href="<?php echo base_url()?>report/relation_income/directorate/CB">CORPORATE BANKING</a></div>
 		<?php $anc_atr = get_group_attr();?>
 		</center>
 	</div>
-	<div style="height:59%;" id="detail_group">
+	<div style="height:415px; overflow:hidden" id="detail_group">
 		<div id="promo_center" style="border-top:1px dashed #bbb;">
-			<div id="promo_cntn" style="opacity:0.15">
+			<?php 
+				$today = DateTime::createFromFormat('Y-m-d', date("Y-m-d"));
+				if($today->format('H')<16){$pic = "day"; $bgcol="white"; $foncol="black";}
+				elseif($today->format('H')>18){$pic = "night"; $bgcol="#696868"; $foncol="white";}
+				else{$pic = "evening"; $bgcol="#fce99d"; $foncol="#787775";}
+			?>
+			<div id="promo_cntn" style="opacity:0.15; background-color:<?php echo $bgcol?>; color:<?php echo $foncol?>">
 				<div style="width:50%; float:left; padding-top:40px; ">
 					<center>
 					<img src="<?php echo base_url()?>assets/img/general/wsaweb.png">
 					<div style="color:grey; font-size:20px">New Version Release</div>
 					</center>
 				</div>
-				<div style="width:50%; float:left; padding-left:60px; -webkit-filter: grayscale(40%) blur(0px); opacity:0.2; overflow:hidden;">
-					<img height="434px" src="<?php echo base_url()?>assets/img/general/gedung.jpg">
+				<div style="width:50%; float:left; padding-left:60px; overflow:hidden; position:relative;">
+					<div style="-webkit-filter: grayscale(40%) blur(0px); opacity:0.4;">
+						<img height="434px" src="<?php echo base_url()?>assets/img/general/<?php echo $pic?>.jpg">
+					</div>
+					<div style="position:absolute; top:15%; width:100%; margin:0 auto;">
+						<center>
+						<div style="font-size:54px"><?php echo $today->format('l');?></div>
+						<div style="font-size:94px; margin-top:-20px;"><?php echo $today->format('d');?></div>
+						<div style="font-size:64px; margin-top:-45px;"><?php echo $today->format('M');?></div>
+						<div style="font-size:54px; margin-top:-30px;"><?php echo $today->format('Y');?></div>
+						</center>
+					</div>
 				</div>
 				<div style="clear:both"></div>
 			</div>
@@ -84,7 +100,7 @@
 							$dept=''; 
 							foreach($anchor[$i] as $member){
 								if($dept != $member->code_dept){ if($dept){echo "</div>";}?>
-									<div style="float:left; width:16.666%; padding-right:20px">
+									<div style="float:left; width:<?php echo (100/$anc_atr['CB'.$i]['dept']) ?>%; padding-right:20px">
 									<h4 style="margin-bottom:0px">DEPARTMENT <?php echo $member->dept;?></h4>
 									<span style="font-size:12px">FMCG, F&B</span><hr style="margin:10px 0 10px 0;">
 										<div><a style="color:white" href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $member->id?>">
@@ -105,7 +121,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="group_group_div" style="width:100%; height:41%; overflow-y:hidden; color:white">
+	<div id="group_group_div" style="width:100%; height:180px; overflow-y:hidden; color:white">
 		<?php for($j=1;$j<=7;$j++){ $atr = $anc_atr['CB'.$j]; $cb = "CB".$j; $img = $cb.".png";?>
 			<div class="group_div">
 				<div style="position:relative">
@@ -152,7 +168,7 @@
 	});
 	function close_group() {
 		$("#detail_group").animate({
-			height: "435",
+			height: "415",
 		}, 300, function() {
 		$("#group_group_div").animate({
 			height: "180",
