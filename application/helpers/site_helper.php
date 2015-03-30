@@ -313,6 +313,26 @@
 		return $title;
     }
     
+    function get_group_attr(){
+    	$anchor['CB1']['color'] = '#291400';
+    	$anchor['CB2']['color'] = '#CCCC00';
+    	$anchor['CB3']['color'] = 'red';
+    	$anchor['CB4']['color'] = '#339933';
+    	$anchor['CB5']['color'] = '#8E4524';
+    	$anchor['CB6']['color'] = '#008AE6';
+    	$anchor['CB7']['color'] = '#996633';
+    	
+    	$anchor['CB1']['dept'] = 6;
+    	$anchor['CB2']['dept'] = 4;
+    	$anchor['CB3']['dept'] = 3;
+    	$anchor['CB4']['dept'] = 6;
+    	$anchor['CB5']['dept'] = 4;
+    	$anchor['CB6']['dept'] = 6;
+    	$anchor['CB7']['dept'] = 5;
+    	
+    	return $anchor;
+    }
+    
     function get_produk_pow($product){
     	$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
     	return $bagi;

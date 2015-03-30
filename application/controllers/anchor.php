@@ -39,6 +39,38 @@ class Anchor extends CI_Controller {
 			$this->session->set_userdata('rpttime',$lsttime);
 		}
 		
+		for($i=1;$i<=7;$i++){
+			$cb = get_direktorat_full_name("CB$i");
+			$anchor[$i] = $this->manchor->get_anchor_by_group($cb);
+		}
+		
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('anchor/index',array('anchor' => $anchor),TRUE);
+
+		$this->load->view('front',$data);
+        
+    }
+    
+    public function index_old()
+    {
+		$data['title'] = "Daftar Anchor";
+		
+		$lstyear = $this->mrealization->get_last_year();
+		$lstmth = $this->mrealization->get_last_month($lstyear);
+		
+		$lsttime = array(
+						'month' => $lstmth,
+						'year' => $lstyear
+					);
+		
+		$this->session->set_userdata('lsttime',$lsttime);
+		
+		$rpttime = $this->session->userdata('rpttime');
+		if(!$rpttime){
+			$this->session->set_userdata('rpttime',$lsttime);
+		}
+		
 		$anchor['cor'] = $this->manchor->get_anchor_by_direktorat('corporate');
 		$anchor['ib'] = $this->manchor->get_anchor_by_direktorat('institutional');
 		$anchor['com'] = $this->manchor->get_anchor_by_direktorat('commercial');

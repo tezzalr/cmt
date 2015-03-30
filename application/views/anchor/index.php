@@ -35,26 +35,23 @@
     	position:relative;
     	opacity:0.5;
 	}
-	#hantu{
+	.list_group_anchor{
 		position: absolute; 
 		top:25px;
 		width:100%;
 		z-index:11;
+		display:none;
 	}
 	
 </style>
+
 <div style="position:relative; z-index:1;">
-	<!--<div style="padding:10px">
-		<center>
-			<img width="15%" src="<?php echo base_url()?>assets/img/general/bmri.jpg">
-			<div style="font-size:32px">Anchor Client Bank Mandiri 2015</div>
-		</center>
-		<hr style="margin:0px">
-	</div>-->
+	
 	<div style="padding:10px; margin-top:30px;">
 		<center>
 		<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
 		<div style="font-size:38px">CORPORATE BANKING</div>
+		<?php $anc_atr = get_group_attr();?>
 		</center>
 	</div>
 	<div style="height:435px;" id="detail_group">
@@ -77,119 +74,52 @@
 				<img id="header_detail" src="">
 			</div>
 			<div style="padding:20px;">
-				<div id="hantu">
-					<div>
-						<h2 style="margin-bottom:0px">CORPORATE BANKING I</h2>
-						<span style="font-size:14px">5 Department 10 Anchor</span><br><br>
+				<?php for($i=1;$i<=7;$i++){?>
+					<div class="list_group_anchor" id="CB<?php echo $i?>">
+						<div>
+							<h2 style="margin-bottom:0px"><a style="color:white" href="<?php echo base_url()?>report/relation_income/directorate/<?php echo 'CB'.$i?>">CORPORATE BANKING <?php echo $i?></a></h2>
+							<span style="font-size:14px"><?php echo $anc_atr['CB'.$i]['dept']?> Department <?php echo count($anchor[$i])?> Anchor</span><br><br>
+						</div>
+						<?php 
+							$dept=''; 
+							foreach($anchor[$i] as $member){
+								if($dept != $member->code_dept){ if($dept){echo "</div>";}?>
+									<div style="float:left; width:16.666%; padding-right:20px">
+									<h4 style="margin-bottom:0px">DEPARTMENT <?php echo $member->dept;?></h4>
+									<span style="font-size:12px">FMCG, F&B</span><hr style="margin:10px 0 10px 0;">
+										<div><a style="color:white" href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $member->id?>">
+											<?php echo $member->name?></a>
+										</div>
+									
+								<?php $dept =  $member->code_dept;}
+								else{?>
+									<div><a style="color:white" href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $member->id?>">
+										<?php echo $member->name?></a>
+									</div>
+								<?php }?>
+								
+						<?php }?></div>
+						<div style="clear:both"></div>
 					</div>
-					<div style="float:left; width:20%; padding-right:20px">
-						<h4 style="margin-bottom:0px">DEPARTMENT 1</h4>
-						<span style="font-size:12px">FMCG, F&B</span><hr style="margin:10px 0 10px 0;">
-						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
-					</div>
-					<div style="float:left; width:20%; padding-right:20px">
-						<h4 style="margin-bottom:0px">DEPARTMENT 2</h4>
-						<span style="font-size:12px">PHARMACEUTICAL & CHEMICAL</span><hr style="margin:10px 0 10px 0;">
-						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
-					</div>
-					<div style="float:left; width:20%; padding-right:20px">
-						<h4 style="margin-bottom:0px">DEPARTMENT 3</h4>
-						<span style="font-size:12px">RETAILER</span><hr style="margin:10px 0 10px 0;">
-						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
-					</div>
-					<div style="float:left; width:20%; padding-right:20px">
-						<h4 style="margin-bottom:0px">DEPARTMENT 4</h4>
-						<span style="font-size:12px">AUTOMOTIVE</span><hr style="margin:10px 0 10px 0;">
-						<div>SALIM GROUP</div><div>MAYORA GROUP</div><div>UNILEVER GROUP</div><div>TUDUNG GROUP</div>
-					</div>
-					<div style="clear:both"></div>
-				</div>
+				<?php }?>
 			</div>
 		</div>
 	</div>
 	<div id="group_group_div" style="width:100%; height:180px; overflow-y:hidden; color:white">
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px;">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb1.png">
-				</div>
-				<a href="#" onclick="choose_detail('#291400','cb1.png')" style="color:#291400;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING I</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
+		<?php for($j=1;$j<=7;$j++){ $atr = $anc_atr['CB'.$j]; $cb = "CB".$j; $img = $cb.".png";?>
+			<div class="group_div">
+				<div style="position:relative">
+					<div style="height:180px;">
+						<img id="header_group" src="<?php echo base_url()?>assets/img/general/<?php echo $cb?>.png">
+					</div>
+					<a href="#" onclick="choose_detail('<?php echo $atr['color']?>','<?php echo $img?>','<?php echo $cb?>')" style="color:<?php echo $atr['color']?>;" class="group_name">
+						<span style="font-size:20px;">CORPORATE BANKING <?php echo $j?></span><br>
+						<span><?php echo $atr['dept']?> Department <?php echo count($anchor[$j])?> Anchor</span>
+					</a>
 			
-			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px;">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb2.png">
 				</div>
-				<a href="#" onclick="choose_detail('#CCCC00','cb2.png')" style="color:#CCCC00;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING II</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			
 			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px; z-index:-1">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb3.png">
-				</div>
-				<a href="#" onclick="choose_detail('red','cb3.png')" style="color:red;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING III</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			
-			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px; z-index:-1">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb4.png">
-				</div>
-				<a href="#" onclick="choose_detail('#339933','cb4.png')" style="color:#339933;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING IV</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px; z-index:-1">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb5.png">
-				</div>
-				<a href="#" onclick="choose_detail('#8E4524','cb5.png')" style="color:#8E4524;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING V</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px; z-index:-1">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb6.png">
-				</div>
-				<a href="#" onclick="choose_detail('#008AE6','cb6.png')" style="color:#008AE6;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING VI</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			
-			</div>
-		</div>
-		<div class="group_div">
-			<div style="position:relative">
-				<div style="height:180px; z-index:-1">
-					<img id="header_group" src="<?php echo base_url()?>assets/img/general/cb7.png">
-				</div>
-				<a href="#" onclick="choose_detail('#996633','cb7.png')" style="color:#996633;" class="group_name">
-					<span style="font-size:20px;">CORPORATE BANKING VII</span><br>
-					<span>5 Department 10 Anchor</span>
-				</a>
-			
-			</div>
-		</div>
+		<?php }?>
 		<div class="group_div">
 			<center style="margin-top:15%">
 			<a style="color:black" href="#" onclick="restart_page()">
@@ -235,11 +165,13 @@
 		$('#detail_group').css('background','white');
 		close_group();
 	}
-	function choose_detail(bg_color,bg_pic){
+	function choose_detail(bg_color,bg_pic,group){
+		$(".list_group_anchor").css('display','none');
 		$('#promo_center').css('display','none');
 		close_group();
 		$('#detail_group').css('background',bg_color);
 		$('#wrap_detail').css('display','block');
 		$("#header_detail").attr("src","<?php echo base_url()?>assets/img/general/"+bg_pic);
+		$("#"+group).css('display','block');
 	}
 </script>

@@ -97,6 +97,8 @@ class Manchor extends CI_Model {
     
     function get_anchor_by_group($group){
     	$this->db->where('group', $group);
+    	$this->db->where('show_anc', 1);
+    	$this->db->order_by('dept','asc');
     	$this->db->order_by('name','asc');
     	$result = $this->db->get('anchor');
     	return $result->result();

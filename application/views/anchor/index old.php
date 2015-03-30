@@ -25,7 +25,7 @@
 					}
 				?>
 				<div style="width:20%; float:left; margin-bottom:20px;">
-				<h5 style="color:#EBB22D"><a style="color:orange" href="<?php echo base_url()?>realization/show/directorate/<?php echo $code?>"><?php echo $anchr->group."</a></h5>"; $grup = $anchr->group; }?>
+				<h5 style="color:#EBB22D"><a style="color:orange" href="<?php echo base_url()?>report/relation_income/directorate/<?php echo $code?>"><?php echo $anchr->group."</a></h5>"; $grup = $anchr->group; }?>
 				
 				<a href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $anchr->id?>"><span><?php echo $anchr->name?></span><br></a>
 			<?php }?></div><div style="clear:both"></div>
