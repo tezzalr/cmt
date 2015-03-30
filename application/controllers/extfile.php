@@ -34,6 +34,7 @@ class Extfile extends CI_Controller {
 			
 			$data['name'] = $arrres[$row][0];
 			$data['group'] = $arrres[$row][1];
+			$data['code_dept'] = $arrres[$row][2];
 			$data['dept'] = $arrres[$row][3];
 			$data['show_anc'] = 1;
 			
