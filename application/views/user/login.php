@@ -17,7 +17,7 @@ $(document).ready(function(){
 	</div>-->
 	<center>
 	<div class="login-form" style="width:30%; margin 0 auto; margin-top:6%">
-		<img style="width:95%" src="<?php echo base_url()?>assets/img/general/logo.jpg">
+		<img style="width:95%" src="<?php echo base_url()?>assets/img/general/wsaweb.png">
 		<form class="form-signin" action="<?php echo base_url();?>user/userEnter" method="post" role="form">
 			<p class="desc_login_form">Please login here: </p>
 			<input type="text" class="form-control" placeholder="Username" name="username" required autofocus>

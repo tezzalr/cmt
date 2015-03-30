@@ -45,16 +45,16 @@
 	
 </style>
 
-<div style="position:relative; z-index:1;">
+<div style="position:relative; z-index:10; height:100%">
 	
 	<div style="padding:10px; margin-top:30px;">
 		<center>
 		<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
-		<div style="font-size:38px">CORPORATE BANKING</div>
+		<div style="font-size:38px"><a style="color:black" href="<?php echo base_url()?>report/relation_income/directorate/CB">CORPORATE BANKING</a></div>
 		<?php $anc_atr = get_group_attr();?>
 		</center>
 	</div>
-	<div style="height:435px;" id="detail_group">
+	<div style="height:59%;" id="detail_group">
 		<div id="promo_center" style="border-top:1px dashed #bbb;">
 			<div id="promo_cntn" style="opacity:0.15">
 				<div style="width:50%; float:left; padding-top:40px; ">
@@ -105,7 +105,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="group_group_div" style="width:100%; height:180px; overflow-y:hidden; color:white">
+	<div id="group_group_div" style="width:100%; height:41%; overflow-y:hidden; color:white">
 		<?php for($j=1;$j<=7;$j++){ $atr = $anc_atr['CB'.$j]; $cb = "CB".$j; $img = $cb.".png";?>
 			<div class="group_div">
 				<div style="position:relative">
