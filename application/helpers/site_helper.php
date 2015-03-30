@@ -14,7 +14,7 @@
    	 
 	function get_direktorat_where($direktorat,$model){
 		if($direktorat == 'CB'){
-			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V')");
+			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");
 		}
 		elseif($direktorat == 'IB'){
 			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I' OR `group` = 'INSTITUTIONAL BANKING II')");
@@ -52,6 +52,8 @@
 		elseif($direktorat == 'RCS2'){
 			$model->db->where("(`group` = 'REGIONAL COMMERCIAL SALES II')");
 		}
+		
+		$model->db->where("show_anc = 1");
 	}
 	
 	function get_type_select_month($type,$model){
