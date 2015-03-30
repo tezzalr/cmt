@@ -9,7 +9,7 @@ class Extfile extends CI_Controller {
         $this->load->model('muser');
         $this->load->library('excel');
         
-        $session = $this->session->userdata('user');
+        $session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
