@@ -5,11 +5,7 @@ class Extfile extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model('minitiative');
-        $this->load->model('mprogram');
-        $this->load->model('mworkblock');
-        $this->load->model('mremark');
-        $this->load->model('mmilestone');
+        $this->load->model('manchor');
         $this->load->model('muser');
         $this->load->library('excel');
         
