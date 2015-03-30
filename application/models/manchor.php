@@ -27,6 +27,10 @@ class Manchor extends CI_Model {
     	}
     }
     
+    function insert_anchor_only($data){
+    	return $this->db->insert('anchor', $data);
+    }
+    
     function insert_company($company){
     	if($this->db->insert('company', $company)){
     		$result = $this->db->query('SELECT MAX(id) as id FROM company');
@@ -79,6 +83,13 @@ class Manchor extends CI_Model {
         
     function get_anchor_by_id($anchor_id){
     	$this->db->where('id',$anchor_id);
+    	$result = $this->db->get('anchor');
+    	$query = $result->result();
+        return $query[0];
+    }
+    
+    function get_anchor_by_name($anchor_name){
+    	$this->db->where('name',$anchor_name);
     	$result = $this->db->get('anchor');
     	$query = $result->result();
         return $query[0];
