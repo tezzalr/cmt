@@ -8,10 +8,16 @@
 		<hr style="margin:10px 0 0 0">
 		<ul class="nav" id="side-menu">
 			<li>
-				<a href="<?php echo base_url()?>general/overview"><i class="fa fa-lightbulb-o fa-fw"></i> Summary</a>
+				<a href="<?php echo base_url()?>"><i class="fa fa-lightbulb-o fa-fw"></i> Daftar Anchor</a>
+			</li>
+		</ul>
+		<hr style="margin:0 0 0 0">
+		<ul class="nav" id="side-menu">
+			<li>
+				<a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->id?>"><i class="fa fa-lightbulb-o fa-fw"></i> Summary</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>general/outlook"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
+				<a href="<?php echo base_url()?>product/show/anchor/<?php echo $anchor->id?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url()?>initiative/segment"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>

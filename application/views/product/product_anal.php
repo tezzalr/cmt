@@ -6,10 +6,6 @@
 	hr{
 		margin:10px 0 10px 0;
 	}
-	#chartdiv {
-    width		: 100%;
-	height		: 500px;
-}
 
 .amcharts-graph-g2 .amcharts-graph-stroke {
   stroke-dasharray: 3px 3px;
@@ -94,7 +90,14 @@
 }
 							
 
-
+#chartdiv {
+    width		: 100%;
+	height		: 500px;
+}
+#chartdiv-inc {
+    width		: 100%;
+	height		: 500px;
+}
 #chartdivsw {
 	width		: 100%;
 	height		: 200px;
@@ -103,7 +106,7 @@
 </style>
 <?php echo $sidebar?>
 <div class="content">
-	<h2 style="margin-bottom:0px;">TAMBANG BUKIT ASAM GROUP</h2>
+	<h2 style="margin-bottom:0px;"><?php echo $anchor->name?></h2>
 	<span style="font-size:18px; color:#bbb">Product Analysis / CASA</span>
 	<hr>
 	<div style="width:50%; float:left; padding:0 5px 0 0px">
@@ -119,7 +122,7 @@
 		<div class="panel panel-wsa">
 			<div class="panel-heading">Income Trend Line</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
-				<div id="chartdiv"></div>
+				<div id="chartdiv-inc"></div>
 			</div>
 		</div>
 	</div>
@@ -140,7 +143,7 @@
 	pathToImages: "http://cdn.amcharts.com/lib/3/images/",
 	categoryField: "year",
 	rotate: true,
-	startDuration: 1,
+	startthis_year: 1,
 	categoryAxis: {
 		gridPosition: "start",
 		position: "left"
@@ -204,107 +207,28 @@
 </script>
 <script type="text/javascript">
 	var chartData = [
+    <?php 
+    	for($i=1;$i<=12;$i++){
+    		$pengali = 1; 
+    		
+    		if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){
+				$pengali = 12/$i;
+			}
+			$bagi = get_produk_pow($this->uri->segment(5));
+			if($this->uri->segment(6)=="income"){$bagi = 9;}
+    		
+    		$month = get_month_name($i);
+    		$mth = 'mth_'.$i;
+    		$this_mth = $now->$mth/pow(10,$bagi)*$pengali;
+    		$last_mth = $ly->$mth/pow(10,$bagi)*$pengali;
+    	?>
     {
-        "month":"Jan",
-        "date": "2012-01-01",
-        "townName": "New York",
-        "townName2": "New York",
-        "townSize": 25,
-        "latitude": 40.71,
-        "duration": 408
+        "month":"<?php echo $month?>",
+        "this_year": <?php echo round($last_mth,1)?>,
+        "last_year": <?php echo round($this_mth,1)?>
     },
-    {
-        "month":"Feb",
-        "date": "2012-01-02",
-        "townName": "Washington",
-        "townSize": 14,
-        "latitude": 38.89,
-        "duration": 482
-    },
-    {
-        "month":"Mar",
-        "date": "2012-01-03",
-        "townName": "Wilmington",
-        "townSize": 6,
-        "latitude": 34.22,
-        "duration": 562
-    },
-    {
-        "month":"Apr",
-        "date": "2012-01-04",
-        "townName": "Jacksonville",
-        "townSize": 7,
-        "latitude": 30.35,
-        "duration": 379
-    },
-    {
-        "month":"May",
-        "date": "2012-01-05",
-        "townName": "Miami",
-        "townName2": "Miami",
-        "townSize": 10,
-        "latitude": 25.83,
-        "duration": 501
-    },
-    {
-        "month":"Jun",
-        "date": "2012-01-06",
-        "townName": "Tallahassee",
-        "townSize": 7,
-        "latitude": 30.46,
-        "duration": 443
-    },
-    {
-        "month":"Jul",
-        "date": "2012-01-07",
-        "townName": "New Orleans",
-        "townSize": 10,
-        "latitude": 29.94,
-        "duration": 405
-    },
-    {
-       "month":"Aug",
-        "date": "2012-01-08",
-        "townName": "Houston",
-        "townName2": "Houston",
-        "townSize": 16,
-        "latitude": 29.76,
-        "duration": 309
-    },
-    {
-        "month":"Sep",
-        "date": "2012-01-09",
-        "townName": "Dalas",
-        "townSize": 17,
-        "latitude": 32.8,
-        "duration": 287
-    },
-    {
-        "month":"Okt",
-        "date": "2012-01-10",
-        "townName": "Oklahoma City",
-        "townSize": 11,
-        "latitude": 35.49,
-        "duration": 485
-    },
-    {
-        "month":"Nov",
-        "date": "2012-01-11",
-        "townName": "Kansas City",
-        "townSize": 10,
-        "latitude": 39.1,
-        "duration": 890
-    },
-    {
-		"month":"Des",        
-        "date": "2012-01-12",
-        "townName": "Denver",
-        "townName2": "Denver",
-        "townSize": 18,
-        "latitude": 39.74,
-        "duration": 810,
-        "bulletClass": "lastBullet"
-    }
+    <?php }?>
+    
 ];
 var chart = AmCharts.makeChart("chartdiv", {
   type: "serial",
@@ -312,7 +236,7 @@ var chart = AmCharts.makeChart("chartdiv", {
   dataProvider: chartData,
 
   addClassNames: true,
-  startDuration: 1,
+  startthis_year: 1,
   color: "black",
   marginLeft: 0,
 
@@ -322,60 +246,154 @@ var chart = AmCharts.makeChart("chartdiv", {
   valueAxes: [{
     id: "a2",
     position: "left",
-    gridAlpha: 0,
+    gridAlpha: 0.4,
     axisAlpha: 0,
-    labelsEnabled: false
-  },{
-    id: "a3",
-    title: "duration",
-    position: "right",
-    gridAlpha: 0,
-    axisAlpha: 0,
-    duration: "mm",
-    durationUnits: {
-        DD: "d. ",
-        hh: "h ",
-        mm: "min",
-        ss: ""
-    }
+    labelsEnabled: true
   }],
   graphs: [{
     id: "g2",
-    valueField: "latitude",
+    title: "<?php echo $year?>",
+    valueField: "last_year",
     classNameField: "bulletClass",
-    title: "latitude/city",
+    type: "line",
+    valueAxis: "a2",
+    lineColor: "#eda32b",
+    lineThickness: 1,
+    legendValueText: "[[description]]/[[value]]",
+    descriptionField: "month",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    bullet: "round",
+    bulletBorderColor: "#eda32b",
+    bulletBorderAlpha: 1,
+    bulletBorderThickness: 3,
+    bulletColor: "#eda32b",
+    labelText: "[[value]]",
+    labelPosition: "right",
+    balloonText: "last_year:[[value]]",
+    showBalloon: true,
+  },{
+    id: "g3",
+    title: "<?php echo $year-1?>",
+    valueField: "this_year",
     type: "line",
     valueAxis: "a2",
     lineColor: "#786c56",
-    lineThickness: 1,
-    legendValueText: "[[description]]/[[value]]",
-    descriptionField: "townName",
-    bullet: "round",
-    bulletBorderColor: "#786c56",
-    bulletBorderAlpha: 1,
-    bulletBorderThickness: 2,
-    bulletColor: "#000000",
-    /*labelText: "[[value]]",*/
-    labelPosition: "right",
-    balloonText: "latitude:[[value]]",
-    showBalloon: true,
-    animationPlayed: true,
-  },{
-    id: "g3",
-    title: "duration",
-    valueField: "duration",
-    type: "line",
-    valueAxis: "a3",
-    lineColor: "#ff5755",
     balloonText: "[[value]]",
     lineThickness: 1,
-    legendValueText: "[[value]]",
+    legendValueText: "[[description]]/[[value]]",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    descriptionField: "month",
     bullet: "square",
-    bulletBorderColor: "#ff5755",
+    labelText: "[[value]]",
+    bulletBorderColor: "#786c56",
     bulletBorderThickness: 1,
     bulletBorderAlpha: 1,
     dashLengthField: "dashLength",
-    animationPlayed: true
+  }],
+
+  chartCursor: {
+    zoomable: false,
+    categoryBalloonDateFormat: "DD",
+    cursorAlpha: 0,
+    valueBalloonsEnabled: false
+  },
+  legend: {
+    bulletType: "round",
+    equalWidths: false,
+    valueWidth: 120,
+    useGraphSettings: true,
+    color: "Black"
+  }
+});
+</script>
+
+<script type="text/javascript">
+	var chartDatainc = [
+    <?php 
+    	for($i=1;$i<=12;$i++){
+    		$pengali = 1; 
+    		
+    		if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){
+				$pengali = 12/$i;
+			}
+			$bagi = 6;
+    		
+    		$month = get_month_name($i);
+    		$mth = 'mth_'.$i;
+    		$this_mth = $nowic->$mth/pow(10,$bagi)*$pengali;
+    		$last_mth = $lyic->$mth/pow(10,$bagi)*$pengali;
+    	?>
+    {
+        "month":"<?php echo $month?>",
+        "this_year": <?php echo round($last_mth,1)?>,
+        "last_year": <?php echo round($this_mth,1)?>
+    },
+    <?php }?>
+    
+];
+var chart = AmCharts.makeChart("chartdiv-inc", {
+  type: "serial",
+  dataDateFormat: "YYYY-MM-DD",
+  dataProvider: chartDatainc,
+
+  addClassNames: true,
+  startthis_year: 1,
+  color: "black",
+  marginLeft: 0,
+
+  categoryField: "month",
+  
+
+  valueAxes: [{
+    id: "a2",
+    position: "left",
+    gridAlpha: 0.4,
+    axisAlpha: 0,
+    labelsEnabled: true
+  }],
+  graphs: [{
+    id: "g2",
+    title: "<?php echo $year?>",
+    valueField: "last_year",
+    classNameField: "bulletClass",
+    type: "line",
+    valueAxis: "a2",
+    lineColor: "#eda32b",
+    lineThickness: 1,
+    legendValueText: "[[description]]/Rp [[value]] Juta",
+    descriptionField: "month",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    bullet: "round",
+    bulletBorderColor: "#eda32b",
+    bulletBorderAlpha: 1,
+    bulletBorderThickness: 3,
+    bulletColor: "#eda32b",
+    labelText: "[[value]]",
+    labelPosition: "right",
+    balloonText: "last_year:[[value]]",
+    showBalloon: true,
+  },{
+    id: "g3",
+    title: "<?php echo $year-1?>",
+    valueField: "this_year",
+    type: "line",
+    valueAxis: "a2",
+    lineColor: "#786c56",
+    balloonText: "[[value]]",
+    lineThickness: 1,
+    legendValueText: "[[description]]/Rp [[value]] Juta",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    descriptionField: "month",
+    bullet: "square",
+    labelText: "[[value]]",
+    bulletBorderColor: "#786c56",
+    bulletBorderThickness: 1,
+    bulletBorderAlpha: 1,
+    dashLengthField: "dashLength",
   }],
 
   chartCursor: {

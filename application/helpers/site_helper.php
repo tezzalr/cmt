@@ -384,12 +384,12 @@
     	elseif($month == 2){return "Feb";}
     	elseif($month == 3){return "Mar";}
     	elseif($month == 4){return "Apr";}
-    	elseif($month == 5){return "Mei";}
+    	elseif($month == 5){return "May";}
     	elseif($month == 6){return "Jun";}
     	elseif($month == 7){return "Jul";}
-    	elseif($month == 8){return "Agu";}
+    	elseif($month == 8){return "Aug";}
     	elseif($month == 9){return "Sep";}
-    	elseif($month == 10){return "Okt";}
+    	elseif($month == 10){return "Oct";}
     	elseif($month == 11){return "Nov";}
     	elseif($month == 12){return "Des";}
     }
