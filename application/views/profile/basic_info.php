@@ -8,8 +8,19 @@
 	}
 </style>
 <?php echo $sidebar?>
+
+<?php
+
+	$loan_income = $rlz_ws->WCL_nii +  $rlz_ws->IL_nii +  $rlz_ws->SL_nii;
+	$trx_income = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi;
+	$trd_income = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
+	$lnfee_income = $rlz_ws->WCL_fbi +  $rlz_ws->IL_fbi +  $rlz_ws->SL_fbi;
+	$otr_income = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi;
+	$tot = $loan_income+$trx_income+$trd_income+$lnfee_income+$otr_income;
+?>
+
 <div class="content">
-	<h2 style="margin-bottom:0px;">TAMBANG BUKIT ASAM GROUP</h2>
+	<h2 style="margin-bottom:0px;"><?php echo $anchor->name?></h2>
 	<span style="font-size:18px; color:#bbb">Summary Info</span>
 	<hr>
 	<div style="width:30%; float:left; padding:0 5px 0 0px">
@@ -20,15 +31,15 @@
 				<div>
 					<hr>
 					<div>
-						<div><h5>Loans : <span class="pull-right">Rp 7,98 M </span></h5></div>
-						<div><h5>Trx-CASA : <span class="pull-right">Rp 7,98 M </span></h5></div>
-						<div><h5>Trade : <span class="pull-right">Rp 7,98 M </span></h5></div>
-						<div><h5>Loan Fee : <span class="pull-right">Rp 7,98 M </span></h5></div>
-						<div><h5>Others : <span class="pull-right">Rp 7,98 M </span></h5></div>
+						<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),2,'.',',')?> M </span></h5></div>
+						<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),2,'.',',')?> M </span></h5></div>
+						<div><h5>Trade : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),2,'.',',')?> M </span></h5></div>
+						<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),2,'.',',')?> M </span></h5></div>
+						<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),2,'.',',')?> M </span></h5></div>
 						<div style="border-top:1px dashed #ddd">
 							<h4>
 								Total : 
-								<span class="pull-right">Rp 12,55 M </span>
+								<span class="pull-right">Rp <?php echo number_format($tot/pow(10,9),1,'.',',')?> M </span>
 							</h4>
 						</div>
 					</div>
@@ -193,7 +204,7 @@
 						cursor: 'pointer',
 						dataLabels: {
 							enabled: true,
-							distance: -30,
+							distance: 1,
 							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
 							style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
@@ -205,12 +216,19 @@
 				series: [{
 					type: 'pie',
 					name: 'Income share',
+					innerSize: '50%',
 					data: [
-						['Loans',   10],
-						{name: 'Loan Fee', y: 300, color:"grey"},
-						['Trx+CASA',      300],
-						['Trade',      300],
-						['Others',      300],
+						<?php if($loan_income){?>
+						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
+						<?php }if($trx_income){?>
+						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
+						<?php }if($trd_income){?>
+						{name: 'Trade', y: <?php echo $trd_income?>, color:"grey"},
+						<?php }if($lnfee_income){?>
+						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
+						<?php }if($otr_income){?>
+						{name: 'Others', y: <?php echo $otr_income?>, color:"#d1d1d1"},
+						<?php }?>
 					]
 				}]
 			});

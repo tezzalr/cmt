@@ -1,7 +1,7 @@
 <div class="sidebar_nav_left">
 	<div style="margin-top:0px;">
 		<div style="padding-left:20px">
-			<div style="margin-bottom:10px; margin-left:0px;"><img src="<?php echo base_url();?>assets/img/general/wsaweb.png" alt="..." style="height:80px;"></div>
+			<div style="margin-bottom:10px; margin-left:0px;"><!--<img src="<?php echo base_url();?>assets/img/general/wsaweb.png" alt="..." style="height:80px;">--></div>
 			<div style="font-size:13px;"></div>
 			<div style="font-size:11px;"></div>
 		</div>

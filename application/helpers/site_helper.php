@@ -335,6 +335,45 @@
     	return $anchor;
     }
     
+    function dept_name($dept){
+    	if($dept == 101){return 'Consumer Goods';}
+    	elseif($dept == 102){return 'Chemical & Pharmaceutical';}
+    	elseif($dept == 103){return 'Retailers';}
+    	elseif($dept == 104){return 'Automotive';}
+    	elseif($dept == 105){return 'Surabaya';}
+    	elseif($dept == 106){return 'Semarang';}
+    	elseif($dept == 201){return 'Infrastructure';}
+    	elseif($dept == 202){return 'Construction';}
+    	elseif($dept == 203){return 'Property';}
+    	elseif($dept == 204){return 'Heavy Equipment & Materials';}
+    	elseif($dept == 301){return 'Telecomunication';}
+    	elseif($dept == 302){return 'Media & Technology';}
+    	elseif($dept == 303){return 'Textile';}
+    	elseif($dept == 401){return 'Plantation I';}
+    	elseif($dept == 402){return 'Plantation II';}
+    	elseif($dept == 403){return 'Plantation III';}
+    	elseif($dept == 404){return 'Plantation IV';}
+    	elseif($dept == 405){return 'Plantation V';}
+    	elseif($dept == 406){return 'Medan';}
+    	elseif($dept == 501){return 'Oil & Gas I';}
+    	elseif($dept == 502){return 'Oil & Gas II';}
+    	elseif($dept == 503){return 'Mining';}
+    	elseif($dept == 504){return 'Energy';}
+    	elseif($dept == 601){return 'Goverment Strategy Venture';}
+    	elseif($dept == 602){return 'Fertilizer & Logistic';}
+    	elseif($dept == 603){return 'Electricity';}
+    	elseif($dept == 604){return 'Shipping & Ports';}
+    	elseif($dept == 605){return 'Airports';}
+    	elseif($dept == 606){return 'Government Finance';}
+    	elseif($dept == 701){return 'Natural Resources';}
+    	elseif($dept == 702){return 'Government Defense';}
+    	elseif($dept == 703){return 'Government Financial Services';}
+    	elseif($dept == 704){return 'Government Education';}
+    	elseif($dept == 705){return 'Government Social & Healthcare';}
+    	elseif($dept == 706){return 'Government Social Security';}
+    	
+    }
+    
     function get_produk_pow($product){
     	$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
     	return $bagi;

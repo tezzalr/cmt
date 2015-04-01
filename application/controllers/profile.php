@@ -20,23 +20,30 @@ class Profile extends CI_Controller {
     /**
      * Method for page (public)
      */
-    public function index()
+    public function show()
     {
 		$rpttime = $this->session->userdata('rpttime');
     	$year = $rpttime['year'];
     	$data_rl_inc = array();
     	
     	if($this->uri->segment(3)=='anchor'){
+    		$anchor_id = $this->uri->segment(4);
+			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
+			
+			$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']);
+			$content['rlz_al'] = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year']);
+			$content['wlt_ws'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']);
+		
+			$data['title'] = $content['anchor']->name;
     	}
     	elseif($this->uri->segment(3)=='directorate'){
     	}
 		
-		$sidebar = $this->load->view('shared/sidebar','',TRUE);
-		
-		$data['title'] = "Info";
+		$content['sidebar'] = $this->load->view('shared/sidebar','',TRUE);
+	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('profile/basic_info',array('sidebar'=>$sidebar),TRUE);
+		$data['content'] = $this->load->view('profile/basic_info',$content,TRUE);
 
 		$this->load->view('front',$data);
         

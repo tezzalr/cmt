@@ -25,7 +25,7 @@ class Income extends CI_Controller {
     	
     	if($this->uri->segment(3)=='anchor'){
 			$anchor_id = $this->uri->segment(4);
-		
+			
 			$realization_ws = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']);
 			$realization_al = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year']);
 			$wallet_ws = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']);

@@ -15,9 +15,12 @@ body {
 	z-index:100;
 	width:180px;
 	bottom:0px;
-	top:30px;
-	background-color: white;
+	top:50px;
+	background-color: #737373;
 	border-right:1px solid #ddd;
+}
+.sidebar_nav_left a{
+	color:white;
 }
 
 .panel-wsa{
@@ -44,13 +47,17 @@ body {
 	color:#a1a1a1;
 }
 
+.table-wsa{
+	border-top-color:#eda32b !important;
+}
+
 .sidebar_nav_left .nav-second-level li a {
     padding-left: 37px;
 }
 
 .content{
 	margin-left:180px; padding-left:10px;
-	margin-top:50px;
+	margin-top:70px;
 }
 
 a{

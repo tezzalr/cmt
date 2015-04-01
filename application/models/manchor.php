@@ -98,7 +98,25 @@ class Manchor extends CI_Model {
     function get_anchor_by_group($group){
     	$this->db->where('group', $group);
     	$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
     	$this->db->order_by('dept','asc');
+    	$this->db->order_by('name','asc');
+    	$result = $this->db->get('anchor');
+    	$anchors = $result->result();
+    	$arr_anc = array(); $i=0;
+    	foreach($anchors as $anc){
+    		$arr_anc[$i]['anc'] = $anc;
+    		if($anc->is_group_holding){
+    			$arr_anc[$i]['member'] = $this->get_anchor_by_holding($anc->name);
+    		}
+    		$i++;
+    	}
+    	return $arr_anc;
+    }
+    
+    function get_anchor_by_holding($holding){
+    	$this->db->where('show_anc', 1);
+    	$this->db->where('holding', $holding);
     	$this->db->order_by('name','asc');
     	$result = $this->db->get('anchor');
     	return $result->result();

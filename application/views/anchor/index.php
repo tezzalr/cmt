@@ -99,21 +99,22 @@
 						<?php 
 							$dept=''; 
 							foreach($anchor[$i] as $member){
-								if($dept != $member->code_dept){ if($dept){echo "</div>";}?>
+								if($dept != $member['anc']->code_dept){ if($dept){echo "</div>";}?>
 									<div style="float:left; width:<?php echo (100/$anc_atr['CB'.$i]['dept']) ?>%; padding-right:20px">
-									<h4 style="margin-bottom:0px">DEPARTMENT <?php echo $member->dept;?></h4>
-									<span style="font-size:12px">FMCG, F&B</span><hr style="margin:10px 0 10px 0;">
-										<div><a style="color:white" href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $member->id?>">
-											<?php echo $member->name?></a>
-										</div>
+									<h4 style="margin-bottom:0px">DEPARTMENT <?php echo $member['anc']->dept;?></h4>
+									<span style="font-size:12px"><?php echo dept_name($member['anc']->code_dept)?></span><hr style="margin:10px 0 10px 0;">
 									
-								<?php $dept =  $member->code_dept;}
-								else{?>
-									<div><a style="color:white" href="<?php echo base_url()?>report/relation_income/anchor/<?php echo $member->id?>">
-										<?php echo $member->name?></a>
-									</div>
-								<?php }?>
-								
+								<?php $dept =  $member['anc']->code_dept;}?>								
+								<div><a style="color:white" href="<?php echo base_url()?>profile/show/anchor/<?php echo $member['anc']->id?>">
+									<?php echo $member['anc']->name?></a>
+								</div>
+								<?php if($member['anc']->is_group_holding){
+									foreach($member['member'] as $child){?>
+										<div style="padding-left:15px; font-size:13px">
+											<a style="color:white" href="<?php echo base_url()?>profile/show/anchor/<?php echo $child->id?>">
+											<?php echo $child->name?></a>
+										</div>
+								<?php }}?>
 						<?php }?></div>
 						<div style="clear:both"></div>
 					</div>
@@ -132,7 +133,6 @@
 						<span style="font-size:20px;">CORPORATE BANKING <?php echo $j?></span><br>
 						<span><?php echo $atr['dept']?> Department <?php echo count($anchor[$j])?> Anchor</span>
 					</a>
-			
 				</div>
 			</div>
 		<?php }?>
