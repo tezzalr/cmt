@@ -35,9 +35,19 @@ class Product extends CI_Controller {
 			$content['ly'] = $this->mrealization->get_anchor_prd_realization_annual($anchor_id, $product, "volume", $rpttime['year']-1);
 			$content['nowic'] = $this->mrealization->get_anchor_prd_realization_annual($anchor_id, $product, "income", $rpttime['year']);
 			$content['lyic'] = $this->mrealization->get_anchor_prd_realization_annual($anchor_id, $product, "income", $rpttime['year']-1);
-			$content['target_ws'] = $this->mtarget->get_anchor_ws_target($anchor_id);
+			$content['tgt_ws'] = $this->mtarget->get_anchor_ws_target($anchor_id);
+			
+			$content['wlt'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']);
+			$realization_ws = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']);
+			$content['rlz'] = $this->mrealization->count_realization_value($realization_ws, $realization_ws->month);
+			$content['sow'] = $this->mwallet->get_sow($content['wlt'], $content['rlz'], 'wholesale');
+			
+			$content['wltly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']-1);
+			$realization_ws_ly = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1);
+			$content['rlzly'] = $this->mrealization->count_realization_value($realization_ws_ly, $realization_ws_ly->month);
+			$content['sowly'] = $this->mwallet->get_sow($content['wltly'], $content['rlzly'], 'wholesale');
     		
-    		$content['target'] = $content['target_ws']->$prd_name;
+    		$content['target'] = $content['tgt_ws']->$prd_name;
     		
     		$data['title'] = "Product - ".$content['anchor']->name;
 			$content['id'] = $anchor_id;
@@ -45,6 +55,14 @@ class Product extends CI_Controller {
     	}
     	elseif($this->uri->segment(3)=='directorate'){
     	}
+    	
+    	$arr_prod = array(); 
+    	for($i=1;$i<=15;$i++){
+    		$arr_prod[$i]['id'] = $this->mwallet->return_prod_name($i);
+    		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
+    	}
+    	
+    	$content['arr_prod'] = $arr_prod;
 		
 		$content['sidebar'] = $this->load->view('shared/sidebar',array('anchor'=>$content['anchor']),TRUE);
 		

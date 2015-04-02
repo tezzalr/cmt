@@ -27,6 +27,17 @@ body {
 	
 }
 
+.btn-wsa{
+	color:#eda32b;
+	background-color:white;
+	border-color:#eda32b;
+}
+.btn-wsa:hover{
+	color:#eda32b;
+	background-color:white;
+	border-color:#eda32b;
+}
+
 .align-right{
 	text-align:right;
 }

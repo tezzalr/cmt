@@ -36,9 +36,6 @@ class Wallet extends CI_Controller {
 			$anchor = $this->manchor->get_anchor_by_id($anchor_id);
 			$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);
 		
-			$arr_prod = array(); for($i=1;$i<=15;$i++){$arr_prod[$i] = $this->mwallet->return_prod_name($i);}
-			$arr_name = array(); for($i=1;$i<=15;$i++){$arr_name[$i] = $this->mwallet->change_real_name($arr_prod[$i]);}
-		
 			$data['title'] = "Wallet - $anchor->name";
 		}
 		elseif($this->uri->segment(3)=='directorate'){

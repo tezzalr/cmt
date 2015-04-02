@@ -92,11 +92,11 @@
 
 #chartdiv {
     width		: 100%;
-	height		: 500px;
+	height		: 300px;
 }
 #chartdiv-inc {
     width		: 100%;
-	height		: 500px;
+	height		: 300px;
 }
 #chartdivsw {
 	width		: 100%;
@@ -105,22 +105,30 @@
 }		
 </style>
 <?php echo $sidebar?>
+
 <div class="content">
 	<h2 style="margin-bottom:0px;"><?php echo $anchor->name?></h2>
-	<span style="font-size:18px; color:#bbb">Product Analysis / CASA</span>
+	<span style="font-size:18px; color:#bbb">Product Analysis / <?php echo change_real_name($this->uri->segment(5))?></span>
+	<div class="pull-right" style="padding-right:10px;">
+		<select class="btn-wsa" name="product" onchange="if (this.value) window.location.href=this.value">
+			<?php foreach($arr_prod as $prod){?>
+			<option value="<?php echo base_url()."product/show/anchor/".$anchor->id."/".$prod['id']?>" <?php if($this->uri->segment(5)==$prod['id']){echo "selected";}?>><?php echo $prod['name']?></option>
+			<?php }?>
+		</select>
+	</div>
 	<hr>
-	<div style="width:50%; float:left; padding:0 5px 0 0px">
+	<div style="width:50%; float:left; padding:0 5px 0 0px" id="volume_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Volume Trend Line</div>
+			<div class="panel-heading">Volume Trend Line<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-full" id="volume_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv"></div>
 			</div>
 		</div>
 	</div>
 	
-	<div style="width:50%; float:left; padding:0 5px 0 5px">
+	<div style="width:50%; float:left; padding:0 5px 0 5px" id="income_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Income Trend Line</div>
+			<div class="panel-heading">Income Trend Line<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-full" id="income_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv-inc"></div>
 			</div>
@@ -128,7 +136,7 @@
 	</div>
 	<div style="width:50%; float:left; padding:0 5px 0 5px">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Share of Wallet</div>
+			<div class="panel-heading">Share of Wallet Volume</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdivsw"></div>
 			</div>
@@ -138,73 +146,82 @@
 </div>
 
 <script>
+	<?php 
+		$prd_name = $this->uri->segment(5)."_vol";
+	?>
 	var chart3 = AmCharts.makeChart("chartdivsw", {
-	type: "serial",
-	pathToImages: "http://cdn.amcharts.com/lib/3/images/",
-	categoryField: "year",
-	rotate: true,
-	startthis_year: 1,
-	categoryAxis: {
-		gridPosition: "start",
-		position: "left"
+	"type": "serial",
+	"pathToImages": "http://cdn.amcharts.com/lib/3/images/",
+	"categoryField": "year",
+	"rotate": true,
+	"legend": {
+        "useGraphSettings": true,
+        "markerSize":10,
+        "valueWidth":0,
+        "verticalGap":0
+    },
+	"startDuration": 1,
+	"categoryAxis": {
+		"gridPosition": "start",
+		"position": "left"
 	},
-	trendLines: [],
-	graphs: [
+	"trendLines": [],
+	"graphs": [
 		{
-			balloonText: "Income:[[value]]",
+			"balloonText": "Income:[[value]]",
+			"fillAlphas": 0.8,
+			lineColor: "#eda32b",
 			labelText: "[[value]]",
-			fillAlphas: 0.8,
-			id: "AmGraph-1",
-			lineAlpha: 0.2,
-			title: "Wallet Size",
-			type: "column",
-			valueField: "Wallet Size"
+			"id": "AmGraph-1",
+			"lineAlpha": 0.2,
+			"title": "Wallet",
+			"type": "column",
+			"valueField": "Wallet",
+			
 		},
 		{
-			balloonText: "Expenses:[[value]]",
+			"balloonText": "Expenses:[[value]]",
+			"fillAlphas": 0.8,
+			lineColor: "#786c56",
 			labelText: "[[value]]",
-			fillAlphas: 0.8,
-			id: "AmGraph-2",
-			lineAlpha: 0.2,
-			title: "Realisasi",
-			type: "column",
-			valueField: "Realisasi"
+			"id": "AmGraph-2",
+			"lineAlpha": 0.2,
+			"title": "Realization",
+			"type": "column",
+			"valueField": "Realization"
 		}
 	],
-	guides: [],
-	valueAxes: [
+	"guides": [],
+	"valueAxes": [
 		{
-			id: "ValueAxis-1",
-			position: "top",
-			axisAlpha: 0
+			"id": "ValueAxis-1",
+			"position": "top",
+			"axisAlpha": 0
 		}
 	],
-	allLabels: [],
-	amExport: {
-		right: 20,
-		top: 20
+	"allLabels": [],
+	"amExport": {
+		"right": 20,
+		"top": 20
 	},
-	balloon: {},
-	titles: [],
-	dataProvider: [
+	"balloon": {},
+	"titles": [],
+	"dataProvider": [
+		
 		{
-			"year": 2013,
-			"Wallet Size": 492.6,
-			"Realisasi": 278.6
+			"year": 2013 +"<br>(SoW : "+<?php echo round($rlzly[$prd_name]/$wltly->$prd_name*100,1)?>+" %)",
+			"Wallet": <?php echo round($wltly->$prd_name,1);?>,
+			"Realization": <?php echo round($rlzly[$prd_name],1);?>
 		},
 		{
-			"year": 2014,
-			"Wallet Size": 492.6,
-			"Realisasi": 278.6
-		},
-		{
-			"year": 2015,
-			"Wallet Size": 492.6,
-			"Realisasi": 278.6
+			"year": 2014 +"<br>(SoW : "+<?php echo round($rlz[$prd_name]/$wlt->$prd_name*100,1)?>+" %)",
+			"Wallet": <?php echo round($wlt->$prd_name,1);?>,
+			"Realization": <?php echo round($rlz[$prd_name],1);?>
 		}
 	]
 });
 </script>
+
 <script type="text/javascript">
 	var chartData = [
     <?php 
@@ -230,6 +247,9 @@
     <?php }?>
     
 ];
+
+function make_volume(){
+
 var chart = AmCharts.makeChart("chartdiv", {
   type: "serial",
   dataDateFormat: "YYYY-MM-DD",
@@ -259,7 +279,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     valueAxis: "a2",
     lineColor: "#eda32b",
     lineThickness: 1,
-    legendValueText: "[[description]]/[[value]]",
+    legendValueText: "[[description]]/Rp [[value]] Bn",
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.4,
@@ -272,6 +292,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     labelPosition: "right",
     balloonText: "last_year:[[value]]",
     showBalloon: true,
+    animationPlayed: false,
   },{
     id: "g3",
     title: "<?php echo $year-1?>",
@@ -281,7 +302,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     lineColor: "#786c56",
     balloonText: "[[value]]",
     lineThickness: 1,
-    legendValueText: "[[description]]/[[value]]",
+    legendValueText: "[[description]]/Rp [[value]] Bn",
     fillColorsField: "lineColor",
     fillAlphas: 0.4,
     descriptionField: "month",
@@ -291,6 +312,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     bulletBorderThickness: 1,
     bulletBorderAlpha: 1,
     dashLengthField: "dashLength",
+    animationPlayed: false,
   }],
 
   chartCursor: {
@@ -307,6 +329,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     color: "Black"
   }
 });
+}
 </script>
 
 <script type="text/javascript">
@@ -318,7 +341,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     		if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){
 				$pengali = 12/$i;
 			}
-			$bagi = 6;
+			$bagi = 9;
     		
     		$month = get_month_name($i);
     		$mth = 'mth_'.$i;
@@ -333,6 +356,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     <?php }?>
     
 ];
+function make_income(){
 var chart = AmCharts.makeChart("chartdiv-inc", {
   type: "serial",
   dataDateFormat: "YYYY-MM-DD",
@@ -362,7 +386,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     valueAxis: "a2",
     lineColor: "#eda32b",
     lineThickness: 1,
-    legendValueText: "[[description]]/Rp [[value]] Juta",
+    legendValueText: "[[description]]/Rp [[value]] Bn",
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.4,
@@ -375,6 +399,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     labelPosition: "right",
     balloonText: "last_year:[[value]]",
     showBalloon: true,
+    animationPlayed: false,
   },{
     id: "g3",
     title: "<?php echo $year-1?>",
@@ -384,7 +409,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     lineColor: "#786c56",
     balloonText: "[[value]]",
     lineThickness: 1,
-    legendValueText: "[[description]]/Rp [[value]] Juta",
+    legendValueText: "[[description]]/Rp [[value]] Bn",
     fillColorsField: "lineColor",
     fillAlphas: 0.4,
     descriptionField: "month",
@@ -394,6 +419,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     bulletBorderThickness: 1,
     bulletBorderAlpha: 1,
     dashLengthField: "dashLength",
+    animationPlayed: false,
   }],
 
   chartCursor: {
@@ -410,4 +436,46 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     color: "Black"
   }
 });
+}
+</script>
+
+<script>
+	$(document).ready(function() {
+		make_volume();
+		make_income();
+	});
+	
+	function full_size(div1,div2,div3,kind) {
+		if($("#"+div3).hasClass( "glyphicon-resize-full" )){
+			$("#"+div1).animate({
+				width: "100%",
+			}, 300, function() {
+			$("#"+div2).animate({
+				width: "100%",
+			}, 300);
+			make_graph(div1);
+			});
+			$("#"+div3).removeClass("glyphicon-resize-full");
+			$("#"+div3).addClass("glyphicon-resize-small");
+		}else{
+			$("#"+div1).animate({
+				width: "50%",
+			}, 300, function() {
+			$("#"+div2).animate({
+				width: "100%",
+			}, 300);
+			make_graph(div1);
+			});
+			$("#"+div3).addClass("glyphicon-resize-full");
+			$("#"+div3).removeClass("glyphicon-resize-small");
+		}
+	}
+	function make_graph(div){
+		if(div == "volume_tren" ){
+			make_volume();
+		}
+		else{
+			make_income();
+		}
+	}
 </script>
