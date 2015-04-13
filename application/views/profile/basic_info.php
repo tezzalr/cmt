@@ -22,12 +22,14 @@
 	$loan_wallet = $wlt_ws->WCL_nii +  $wlt_ws->IL_nii +  $wlt_ws->SL_nii + $wlt_ws->TR_nii;
 	
 	$trx_sow = ($trx_income+$rlz_ws->OIR_fbi - $rlz_ws->PWE_fbi - $rlz_ws->SCF_fbi)/$month*12/$trx_wallet/pow(10,9);
+	if($loan_wallet){
 	$loan_sow = ($loan_income+$rlz_ws->TR_nii)/$month*12/$loan_wallet/pow(10,9);
+	}else{$loan_sow=0;}
 	
 ?>
 
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php echo $anchor->name?></h2>
+	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2>
 	<span style="font-size:18px; color:#bbb">Summary Info </span>
 	<hr>
 	<div style="width:30%; float:left; padding:0 5px 0 0px">
@@ -91,7 +93,8 @@
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div>
 					<h4>
-						<a style="color:black" href="<?php echo base_url()?>report/trans_xsell/anchor/<?php echo $anchor->id?>">
+						<?php if($anchor){?><a style="color:black" href="<?php echo base_url()?>report/trans_xsell/anchor/<?php echo $anchor->id?>"><?php }else{?>
+						<a style="color:black" href="<?php echo base_url()?>report/trans_xsell/directorate/<?php echo $dir['code']?>"><?php }?>
 							Transaction X-Sell <span class="pull-right"><?php if($loan_sow==0){$loan_sow = $trx_sow/10;} echo number_format($trx_sow/$loan_sow,1,'.',',');?></span>
 						</a>
 					</h4>
@@ -103,7 +106,7 @@
 				<hr>
 				<div>
 					<h4>
-						CASA X-Sell <span class="pull-right"><?php echo number_format(($now["CASA_vol"]/($now["IL_vol"]+$now["WCL_vol"]))*100,1,'.',',')?>%</span> 
+						CASA X-Sell <span class="pull-right"><?php if($now["IL_vol"]+$now["WCL_vol"]){echo number_format(($now["CASA_vol"]/($now["IL_vol"]+$now["WCL_vol"]))*100,1,'.',',');}else{echo 100;}?>%</span> 
 					</h4>
 					<p style="color:#bbb; font-size:12px">
 						CASA X-Sell adalah perbandingan Realisasi CASA dengan Realisasi Loan.
@@ -155,26 +158,26 @@
 			<div class="panel-heading">Contact List</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div class="job-title">Relationship Manager</div>
-				<div>
+				<!--<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
 				</div>
 				<div>
 					Ade Putri Marina
 					<div class="pull-right">0811892823</div>
-				</div>
+				</div>-->
 				<hr>
 				<div class="job-title">Tresury</div>
-				<div>
+				<!--<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
-				</div>
+				</div>-->
 				<hr>
 				<div class="job-title">Transaction Banking</div>
-				<div>
+				<!--<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</div>

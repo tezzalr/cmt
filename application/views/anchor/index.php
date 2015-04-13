@@ -50,7 +50,7 @@
 	<div style="padding:10px; margin-top:50px;">
 		<center>
 		<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
-		<div style="font-size:38px"><a style="color:black" href="<?php echo base_url()?>report/relation_income/directorate/CB">CORPORATE BANKING</a></div>
+		<div style="font-size:38px"><a style="color:black" href="<?php echo base_url()?>profile/show/directorate/CB">CORPORATE BANKING</a></div>
 		<?php $anc_atr = get_group_attr();?>
 		</center>
 	</div>
@@ -93,7 +93,7 @@
 				<?php for($i=1;$i<=7;$i++){?>
 					<div class="list_group_anchor" id="CB<?php echo $i?>">
 						<div>
-							<h2 style="margin-bottom:0px"><a style="color:white" href="<?php echo base_url()?>report/relation_income/directorate/<?php echo 'CB'.$i?>">CORPORATE BANKING <?php echo $i?></a></h2>
+							<h2 style="margin-bottom:0px"><a style="color:white" href="<?php echo base_url()?>profile/show/directorate/<?php echo 'CB'.$i?>">CORPORATE BANKING <?php echo $i?></a></h2>
 							<span style="font-size:14px"><?php echo $anc_atr['CB'.$i]['dept']?> Department <?php echo count($anchor[$i])?> Anchor</span><br><br>
 						</div>
 						<?php 

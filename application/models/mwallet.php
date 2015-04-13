@@ -25,7 +25,7 @@ class Mwallet extends CI_Model {
     /*Anchor Function*/
     
     function get_anchor_ws_wallet($anchor_id, $year){
-    	$this->db->where('anchor_id',$anchor_id);
+    	$this->manchor->check_group($anchor_id,"","wallet_size");
     	$this->db->where('year',$year);
     	$result = $this->db->get('wholesale_wallet_size');
     	$query = $result->result();

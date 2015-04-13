@@ -21,9 +21,7 @@ class Anchor extends CI_Controller {
      * Method for page (public)
      */
     public function index()
-    {
-		$data['title'] = "Daftar Anchor";
-		
+    {	
 		$lstyear = $this->mrealization->get_last_year();
 		$lstmth = $this->mrealization->get_last_month($lstyear);
 		
@@ -31,6 +29,8 @@ class Anchor extends CI_Controller {
 						'month' => $lstmth,
 						'year' => $lstyear
 					);
+		
+		$data['title'] = "Daftar Anchor - ".$lstyear;
 		
 		$this->session->set_userdata('lsttime',$lsttime);
 		
@@ -128,7 +128,7 @@ class Anchor extends CI_Controller {
     public function change_report_month(){
     	$rpttime = array(
 						'month' => $this->input->post('report_month'),
-						'year' => $this->mrealization->get_last_year()
+						'year' => $this->input->post('report_year')
 					);
 					
     	$this->session->set_userdata('rpttime',$rpttime);

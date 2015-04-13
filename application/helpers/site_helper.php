@@ -14,7 +14,7 @@
    	 
 	function get_direktorat_where($direktorat,$model){
 		if($direktorat == 'CB'){
-			$model->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");
+			$model->db->where("(`group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");
 		}
 		elseif($direktorat == 'IB'){
 			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I' OR `group` = 'INSTITUTIONAL BANKING II')");
@@ -391,7 +391,7 @@
     	elseif($month == 9){return "Sep";}
     	elseif($month == 10){return "Oct";}
     	elseif($month == 11){return "Nov";}
-    	elseif($month == 12){return "Des";}
+    	elseif($month == 12){return "Dec";}
     }
     
     function get_month_full_name($month){
@@ -406,7 +406,7 @@
     	elseif($month == 9){return "September";}
     	elseif($month == 10){return "October";}
     	elseif($month == 11){return "November";}
-    	elseif($month == 12){return "Desember";}
+    	elseif($month == 12){return "December";}
     }
     
     function get_product_anal_prod(){

@@ -19,6 +19,33 @@ class Manchor extends CI_Model {
     
     //INSERT or CREATE FUNCTION
     
+    function check_group($anchor_id,$month,$db){
+    	$list_group = array("CB1","CB2","CB3","CB4","CB5","CB6","CB7","CB");
+    	if(in_array($anchor_id,$list_group)){
+    		if($month){get_type_select_month('wholesale',$this);}
+			else{get_type_select('wholesale',$this);}
+    		get_direktorat_where($anchor_id,$this);
+    		$this->db->join('anchor', 'anchor.id = wholesale_'.$db.'.anchor_id');
+    	}
+    	else{
+			$anchor = $this->get_anchor_by_id($anchor_id);
+			if($anchor->is_group_holding){
+				$holding = $this->get_anchor_by_holding_name($anchor->name);
+				$where_sent = "";
+				foreach($holding as $hold){
+					if($where_sent){$where_sent = $where_sent." OR ";}
+					$where_sent = $where_sent." `anchor_id` = ".$hold->id." ";
+				}
+				$this->db->where("(".$where_sent.")");
+				if($month){get_type_select_month('wholesale',$this);}
+				else{get_type_select('wholesale',$this);}
+			}
+			else{
+				$this->db->where('anchor_id',$anchor_id);
+			}
+    	}
+    }
+    
     function insert_anchor($anchor){
     	if($this->db->insert('anchor', $anchor)){
     		$result = $this->db->query('SELECT MAX(id) as id FROM anchor');
@@ -93,6 +120,13 @@ class Manchor extends CI_Model {
     	$result = $this->db->get('anchor');
     	$query = $result->result();
         return $query[0];
+    }
+    
+    function get_anchor_by_holding_name($holding){
+    	$this->db->where('holding',$holding);
+    	$result = $this->db->get('anchor');
+    	$query = $result->result();
+        return $query;
     }
     
     function get_anchor_by_group($group){

@@ -15,6 +15,7 @@ class Mrealization extends CI_Model {
     function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('manchor');
     }
     
     //INSERT or CREATE FUNCTION
@@ -24,9 +25,13 @@ class Mrealization extends CI_Model {
     
     /*Anchor Function*/
     
-    function get_anchor_ws_realization($anchor_id, $year){
-    	$month = $this->session->userdata('rpttime')['month'];
-    	$this->db->where('anchor_id',$anchor_id);
+    function get_anchor_ws_realization($anchor_id, $year,$type){
+    	$this->manchor->check_group($anchor_id,"month","realization");
+    	if($type == "ey"){
+    		$month = $this->get_last_month($year);
+    	}else{
+    		$month = $this->session->userdata('rpttime')['month'];
+    	}
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
     	$result = $this->db->get('wholesale_realization');
@@ -37,8 +42,8 @@ class Mrealization extends CI_Model {
     }
     
     function get_anchor_al_realization($anchor_id, $year){
+    	$this->manchor->check_group($anchor_id,"month","realization");
     	$month = $this->session->userdata('rpttime')['month'];
-    	$this->db->where('anchor_id',$anchor_id);
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
     	$result = $this->db->get('alliance_realization');
@@ -48,15 +53,20 @@ class Mrealization extends CI_Model {
         }
     }
     
-    function get_anchor_prd_realization_annual($anchor_id, $product, $kind, $year){
+    function get_anchor_prd_realization_annual($anchor_id, $product, $kind, $year,$anc_not){
     	if($kind == 'volume'){$colom = $product.'_vol';}
     	else{$colom = $product.'_'.$this->get_product_income_type($product);}
     	
     	$db = $this->get_ws_or_al_by_product($product).'_realization';
     	$last_month_data = $this->get_last_month($year);
     	$select_sentence = '';
-    	for($i=1;$i<=$last_month_data;$i++)
-    	{$select_sentence = $select_sentence.'mth_'.$i.'.'.$colom.' as mth_'.$i.', ';}
+    	if($anc_not=="anchor"){
+    		for($i=1;$i<=$last_month_data;$i++)
+    		{$select_sentence = $select_sentence.'mth_'.$i.'.'.$colom.' as mth_'.$i.', ';}
+    	}else{
+    		for($i=1;$i<=$last_month_data;$i++)
+    		{$select_sentence = $select_sentence.'SUM(mth_'.$i.'.'.$colom.') as mth_'.$i.', ';}
+    	}
     	$this->db->select($select_sentence);
     	$this->db->join('anchor', 'anchor.id = mth_'.$last_month_data.'.anchor_id');
     	for($i=1;$i<$last_month_data;$i++){
@@ -66,7 +76,32 @@ class Mrealization extends CI_Model {
     	}
     	$this->db->where('mth_'.$last_month_data.'.month',$last_month_data);
     	$this->db->where('mth_'.$last_month_data.'.year',$year);
-    	$this->db->where('anchor.id',$anchor_id);
+    	if($anc_not=="anchor"){$this->db->where('anchor.id',$anchor_id);}
+    	else{get_direktorat_where($anchor_id,$this);}
+    	$result = $this->db->get($db.' as mth_'.$last_month_data);
+    	$query = $result->result();
+        return $query[0];
+    }
+    
+    function get_dir_prd_realization_annual($product, $kind, $year, $direktorat){
+    	if($kind == 'volume'){$colom = $product.'_vol';}
+    	else{$colom = $product.'_'.$this->get_product_income_type($product);}
+    	
+    	$db = $this->get_ws_or_al_by_product($product).'_realization';
+    	$last_month_data = $this->get_last_month($year);
+    	$select_sentence = '';
+    	for($i=1;$i<=$last_month_data;$i++)
+    	{$select_sentence = $select_sentence.'SUM(mth_'.$i.'.'.$colom.') as mth_'.$i.', ';}
+    	$this->db->select($select_sentence.', group');
+    	$this->db->join('anchor', 'anchor.id = mth_'.$last_month_data.'.anchor_id');
+    	for($i=1;$i<$last_month_data;$i++){
+    		$this->db->join($db.' as mth_'.$i, 'anchor.id = mth_'.$i.'.anchor_id');
+    		$this->db->where('mth_'.$i.'.month',$i);
+    		$this->db->where('mth_'.$i.'.year',$year);
+    	}
+    	$this->db->where('mth_'.$last_month_data.'.month',$last_month_data);
+    	$this->db->where('mth_'.$last_month_data.'.year',$year);
+    	get_direktorat_where($direktorat,$this);
     	$result = $this->db->get($db.' as mth_'.$last_month_data);
     	$query = $result->result();
         return $query[0];
@@ -132,30 +167,6 @@ class Mrealization extends CI_Model {
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
     	$result = $this->db->get($db);
-    	$query = $result->result();
-        return $query[0];
-    }
-    
-    function get_dir_prd_realization_annual($product, $kind, $year, $direktorat){
-    	if($kind == 'volume'){$colom = $product.'_vol';}
-    	else{$colom = $product.'_'.$this->get_product_income_type($product);}
-    	
-    	$db = $this->get_ws_or_al_by_product($product).'_realization';
-    	$last_month_data = $this->get_last_month($year);
-    	$select_sentence = '';
-    	for($i=1;$i<=$last_month_data;$i++)
-    	{$select_sentence = $select_sentence.'SUM(mth_'.$i.'.'.$colom.') as mth_'.$i.', ';}
-    	$this->db->select($select_sentence.', group');
-    	$this->db->join('anchor', 'anchor.id = mth_'.$last_month_data.'.anchor_id');
-    	for($i=1;$i<$last_month_data;$i++){
-    		$this->db->join($db.' as mth_'.$i, 'anchor.id = mth_'.$i.'.anchor_id');
-    		$this->db->where('mth_'.$i.'.month',$i);
-    		$this->db->where('mth_'.$i.'.year',$year);
-    	}
-    	$this->db->where('mth_'.$last_month_data.'.month',$last_month_data);
-    	$this->db->where('mth_'.$last_month_data.'.year',$year);
-    	get_direktorat_where($direktorat,$this);
-    	$result = $this->db->get($db.' as mth_'.$last_month_data);
     	$query = $result->result();
         return $query[0];
     }

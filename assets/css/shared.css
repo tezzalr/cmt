@@ -38,6 +38,17 @@ body {
 	border-color:#eda32b;
 }
 
+.btn-wsa-grey{
+	color:#737373;
+	background-color:white;
+	border-color:#737373;
+}
+.btn-wsa-grey:hover{
+	color:#737373;
+	background-color:white;
+	border-color:#737373;
+}
+
 .align-right{
 	text-align:right;
 }

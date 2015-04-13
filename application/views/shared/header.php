@@ -59,6 +59,21 @@
 		<span style="">
 			<!--<img height=20px src="<?php echo base_url()?>assets/img/general/font-logo.png">-->
 		</span>
+		<form method="post" action="<?php echo base_url()?>anchor/change_report_month">
+	<?php $rpttime = $this->session->userdata('rpttime'); $lsttime = $this->session->userdata('lsttime');?>
+	<label style="margin-right:20px">Bulan laporan:</label>
+	<input type="hidden" name="last_url" value="<?php echo uri_string();?>">
+	<select class="btn-wsa-grey" id="year_chg" name="report_year" style="width:60px">
+		<option value="2014" <?php if($rpttime['year'] == 2014){echo "selected";}?>>2014</option>
+		<option value="2015" <?php if($rpttime['year'] == 2015){echo "selected";}?>>2015</option>
+	</select>
+	<select class="btn-wsa-grey" id="mth" name="report_month" style="width:150px">
+		<?php for($i=1;$i<=/*$lsttime['month']*/12;$i++){?>
+				<option value="<?php echo $i?>" <?php if($rpttime['month'] == $i){echo "selected";}?>><?php echo get_month_full_name($i)?></option>
+		<?php }?>
+	</select>
+	<input type="submit" class="btn btn-xs btn-default" value="Ubah" style="background-color:#737373; border-color:#737373; color:white;">
+</form>
 	</div>
 	<div style="float:right">
 		<span class="glyphicon glyphicon-user"></span> <span style="font-size:13px"><?php echo $user['name']?></span>

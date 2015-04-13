@@ -15,6 +15,7 @@ class Mtarget extends CI_Model {
     function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('manchor');
     }
     
     //INSERT or CREATE FUNCTION
@@ -24,7 +25,17 @@ class Mtarget extends CI_Model {
     /*Anchor Function*/
     
     function get_anchor_ws_target($anchor_id){
-    	$this->db->where('anchor_id',$anchor_id);
+    	$this->manchor->check_group($anchor_id,"","target");
+    	$year = $this->session->userdata('rpttime')['year'];
+    	$this->db->where('year',$year);
+    	$result = $this->db->get('wholesale_target');
+    	$query = $result->result();
+        return $query[0];
+    }
+    
+    function get_anchor_ws_target_w_year($anchor_id,$year){
+    	$this->manchor->check_group($anchor_id,"","target");
+    	$this->db->where('year',$year);
     	$result = $this->db->get('wholesale_target');
     	$query = $result->result();
         return $query[0];
