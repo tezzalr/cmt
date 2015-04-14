@@ -126,9 +126,9 @@
     		$month_name = get_month_name($i);
     		$mth = 'mth_'.$i;
     		if($i<=$month){
-    			$this_mth = $now->$mth/pow(10,$bagi)*$pengali;
+    			$this_mth = $now[$i]/pow(10,$bagi)*$pengali;
     		}
-    		$last_mth = $ly->$mth/pow(10,$bagi)*$pengali;
+    		$last_mth = $ly[$i]/pow(10,$bagi)*$pengali;
     	?>
     {
         "month":"<?php echo $month_name?>",
@@ -240,9 +240,9 @@ var chart = AmCharts.makeChart("chartdiv", {
     		$month_name = get_month_name($i);
     		$mth = 'mth_'.$i;
     		if($i<=$month){
-    			$this_mth = $nowic->$mth/pow(10,$bagi)*$pengali;
+    			$this_mth = $nowic[$i]/pow(10,$bagi)*$pengali;
     		}
-    		$last_mth = $lyic->$mth/pow(10,$bagi)*$pengali;
+    		$last_mth = $lyic[$i]/pow(10,$bagi)*$pengali;
     	?>
     {
         "month":"<?php echo $month_name?>",

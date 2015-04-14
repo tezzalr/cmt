@@ -14,7 +14,7 @@
    	 
 	function get_direktorat_where($direktorat,$model){
 		if($direktorat == 'CB'){
-			$model->db->where("(`group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");
+			$model->db->where("(`group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING IV' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");
 		}
 		elseif($direktorat == 'IB'){
 			$model->db->where("(`group` = 'INSTITUTIONAL BANKING I' OR `group` = 'INSTITUTIONAL BANKING II')");

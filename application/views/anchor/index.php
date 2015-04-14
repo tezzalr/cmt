@@ -59,7 +59,7 @@
 			<?php 
 				$today = DateTime::createFromFormat('Y-m-d', date("Y-m-d"));
 				if($today->format('H')<16){$pic = "day"; $bgcol="white"; $foncol="black";}
-				elseif($today->format('H')>18){$pic = "night"; $bgcol="#696868"; $foncol="white";}
+				elseif($today->format('H')>=18){$pic = "night"; $bgcol="#696868"; $foncol="white";}
 				else{$pic = "evening"; $bgcol="#fce99d"; $foncol="#787775";}
 			?>
 			<div id="promo_cntn" style="opacity:0.15; background-color:<?php echo $bgcol?>; color:<?php echo $foncol?>">

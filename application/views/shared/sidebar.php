@@ -36,7 +36,7 @@
 		<hr style="margin:0 0 0 0">
 		<ul class="nav" id="side-menu">
 			<li>
-				<a href="<?php echo base_url()?>"><i class="fa fa-lightbulb-o fa-fw"></i> Report</a>
+				<a href="<?php echo base_url()?>product/top_transaksi/CASA"><i class="fa fa-lightbulb-o fa-fw"></i> Product</a>
 			</li>
 		</ul>
 		<hr style="margin:0 0 0 0">

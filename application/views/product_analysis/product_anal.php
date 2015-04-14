@@ -67,7 +67,7 @@
 							<td style="width:30%">Realization</td><td class="al-right" style="width:10%"><?php echo $year?></td><td class="al-right" style="width:10%"><?php echo $year-1?></td>
 						</tr>
 						<tr class="pp_tit">
-							<td>Volume</td><td class="al-right"><?php echo round($rlz[$prd_name]/$target_vol*100,0)?>%</td><td class="al-right"><?php echo round($rlzly[$prd_name]/$target_vol_ly*100,0)?>%</td>
+							<td>Volume</td><td class="al-right"><?php echo round($rlz[$prd_name]/$target_vol*100,0)?>%</td><td class="al-right"><?php if($target_vol_ly){echo round($rlzly[$prd_name]/$target_vol_ly*100,0);}else{echo 100;}?>%</td>
 						</tr>
 						<tr>
 							<td>Ann.</td><td class="al-right"><?php echo number_format($rlz[$prd_name],1,'.',',')?></td><td class="al-right"><?php echo number_format($rlzly[$prd_name],1,'.',',')?></td>
@@ -76,7 +76,7 @@
 							<td>Target</td><td class="al-right"><?php echo number_format($target_vol,1,'.',',')?></td><td class="al-right"><?php echo number_format($target_vol_ly,1,'.',',')?></td>
 						</tr>
 						<tr class="pp_tit" style="border-top:1px solid #ebebeb">
-							<td>Income</td><td class="al-right"><?php echo round($rlz[$prd_name_inc]/$target_inc*100,0)?>%</td><td class="al-right"><?php echo round($rlzly[$prd_name_inc]/$target_inc_ly*100,0)?>%</td>
+							<td>Income</td><td class="al-right"><?php echo round($rlz[$prd_name_inc]/$target_inc*100,0)?>%</td><td class="al-right"><?php if($target_inc_ly){echo round($rlzly[$prd_name_inc]/$target_inc_ly*100,0);}else{echo 100;}?>%</td>
 						</tr>
 						<tr>
 							<td>Ann.</td><td class="al-right"><?php echo number_format($rlz[$prd_name_inc],1,'.',',')?></td><td class="al-right"><?php echo number_format($rlzly[$prd_name_inc],1,'.',',')?></td>
@@ -183,8 +183,8 @@
 	"dataProvider": [
 		
 		{
-			"year": <?php echo $year-1?> +"<br>(SoW : "+<?php echo round($rlzly[$prd_name]/$wltly->$prd_name*100,1)?>+" %)",
-			"Wallet": <?php echo round($wltly->$prd_name,1);?>,
+			"year": <?php echo $year-1?> +"<br>(SoW : "+<?php if($wltly->$prd_name){echo round($rlzly[$prd_name]/$wltly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+			"Wallet": <?php if($wltly->$prd_name){echo round($wltly->$prd_name,1);}else{echo 0;}?>,
 			"Realization": <?php echo round($rlzly[$prd_name],1);?>
 		},
 		{
