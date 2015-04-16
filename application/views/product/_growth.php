@@ -2,9 +2,9 @@
 	<h4>Top Nominal Growth (Rp M)</h4>
 	<table class="table table-bordered" style="font-size:10px;">
 		<thead class="headertab"><tr>
-			<th rowspan=2><center>Nama Anchor</center></th><th>2013</th><th colspan=3><center>2014</center></th>
+			<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
 		</tr><tr>
-			<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD 2014</th><th>Nominal Growth</th>
+			<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Nominal Growth</th>
 		</tr></thead><tbody>
 		<?php 
 			$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $nomgrowtot=0; $trgt_tot=0;
@@ -56,9 +56,9 @@
 	<h4>Top Growth (%)</h4>
 	<table class="table table-bordered" style="font-size:10px;">
 		<thead class="headertab"><tr>
-			<th rowspan=2><center>Nama Anchor</center></th><th>2013</th><th colspan=3><center>2014</center></th>
+			<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
 		</tr><tr>
-			<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD 2014</th><th>Growth</th>
+			<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Growth</th>
 		</tr></thead><tbody>
 		<?php 
 			$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;

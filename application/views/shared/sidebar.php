@@ -1,6 +1,7 @@
 <?php
 	if($anchor){$data_a = "anchor"; $data_b=$anchor->id;}
-	else{$data_a = "directorate"; $data_b=$dir['code'];}
+	elseif($dir){$data_a = "directorate"; $data_b=$dir['code'];}
+	else{$data_a = ""; $data_b="";}
 ?>
 <div class="sidebar_nav_left">
 	<div style="margin-top:0px;">
@@ -15,6 +16,7 @@
 				<a href="<?php echo base_url()?>"><i class="fa fa-lightbulb-o fa-fw"></i> Daftar Anchor</a>
 			</li>
 		</ul>
+		<?php if($anchor || $dir){?>
 		<hr style="margin:0 0 0 0">
 		<ul class="nav" id="side-menu">
 			<li>
@@ -24,15 +26,19 @@
 				<a href="<?php echo base_url()?>product_analysis/show/<?php echo $data_a?>/<?php echo $data_b?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
 			</li>
 			<li>
+				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
+			</li>
+			<li>
 				<a href="<?php echo base_url()?>initiative/segment"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>program/list_programs/Wholesale"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+				<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url()?>logact"><i class="fa fa-edit fa-fw"></i> Review</a>
 			</li>
 		</ul>
+		<?php }?>
 		<hr style="margin:0 0 0 0">
 		<ul class="nav" id="side-menu">
 			<li>

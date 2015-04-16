@@ -11,12 +11,14 @@
 
 <?php
 
-	$loan_income = $rlz_ws->WCL_nii +  $rlz_ws->IL_nii +  $rlz_ws->SL_nii;
-	$trx_income = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi;
-	$trd_income = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
-	$lnfee_income = $rlz_ws->WCL_fbi +  $rlz_ws->IL_fbi +  $rlz_ws->SL_fbi;
-	$otr_income = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi;
-	$tot = $loan_income+$trx_income+$trd_income+$lnfee_income+$otr_income;
+	$income_ty = get_ws_income_month($rlz_ws,$month);
+	
+	$loan_income = $income_ty['loan'];
+	$trx_income = $income_ty['trx'];
+	$trd_income = $income_ty['trd'];
+	$lnfee_income = $income_ty['lnfee'];
+	$otr_income = $income_ty['otr'];
+	$tot = $income_ty['tot'];
 	
 	$trx_wallet = $wlt_ws->CASA_nii + $wlt_ws->FX_fbi + $wlt_ws->Trade_fbi + $wlt_ws->BG_fbi + + $wlt_ws->OIR_fbi;
 	$loan_wallet = $wlt_ws->WCL_nii +  $wlt_ws->IL_nii +  $wlt_ws->SL_nii + $wlt_ws->TR_nii;
@@ -34,7 +36,7 @@
 	<hr>
 	<div style="width:30%; float:left; padding:0 5px 0 0px">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Total Relationship Income</div>
+			<div class="panel-heading">Total Wholesale Income</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="container_wsa" style="width: 100%; height:280px;"></div>
 				<div>
@@ -64,7 +66,9 @@
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<th>Product</th><th class="align-right"><?php echo $year-1?></th><th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
+						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
+						<th class="align-right"><?php echo $year?></th>
+						<th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -78,6 +82,7 @@
 								?>
 							<td><?php echo $prod['initial']?></td>
 							<td class="align-right"><?php echo number_format($ly[$prod_name]/pow(10,9),1,'.',',');?></td>
+							<td class="align-right"><?php echo number_format($ty[$prod_name]/pow(10,9),1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($ytd[$prod_name],1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($tgt_ws->$prod_name,1,'.',',');?></td>
 							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>
@@ -124,7 +129,9 @@
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<th>Product</th><th class="align-right"><?php echo $year-1?></th><th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
+						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
+						<th class="align-right"><?php echo $year?></th>
+						<th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -144,6 +151,7 @@
 								?>
 							<td><?php echo $prod['initial']?></td>
 							<td class="align-right"><?php echo number_format($ly[$prd_name_arr]/pow(10,9),1,'.',',');?></td>
+							<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($ytd[$prd_name_arr],1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($target,1,'.',',');?></td>
 							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>

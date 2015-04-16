@@ -295,7 +295,27 @@
 		}
 		return $arr_tot_inc;
     }
-    
+    function get_ws_income_month($rlz_ws,$month){
+    	if($rlz_ws){
+			$income['loan'] = $rlz_ws->WCL_nii +  $rlz_ws->IL_nii +  $rlz_ws->SL_nii;
+			$income['trx'] = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi;
+			$income['trd'] = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
+			$income['lnfee'] = $rlz_ws->WCL_fbi +  $rlz_ws->IL_fbi +  $rlz_ws->SL_fbi;
+			$income['otr'] = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi;
+			$income['tot'] = $income['loan']+$income['trx']+$income['trd']+$income['lnfee']+$income['otr'];
+			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['trd']+$income['otr'])/$month*12)+$income['lnfee'];
+		}
+		else{
+			$income['loan'] = 0;
+			$income['trx'] = 0;
+			$income['trd'] = 0;
+			$income['lnfee'] = 0;
+			$income['otr'] = 0;
+			$income['tot'] = 0;
+			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['trd']+$income['otr'])/$month*12)+$income['lnfee'];
+		}
+		return $income;
+    }
     function get_direktorat_full_name($directorate){
     	if($directorate == 'CB'){$title = 'Corporate Banking';}
 		elseif($directorate == 'IB'){$title = 'Institutional Banking';}
@@ -330,7 +350,7 @@
     	$anchor['CB4']['dept'] = 6;
     	$anchor['CB5']['dept'] = 4;
     	$anchor['CB6']['dept'] = 6;
-    	$anchor['CB7']['dept'] = 5;
+    	$anchor['CB7']['dept'] = 6;
     	
     	return $anchor;
     }

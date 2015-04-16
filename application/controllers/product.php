@@ -58,7 +58,7 @@ class Product extends CI_Controller {
     	$top_anchor['grow'] = $this->manchor->get_top_anchor_prd_grw($product, $month, $year, 12, 'desc');
     	$top_anchor['grow_min'] = $this->manchor->get_top_anchor_prd_grw($product, $month, $year, 12, 'asc');
     	
-    	$growth_tab = $this->load->view('product/_growth',array('asu' => 'ytd','top_anchor' => $top_anchor, 'product' => $product, 'month' => $month,'total_prd' => $total_prd),TRUE);
+    	$growth_tab = $this->load->view('product/_growth',array('asu' => 'ytd','top_anchor' => $top_anchor, 'product' => $product, 'month' => $month,'total_prd' => $total_prd, 'year' => $year),TRUE);
     	
     	$prd_name = $this->manchor->get_product_name_by_inisial($product);
     	
@@ -68,9 +68,10 @@ class Product extends CI_Controller {
     		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
     	}
 		
+		$sidebar = $this->load->view('shared/sidebar',array('anchor'=>"", 'dir'=>""),TRUE);
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('product/top_transaksi',array('asu' => 'ytd', 'growth_tab' => $growth_tab, 'arr_prod' => $arr_prod, 'month' => $month, 'top_anchor_vol' => $top_anchor_vol, 'product' => $product, 'total_prd' => $total_prd, 'prd_name' => $prd_name),TRUE);
+		$data['content'] = $this->load->view('product/top_transaksi',array('asu' => 'ytd', 'growth_tab' => $growth_tab, 'arr_prod' => $arr_prod, 'month' => $month, 'top_anchor_vol' => $top_anchor_vol, 'product' => $product, 'total_prd' => $total_prd, 'prd_name' => $prd_name, 'year' => $year, 'sidebar' => $sidebar),TRUE);
 
 		$this->load->view('front',$data);
     }
