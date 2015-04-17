@@ -67,7 +67,7 @@
 					<thead>
 					<tr>
 						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
-						<th class="align-right"><?php echo $year?></th>
+						<!--<th class="align-right"><?php echo $year?></th>-->
 						<th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
 					</tr>
 					</thead>
@@ -75,14 +75,14 @@
 						<?php foreach($arr_prod as $prod){ $prod_name = $prod['initial']."_vol";?>
 						<tr>
 							<?php 
-								if($tgt_ws->$prod_name){$pct = $now[$prod_name]/pow(10,9)/$tgt_ws->$prod_name;}else{$pct=1;}
-								if($ly[$prod_name]){$gwt = ($now[$prod_name]/$ly[$prod_name])-1;}else{$gwt=1;}
+								if($tgt_ws->$prod_name){$pct = $ytd[$prod_name]/$tgt_ws->$prod_name;}else{$pct=1;}
+								if($ly[$prod_name]){$gwt = ($ytd[$prod_name]*pow(10,9)/$ly[$prod_name])-1;}else{$gwt=1;}
 								if($pct>=1){$color="green";}elseif($pct<0.95){$color="red";}else{$color="#f0ce5d";}
 								if($gwt>0){$color_gwt="green";}else{$color_gwt="red";}
 								?>
 							<td><?php echo $prod['initial']?></td>
 							<td class="align-right"><?php echo number_format($ly[$prod_name]/pow(10,9),1,'.',',');?></td>
-							<td class="align-right"><?php echo number_format($ty[$prod_name]/pow(10,9),1,'.',',');?></td>
+							<!--<td class="align-right"><?php echo number_format($ty[$prod_name]/pow(10,9),1,'.',',');?></td>-->
 							<td class="align-right"><?php echo number_format($ytd[$prod_name],1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($tgt_ws->$prod_name,1,'.',',');?></td>
 							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>
@@ -130,7 +130,7 @@
 					<thead>
 					<tr>
 						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
-						<th class="align-right"><?php echo $year?></th>
+						<!--<th class="align-right"><?php echo $year?></th>-->
 						<th class="align-right"><?php echo $year?> ann</th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
 					</tr>
 					</thead>
@@ -140,18 +140,18 @@
 							$nii_arr = array("CASA","TD","IL","WCL");
 							if(in_array($prod['initial'],$nii_arr)){$prd_name = $prod['initial']."_nii";}
 							else{$prd_name = $prod['initial']."_fbi";}
-							$target = $tgt_ws->$prd_name;								
+							$target = $tgt_ws->$prd_name;				
 						?>
 						<tr>
 							<?php 
-								if($target){$pct = $now[$prd_name_arr]/pow(10,9)/$target;}else{$pct=1;}
-								if($ly[$prd_name_arr]){$gwt = ($now[$prd_name_arr]/$ly[$prd_name_arr])-1;}else{$gwt=1;}
+								if($target){$pct = $ytd[$prd_name_arr]/$target;}else{$pct=1;}
+								if($ly[$prd_name_arr]){$gwt = ($ytd[$prd_name_arr]*pow(10,9)/$ly[$prd_name_arr])-1;}else{$gwt=1;}
 								if($pct>=1){$color="green";}elseif($pct<0.95){$color="red";}else{$color="#f0ce5d";}
 								if($gwt>0){$color_gwt="green";}else{$color_gwt="red";}
 								?>
 							<td><?php echo $prod['initial']?></td>
 							<td class="align-right"><?php echo number_format($ly[$prd_name_arr]/pow(10,9),1,'.',',');?></td>
-							<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),1,'.',',');?></td>
+							<!--<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),1,'.',',');?></td>-->
 							<td class="align-right"><?php echo number_format($ytd[$prd_name_arr],1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($target,1,'.',',');?></td>
 							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>

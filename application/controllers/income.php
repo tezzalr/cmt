@@ -85,6 +85,12 @@ class Income extends CI_Controller {
     		usort($content['top_anc'], function($a, $b) {
 				return $b['growth'] - $a['growth'];
 			});
+			
+			for($k=1;$k<=7;$k++){
+				$c = "CB".$k;
+				$content['rlz_cb'][$k] = $this->mrealization->get_anchor_ws_realization($c, $rpttime['year'],"");
+				$content['inc_cb'][$k] = get_ws_income_month($content['rlz_cb'][$k],$content['month']);
+			}
     	}		
     	
 		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");

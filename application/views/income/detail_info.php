@@ -267,3 +267,117 @@
 	
 	});
 </script>
+<script type="text/javascript">
+	$(function () {
+		var chart;
+	
+		$(document).ready(function () {
+		
+			// Build the chart
+			$('#container_wsa2').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: true
+				},
+				legend: {
+					enabled: false
+				},
+				title: {
+					text: null
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							distance: 1,
+							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
+							style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
+                    }
+						},
+						showInLegend: true
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'Income share',
+					innerSize: '30%',
+					data: [
+						<?php if($loan_income){?>
+						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
+						<?php }if($trx_income){?>
+						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
+						<?php }if($trd_income){?>
+						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
+						<?php }if($lnfee_income){?>
+						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
+						<?php }if($otr_income){?>
+						{name: 'Others', y: <?php echo $otr_income?>, color:"#d1d1d1"},
+						<?php }?>
+					]
+				}]
+			});
+		});
+	
+	});
+</script>
+
+<script type="text/javascript">
+	$(function () {
+		var chart;
+	
+		$(document).ready(function () {
+		
+			// Build the chart
+			$('#container_wsa3').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: true
+				},
+				legend: {
+					enabled: false
+				},
+				title: {
+					text: null
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							distance: 1,
+							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
+							style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
+                    }
+						},
+						showInLegend: true
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'Income share',
+					innerSize: '30%',
+					data: [
+						<?php $h=1; foreach($inc_cb as $cb){?>
+								
+							{name: 'CB <?php echo $h?>', y: <?php echo $cb['tot']?>, color:"#eda32b"},
+						<?php $h++; }?>
+					]
+				}]
+			});
+		});
+	
+	});
+</script>
