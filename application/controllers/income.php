@@ -93,7 +93,7 @@ class Income extends CI_Controller {
 			}
     	}		
     	
-		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");
+		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"");
 		$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year'],"");
 		$content['ly'] = $this->mrealization->count_realization_now($content['rlz_ws_ly']);
 		$content['now'] = $this->mrealization->count_realization_now($content['rlz_ws']);

@@ -21,7 +21,7 @@
 	$tot = $income_ty['tot'];
 	$tot_ytd = $income_ty['tot_ytd'];
 	
-	$income_ly = get_ws_income_month($rlz_ws_ly,12);
+	$income_ly = get_ws_income_month($rlz_ws_ly,$month);
 	
 	$loan_income_ly = $income_ly['loan'];
 	$trx_income_ly = $income_ly['trx'];
@@ -50,7 +50,7 @@
 			<div class="panel-heading">Total Wholesale Income</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div style="width:50%; float:left; padding:0 10px 0 10px;">
-					<h4><center><?php echo $year-1?></center></h4>
+					<h4><center><?php echo get_month_name($month)." ".($year-1)?></center></h4>
 					<div id="container_wsa" style="width: 100%; height:280px;"></div>
 					<div>
 						<hr>
@@ -66,12 +66,12 @@
 									<span class="pull-right">Rp <?php echo number_format($tot_ly/pow(10,9),2,'.',',')?> M </span>
 								</h4>
 							</div>
-							<div style="border-top:1px dashed #ddd">
+							<!--<div style="border-top:1px dashed #ddd">
 								<h4>
 									Total YTD : 
 									<span class="pull-right">Rp <?php echo number_format($tot_ytd_ly/pow(10,9),2,'.',',')?> M </span>
 								</h4>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
@@ -92,22 +92,24 @@
 									<span class="pull-right">Rp <?php echo number_format($tot/pow(10,9),2,'.',',')?> M </span>
 								</h4>
 							</div>
-							<div style="border-top:1px dashed #ddd">
+							<!--<div style="border-top:1px dashed #ddd">
 								<h4>
 									Total YTD : 
 									<span class="pull-right">Rp <?php echo number_format($tot_ytd/pow(10,9),2,'.',',')?> M </span>
 								</h4>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
 				<div style="clear:both"></div>
 				<div style="border-top:1px dashed #ddd">
 					<center>
-					<?php $gwth =(($tot_ytd/$tot_ytd_ly)-1)*100; if($gwth>=0){$colgwth = "green";}else{$colgwth = "red";}?>
+					<?php $gwth =(($tot/$tot_ly)/*($tot_ytd/$tot_ytd_ly)*/-1)*100; if($gwth>=0){$colgwth = "green";}else{$colgwth = "red";}?>
 					<h3 style="color:<?php echo $colgwth?>">
 						Growth : 
 						<?php echo number_format($gwth,2,'.',',')?>%
+						<!--<br>
+						<?php echo number_format(($tot-$tot_ly)/pow(10,9),2,'.',',')?>-->
 					</h3>
 					</center>
 				</div>

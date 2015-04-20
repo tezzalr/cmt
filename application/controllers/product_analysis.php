@@ -25,6 +25,7 @@ class Product_analysis extends CI_Controller {
 		$rpttime = $this->session->userdata('rpttime');
     	$year = $rpttime['year']; $content['year'] = $year; $content['month'] = $rpttime['month'];
     	$product = $this->uri->segment(5);
+    	$content['product'] = $product;
     	$kind = $this->uri->segment(6);
     	if($kind=="volume"){$tambahan = "_vol";}else{$tambahan = "_".get_product_income_type($product);}
     	$prd_name = $product.$tambahan;
@@ -56,6 +57,18 @@ class Product_analysis extends CI_Controller {
 		$content['real_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");
 		$content['rlzly'] = $this->mrealization->count_realization_value($content['real_ly'], $content['real_ly']->month);
 		$content['sowly'] = $this->mwallet->get_sow($content['wltly'], $content['rlzly'], 'wholesale');
+		
+		$content['asu'] = 'ytd';
+		$content['total_prd'] = $this->manchor->get_total_vol_prd($product, $content['month'], $year, 'wholesale_realization','');
+    	$content['top_anchor_vol'] = $this->manchor->get_top_anchor_prd($product, $content['month'], $year,$anchor_id);
+    	$content['top_anchor_nom_grow'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'desc',$anchor_id);
+    	$content['top_anchor_nom_grow_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'asc',$anchor_id);
+    	$content['top_anchor_nom_grow_tm'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id);
+    	$content['top_anchor_nom_grow_tm_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id);
+    	$content['top_anchor_grow'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'desc',$anchor_id);
+    	$content['top_anchor_grow_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'asc',$anchor_id);
+    	$content['top_anchor_grow_tm'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id);
+    	$content['top_anchor_grow_tm_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id);
     	
     	$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){
