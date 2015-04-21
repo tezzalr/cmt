@@ -72,11 +72,11 @@ class Income extends CI_Controller {
     		foreach($anchors as $anc){
     			$content['top_anc'][$i]['anc'] = $anc['anc'];
     			$content['top_anc'][$i]['real'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year'],"");
-    			$content['top_anc'][$i]['real_ly'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year']-1,"ey");
+    			$content['top_anc'][$i]['real_ly'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year']-1,"");
     			$content['top_anc'][$i]['tot_inc'] = get_ws_income_month($content['top_anc'][$i]['real'],$content['month']);
-    			$content['top_anc'][$i]['tot_inc_ly'] = get_ws_income_month($content['top_anc'][$i]['real_ly'],12);
-    			if($content['top_anc'][$i]['tot_inc_ly']['tot_ytd']){
-    				$content['top_anc'][$i]['growth'] = (($content['top_anc'][$i]['tot_inc']['tot_ytd']/$content['top_anc'][$i]['tot_inc_ly']['tot_ytd'])-1)*100;
+    			$content['top_anc'][$i]['tot_inc_ly'] = get_ws_income_month($content['top_anc'][$i]['real_ly'],$content['month']);
+    			if($content['top_anc'][$i]['tot_inc_ly']['tot']){
+    				$content['top_anc'][$i]['growth'] = (($content['top_anc'][$i]['tot_inc']['tot']/$content['top_anc'][$i]['tot_inc_ly']['tot'])-1)*100;
     			}else{
     				$content['top_anc'][$i]['growth'] = 100;
     			}

@@ -251,7 +251,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
-        "last_year": <?php echo round($last_mth,3)?>,
+        "last_year": <?php echo round($last_mth,2)?>,
         
     },
     <?php }?>

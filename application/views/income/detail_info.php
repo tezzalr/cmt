@@ -108,8 +108,8 @@
 					<h3 style="color:<?php echo $colgwth?>">
 						Growth : 
 						<?php echo number_format($gwth,2,'.',',')?>%
-						<!--<br>
-						<?php echo number_format(($tot-$tot_ly)/pow(10,9),2,'.',',')?>-->
+						<br>
+						<?php echo number_format(($tot-$tot_ly)/pow(10,9),2,'.',',')?>
 					</h3>
 					</center>
 				</div>
@@ -125,18 +125,18 @@
 				<table class="table table-striped" style="font-size:13px">
 				<tr>
 					<th style="width:40%">Anchor</th>
+					<th class="align-right"><?php echo get_month_name($month)." ".($year-1)?></th>
 					<th class="align-right"><?php echo get_month_name($month)." ".$year?></th>
-					<th class="align-right"><?php echo "Ytd ".$year?></th>
-					<th class="align-right"><?php echo $year-1?></th>
+					<!--<th class="align-right"><?php echo "Ytd ".$year?></th>-->
 					<th class="align-right">Growth</th>
 				</tr>
 				
 				<?php foreach($top_anc as $anc){?>
 				<tr>
 					<td><?php echo $anc['anc']->name?></td>
+					<td class="align-right"><?php echo number_format($anc['tot_inc_ly']['tot']/pow(10,9),1,'.',',')?></td>
 					<td class="align-right"><?php echo number_format($anc['tot_inc']['tot']/pow(10,9),1,'.',',')?></td>
-					<td class="align-right"><?php echo number_format($anc['tot_inc']['tot_ytd']/pow(10,9),1,'.',',')?></td>
-					<td class="align-right"><?php echo number_format($anc['tot_inc_ly']['tot_ytd']/pow(10,9),1,'.',',')?></td>
+					<!--<td class="align-right"><?php echo number_format($anc['tot_inc']['tot_ytd']/pow(10,9),1,'.',',')?></td>-->
 					<td class="align-right"><?php echo number_format($anc['growth'],1,'.',',')?>%</td>
 				</tr>
 				<?php }?>

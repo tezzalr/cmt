@@ -45,7 +45,7 @@
 	
 </style>
 
-<div style="position:relative; z-index:10; height:100%">
+<div style="position:relative; z-index:10; height:100%" id="yes-man">
 	
 	<div style="padding:10px; margin-top:50px;">
 		<center>
@@ -122,7 +122,18 @@
 			</div>
 		</div>
 	</div>
-	<div id="group_group_div" style="width:100%; height:180px; overflow-y:hidden; color:white">
+	<!--<div>
+		<h3 style="padding: 0 10px 0 10px;">Daftar 76 Anchor Client</h3>
+		<div>
+			<?php for($j=1;$j<=7;$j++){ $atr = $anc_atr['CB'.$j]; $cb = "CB".$j; $img = $cb.".png";?>
+			<div style="float:left; width:14.28%">
+				<img style="width:100%; height:100px" src="<?php echo base_url()?>assets/img/general/<?php echo $cb?>.png">
+				<h3>CB <?php echo $j?></h3>
+			</div>
+			<?php }?>
+		</div>
+	</div>-->
+	<div id="group_group_div" style="width:100%; height:180px; overflow-y:hidden; color:white;">
 		<?php for($j=1;$j<=7;$j++){ $atr = $anc_atr['CB'.$j]; $cb = "CB".$j; $img = $cb.".png";?>
 			<div class="group_div">
 				<div style="position:relative">
@@ -170,10 +181,10 @@
 		$("#detail_group").animate({
 			height: "415",
 		}, 300, function() {
-		$("#group_group_div").animate({
+		
+		});$("#group_group_div").animate({
 			height: "180",
 		}, 300);
-		});
 	}
 	function restart_page(){
 		$('#promo_center').css('display','block');

@@ -162,31 +162,31 @@
 				</table>
 			</div>
 		</div>
-		<div class="panel panel-wsa">
+		<!--<div class="panel panel-wsa">
 			<div class="panel-heading">Contact List</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div class="job-title">Relationship Manager</div>
-				<!--<div>
+				<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
 				</div>
 				<div>
 					Ade Putri Marina
 					<div class="pull-right">0811892823</div>
-				</div>-->
+				</div>
 				<hr>
 				<div class="job-title">Tresury</div>
-				<!--<div>
+				<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
-				</div>-->
+				</div>
 				<hr>
 				<div class="job-title">Transaction Banking</div>
-				<!--<div>
+				<div>
 					Ade Shinta Ramadhani
 					<div class="pull-right">082716238123</div>
-				</div>-->
-			</div>
+				</div>
+			</div>-->
 		</div>
 	</div>
 	<div style="clear:both"></div>

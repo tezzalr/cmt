@@ -26,10 +26,10 @@
 				<a href="<?php echo base_url()?>product_analysis/show/<?php echo $data_a?>/<?php echo $data_b?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
+				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>initiative/segment"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
+				<a href="<?php echo base_url()?>report/relation_income/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
