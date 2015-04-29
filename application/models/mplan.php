@@ -45,7 +45,7 @@ class Mplan extends CI_Model {
     	$this->db->where('anchor_id', $anchor_id);
     	$this->db->where('plan.product', $product);
     	$this->db->join('user', 'user.id = plan.user_id');
-    	$this->db->order_by('plan.id', 'desc');
+    	$this->db->order_by('plan.id', 'asc');
     	$query = $this->db->get('plan');
         return $query->result();
     }
