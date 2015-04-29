@@ -67,6 +67,7 @@ class Plan extends CI_Controller {
     				$arr_strategy[$arr_prod[$i]['id']]['strategy'] = $stgy;
     				$arr_strategy[$arr_prod[$i]['id']]['name_prod'] = $arr_prod[$i]['name'];
     				//$arr_strategy[$arr_prod[$i]['id']]['ap'] = $plans;
+    				$arr_ap = array();
     				$p=1;
     				foreach($plans as $plan){
     					$arr_ap[$p]['ap'] = $plan;
