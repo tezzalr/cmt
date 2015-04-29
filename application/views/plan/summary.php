@@ -73,7 +73,7 @@
 					</div>
 				</div>
 			</div>
-			<?php if($fouryes==4){?></div><?php }?>
+			<?php if($fouryes==4){?></div><?php $fouryes=0;}?>
 		<?php $fouryes++;}?>
 		<!--<div style="float:left"><h3 style="margin-top:0px">Summary Strategy & Action Plan</h3></div>
 		<div style="float:right"><a href="<?php echo base_url()?>plan/edit_strategy/<?php echo $anchor->id?>" class="btn btn-success btn-sm">Edit Strategy</a></div>
