@@ -16,23 +16,31 @@ class Scorecard extends CI_Controller {
     public function show(){
 		$data['title'] = "Scorecard";
 		
+		$rpttime = $this->session->userdata('rpttime');
+    	$year = $rpttime['year']; 
+    	$content['year'] = $year; $content['month'] = $rpttime['month'];
+		
 		$sc = array(); $i=0; 
 		$real = array();
 		$p1=0; $p2=0; $p3=0; $g1=0; $g2=0; $g3=0; $s1=0; $s2=0; $s3=0;
-		$month = $this->session->userdata('rptmth');
+		$month = $content['month'];
 		//$arrsc = array('platinum','gold','silver');
 		
 		$anchors = $this->manchor->get_anchor_sc();
 		foreach($anchors as $anchor){
-			$rlz_raw = $this->mrealization->get_anchor_ws_realization($anchor->id, date('Y'));
-			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, date('Y'));		
+			$rlz_raw = $this->mrealization->get_anchor_ws_realization($anchor->id, $year,"");
+			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year);		
     		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month);
     		$sow = $this->mwallet->get_sow($wallet, $rlz, 'wholesale');
     		
 			$sc[$i]['anchor'] = $anchor;
-			$sc[$i]['wal'] = $this->mwallet->get_anchor_total_wallet($anchor->id, date('Y'));
-			$sc[$i]['inc'] = $this->mrealization->get_anchor_total_income($anchor->id, date('Y'));
-			$sc[$i]['sow'] = $sc[$i]['inc']['ws']/$sc[$i]['wal']['ws'];
+			$sc[$i]['wal'] = $this->mwallet->get_anchor_total_wallet($anchor->id, $year);
+			$sc[$i]['inc'] = $this->mrealization->get_anchor_total_income($anchor->id, $year);
+			if($sc[$i]['wal']['ws']){
+				$sc[$i]['sow'] = $sc[$i]['inc']['ws']/$sc[$i]['wal']['ws'];
+			}else{
+				$sc[$i]['sow'] = 1;
+			}
 			if($sow[32]){
 				$sc[$i]['trx'] = $sow[34]/$sow[32];
 			}else{$sc[$i]['trx'] = 10;}

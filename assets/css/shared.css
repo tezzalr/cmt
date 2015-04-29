@@ -68,6 +68,10 @@ body {
 	color:#a1a1a1;
 }
 
+.panel-heading a{
+	color:#a1a1a1;
+}
+
 .table-wsa{
 	border-top-color:#eda32b !important;
 }

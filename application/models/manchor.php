@@ -83,16 +83,10 @@ class Manchor extends CI_Model {
     
     /*Anchor Function*/
     function get_anchor_sc(){
-		$this->db->where('group', 'CORPORATE BANKING IV');
-		$this->db->or_where('group', 'CORPORATE BANKING I');
-		$this->db->or_where('group', 'CORPORATE BANKING II');
-		$this->db->or_where('group', 'CORPORATE BANKING III');
-		$this->db->or_where('group', 'CORPORATE BANKING V');
-		//$this->db->or_where('group', 'INSTITUTIONAL BANKING I');
-		//$this->db->or_where('group', 'INSTITUTIONAL BANKING II');
-		//$this->db->or_where('group', 'JAKARTA COMMERCIAL SALES');
-		//$this->db->or_where('group', 'REGIONAL COMMERCIAL SALES I');
-    	//$this->db->or_where('group', 'REGIONAL COMMERCIAL SALES II');
+		$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
+		get_direktorat_where("CB",$this);
+		
     	$this->db->order_by('gas','desc');
     	//$this->db->order_by('name','asc');
     	$result = $this->db->get('anchor');

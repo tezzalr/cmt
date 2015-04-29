@@ -47,6 +47,7 @@ class Plan extends CI_Controller {
     }
     
     public function summary(){
+    	$anchor_id = $this->uri->segment(4);
     	$rpttime = $this->session->userdata('rpttime');
     	$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){
@@ -54,8 +55,9 @@ class Plan extends CI_Controller {
     		$arr_prod[$i]['name'] = change_real_name($arr_prod[$i]['id']);
     	}
     	$arr_strategy = array(); $j=0;
+    	$arr_ap = array();
     	if($this->uri->segment(3)=='anchor'){
-			$anchor_id = $this->uri->segment(4);
+			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
 			$anchor = $this->manchor->get_anchor_by_id($anchor_id);
     		
     		for($i=1;$i<=15;$i++){
@@ -64,24 +66,36 @@ class Plan extends CI_Controller {
     			if($stgy){
     				$arr_strategy[$arr_prod[$i]['id']]['strategy'] = $stgy;
     				$arr_strategy[$arr_prod[$i]['id']]['name_prod'] = $arr_prod[$i]['name'];
-    				$arr_strategy[$arr_prod[$i]['id']]['ap'] = $plans;
+    				//$arr_strategy[$arr_prod[$i]['id']]['ap'] = $plans;
+    				$p=1;
+    				foreach($plans as $plan){
+    					$arr_ap[$p]['ap'] = $plan;
+    					$arr_ap[$p]['last_update'] = "";
+    					$up = $this->mplan->get_plan_update($plan->id);
+    					if($up){
+    						$arr_ap[$p]['last_update'] = $up[0];
+    					}
+    					$p++;
+    				}
+    				$arr_strategy[$arr_prod[$i]['id']]['ap'] = $arr_ap;
     			}	
     		}
     		
 			$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);
 			$data['title'] = "Action Plan - $anchor->name";
-			$id = $anchor_id;
 		}
 		elseif($this->uri->segment(3)=='directorate'){
-			
+			$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($anchor_id);
+    		$content['dir']['code'] = $anchor_id;
 		}
     	//$list_ap = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	$content['strategies'] = $arr_strategy;	
     	
+		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
+		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('grafik/action_plan/summary',array('header' => $header, 
-												'strategies' => $arr_strategy, 'id' => $id, 
-												),TRUE);
+		$data['content'] = $this->load->view('plan/summary',$content,TRUE);
 
 		$this->load->view('front',$data);
     }
@@ -113,7 +127,7 @@ class Plan extends CI_Controller {
     	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('grafik/action_plan/strategy_form',array('header' => $header, 
+		$data['content'] = $this->load->view('plan/strategy_form',array('header' => $header, 
 												'arr_prod' => $arr_prod, 'id' => $id, 'stgy' => $arr_strategy, 
 												),TRUE);
 
@@ -142,7 +156,7 @@ class Plan extends CI_Controller {
     		$arr_prod[$i]['id'] = $this->mwallet->return_prod_name($i);
     		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
     	}
-    	$list_ap = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	$list_ap = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
     	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
@@ -204,7 +218,7 @@ class Plan extends CI_Controller {
         if($this->mplan->insert_plan($program)){
         	$json['status'] = 1;
         	$plans = $this->mplan->get_plan($program['anchor_id'], $program['product']);
-        	$json['html'] = $this->load->view('grafik/action_plan/_list_action_plan',array('plans' => $plans),TRUE);
+        	$json['html'] = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
         }
         
         $this->output->set_content_type('application/json')
@@ -217,9 +231,9 @@ class Plan extends CI_Controller {
     	$comp['plan'] = $this->mplan->get_plan_by_id($plan_id);
     	
 		$json['status'] = 1;
-		$comp['form_update'] = $this->load->view('grafik/action_plan/_update_action_form',$comp,TRUE);
-		$comp['list_update'] = $this->load->view('grafik/action_plan/_list_updates',$updates,TRUE);
-		$json['html'] = $this->load->view('grafik/action_plan/_update_ap',$comp,TRUE);
+		$comp['form_update'] = $this->load->view('plan/_update_action_form',$comp,TRUE);
+		$comp['list_update'] = $this->load->view('plan/_list_updates',$updates,TRUE);
+		$json['html'] = $this->load->view('plan/_update_ap',$comp,TRUE);
     	
     	$this->output->set_content_type('application/json')
                      ->set_output(json_encode($json));
@@ -245,8 +259,8 @@ class Plan extends CI_Controller {
         	$json['status'] = 1;
         	$comp['plan'] = $this->mplan->get_plan_by_id($program['plan_id']);
         	$updates['updates'] = $this->mplan->get_plan_update($program['plan_id']);
-        	$json['list_update'] = $this->load->view('grafik/action_plan/_list_updates',$updates,TRUE);
-        	$json['form_update'] = $this->load->view('grafik/action_plan/_update_action_form',$comp,TRUE);
+        	$json['list_update'] = $this->load->view('plan/_list_updates',$updates,TRUE);
+        	$json['form_update'] = $this->load->view('plan/_update_action_form',$comp,TRUE);
         }
         
         $this->output->set_content_type('application/json')

@@ -42,7 +42,7 @@ class Mrealization extends CI_Model {
     }
     
     function get_anchor_al_realization($anchor_id, $year){
-    	$this->manchor->check_group($anchor_id,"month","realization");
+    	//$this->manchor->check_group($anchor_id,"month","realization");
     	$month = $this->session->userdata('rpttime')['month'];
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
@@ -163,7 +163,7 @@ class Mrealization extends CI_Model {
     
     function get_anchor_total_income($anchor_id, $year){
     	$month = $this->session->userdata('rpttime')['month'];
-    	$ws_realization = $this->get_anchor_ws_realization($anchor_id, $year);
+    	$ws_realization = $this->get_anchor_ws_realization($anchor_id, $year,"");
     	$al_realization = $this->get_anchor_al_realization($anchor_id, $year);
     	
 		return get_tot_income($ws_realization, $al_realization, $month, 9);

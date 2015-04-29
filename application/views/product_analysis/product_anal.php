@@ -85,7 +85,7 @@
 							<td>Target</td><td class="al-right"><?php echo number_format($target_inc,1,'.',',')?></td><td class="al-right"><?php echo number_format($target_inc_ly,1,'.',',')?></td>
 						</tr>
 						<tr class="pp_tit" style="border-top:1px solid #ebebeb">
-							<td>Margin</td><td class="al-right"><?php echo round($rlz[$prd_name_inc]/$rlz[$prd_name]*100,0)?>%</td><td class="al-right"><?php echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,0)?>%</td>
+							<td>Margin</td><td class="al-right"><?php echo round($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2)?>%</td><td class="al-right"><?php echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2)?>%</td>
 						</tr>
 					</table>
 				</div>
