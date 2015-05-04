@@ -8,28 +8,16 @@
 			</div><div style="clear:both"></div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label input-sm">Issue / Next Step</label>
+			<label class="col-sm-2 control-label input-sm">Issue</label>
 			<div class="col-sm-10">
 			  <textarea class="form-control" style="height:60px" placeholder="Issue / Next Step" name="issue"></textarea>
 			</div><div style="clear:both"></div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label input-sm">Supported Needed</label>
+			<label class="col-sm-2 control-label input-sm">Next Step / Supported Needed</label>
 			<div class="col-sm-10">
 			  <textarea class="form-control" style="height:60px" placeholder="Supported Needed" name="support"></textarea>
 			</div><div style="clear:both"></div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label input-sm">Due Date</label>
-			<div class="col-sm-4">
-			  <input type="text" class="form-control input-sm" placeholder="mm/dd/yy" name="due_date" id="due_date" value="">
-			</div><div style="clear:both"></div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label input-sm">PIC</label>
-			<div class="col-sm-4">
-			  <input type="text" class="form-control input-sm" placeholder="PIC" name="pic" id="pic" value="">
-			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label input-sm"></label>

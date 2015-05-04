@@ -161,7 +161,7 @@ class Plan extends CI_Controller {
     	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('grafik/action_plan',array('header' => $header, 
+		$data['content'] = $this->load->view('plan/action_plan',array('header' => $header, 
 												'arr_prod' => $arr_prod, 'id' => $id, 'level' => $level, 
 												'list_ap' => $list_ap,
 												'product_name' => $this->mwallet->change_real_name($product)),TRUE);
@@ -213,6 +213,8 @@ class Plan extends CI_Controller {
     	$program['anchor_id'] = $this->input->post('anchor');
     	$program['product'] = $this->input->post('product');
       	$program['action'] = $this->input->post('action');
+      	$program['pic'] = $this->input->post('pic');
+      	$program['due_date'] = $this->input->post('due_date');
         $program['user_id'] = $user['id'];
         $program['created'] = date("Y-m-d h:i:s");
         
@@ -248,11 +250,11 @@ class Plan extends CI_Controller {
       	$program['issue'] = $this->input->post('issue');
       	$program['support'] = $this->input->post('support');
       	
-      	if($this->input->post('due_date')){$start = DateTime::createFromFormat('m/d/Y', $this->input->post('due_date'));
+      	/*if($this->input->post('due_date')){$start = DateTime::createFromFormat('m/d/Y', $this->input->post('due_date'));
     		$program['due_date'] = $start->format('Y-m-d');
     	}
     	
-      	$program['pic'] = $this->input->post('pic');
+      	$program['pic'] = $this->input->post('pic');*/
         $program['user_id'] = $user['id'];
         $program['created'] = date("Y-m-d h:i:s");
         

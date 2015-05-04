@@ -29,6 +29,18 @@
 							</div><div style="clear:both"></div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label input-sm">PIC</label>
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" placeholder="PIC" name="pic">
+							</div><div style="clear:both"></div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label input-sm">Due Date</label>
+							<div class="col-sm-4">
+							  <input type="text" class="form-control input-sm" placeholder="mm/dd/yy" name="due_date" id="due_date" value="">
+							</div><div style="clear:both"></div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label input-sm"></label>
 							<div class="col-sm-10">
 								<button class="btn btn-lg btn-success btn-sm" type="submit" onclick="submit_ap();">Submit</button>
@@ -94,4 +106,8 @@
     		},
 		});
 	}
+	$('#due_date').datepicker({
+		autoclose: true,
+		todayHighlight: true
+	});
 </script>
