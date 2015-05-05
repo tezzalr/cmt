@@ -4,6 +4,13 @@
 	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2>
 	<span style="font-size:18px; color:#bbb">Value Chain </span>
 	<hr style="margin:10px 0 10px 0;">
+	<div style="margin-bottom:10px;">
+			<span class="circle circle-notyet circle-lg text-left"></span>Not Yet
+			<span class="circle circle-inprog circle-lg text-left" style="margin-left:10px"></span>Terakuisisi
+			<span class="circle circle-atrisk circle-lg text-left" style="margin-left:10px"></span>In Progress
+			<span class="circle circle-delay circle-lg text-left" style="margin-left:10px"></span>Gagal
+			
+		</div>
 	<div style="width:70%; float:left; padding:0 15px 0 0px">
 		<div class="panel panel-wsa">
 			<div class="panel-heading">List Value Chain</div>
