@@ -6,6 +6,7 @@ class Extfile extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('manchor');
+        $this->load->model('mvalue_chain');
         $this->load->model('muser');
         $this->load->library('excel');
         
@@ -45,14 +46,13 @@ class Extfile extends CI_Controller {
 			$data['sector'] = $arrres[$row][13];
 			$data['anchor_id'] = 164;
 			
-			$anchor = $this->manchor->get_anchor_by_name($data['name']);
-			
-			if($anchor){
+			$this->manchor->insert_value_chain($data);
+			/*if($anchor){
 				$this->manchor->update_anchor($data,$anchor->id);
 			}
 			else{
 				$this->manchor->insert_anchor_only($data);
-			}	
+			}*/	
 		}
 	}
 	
