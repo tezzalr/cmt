@@ -6,7 +6,7 @@ class Value_chain extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('manchor');
-        $this->load->model('mrealization');
+        $this->load->model('mvalue_chain');
         $this->load->model('mtarget');
         $this->load->model('mwallet');
         $this->load->library('excel');
@@ -34,6 +34,7 @@ class Value_chain extends CI_Controller {
     		$data['title'] = "Product - ".get_direktorat_full_name($anchor_id);
     		$anc_not = "group";
     	}
+		$content['vcs'] = $this->mvalue_chain->get_value_chain($anchor_id);
 		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
 		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
@@ -43,58 +44,14 @@ class Value_chain extends CI_Controller {
 		$this->load->view('front',$data);
     }
     
-    public function detail(){
-    	$rpttime = $this->session->userdata('rpttime');
-    	$year = $rpttime['year']; $content['year'] = $year; $content['month'] = $rpttime['month'];
-    	$data_rl_inc = array();
-    	$anchor_id = $this->uri->segment(4);
+    public function show_detail(){
+    	$id = $this->input->get('id');
     	
-    	if($this->uri->segment(3)=='anchor'){
-			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
-			$data['title'] = $content['anchor']->name;
-			$content['top_anc']="";
-    	}
-    	elseif($this->uri->segment(3)=='directorate'){
-    		$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($anchor_id);
-    		$content['dir']['code'] = $anchor_id;
-    		$data['title'] = get_direktorat_full_name($anchor_id);
-    		$anchors = $this->manchor->get_anchor_by_group_where($anchor_id);
-    		$i=0; $content['top_anc']=array();
-    		foreach($anchors as $anc){
-    			$content['top_anc'][$i]['anc'] = $anc['anc'];
-    			$content['top_anc'][$i]['real'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year'],"");
-    			$content['top_anc'][$i]['real_ly'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year']-1,"");
-    			$content['top_anc'][$i]['tot_inc'] = get_ws_income_month($content['top_anc'][$i]['real'],$content['month']);
-    			$content['top_anc'][$i]['tot_inc_ly'] = get_ws_income_month($content['top_anc'][$i]['real_ly'],$content['month']);
-    			if($content['top_anc'][$i]['tot_inc_ly']['tot']){
-    				$content['top_anc'][$i]['growth'] = (($content['top_anc'][$i]['tot_inc']['tot']/$content['top_anc'][$i]['tot_inc_ly']['tot'])-1)*100;
-    			}else{
-    				$content['top_anc'][$i]['growth'] = 100;
-    			}
-    			$i++;
-    		}
-    		usort($content['top_anc'], function($a, $b) {
-				return $b['growth'] - $a['growth'];
-			});
-			
-			for($k=1;$k<=7;$k++){
-				$c = "CB".$k;
-				$content['rlz_cb'][$k] = $this->mrealization->get_anchor_ws_realization($c, $rpttime['year'],"");
-				$content['inc_cb'][$k] = get_ws_income_month($content['rlz_cb'][$k],$content['month']);
-			}
-    	}		
+		$json['status'] = 1;
+		$comp['vc'] = $this->mvalue_chain->get_value_chain_by_id($id);
+		$json['html'] = $this->load->view('value_chain/_detail_vc',$comp,TRUE);
     	
-		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"");
-		$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year'],"");
-		$content['ly'] = $this->mrealization->count_realization_now($content['rlz_ws_ly']);
-		$content['now'] = $this->mrealization->count_realization_now($content['rlz_ws']);
-		
-		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
-	
-		$data['header'] = $this->load->view('shared/header','',TRUE);	
-		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('income/detail_info',$content,TRUE);
-
-		$this->load->view('front',$data);
+    	$this->output->set_content_type('application/json')
+                     ->set_output(json_encode($json));
     }
 }

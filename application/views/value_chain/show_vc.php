@@ -11,13 +11,20 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th></th><th>Relationship</th><th>Name</th><th>Kanwil</th><th>Omzet</th><th>Sector</th>
+							<th></th><th>Relationship</th><th>Name</th><th>Kanwil</th><th>Sector</th><th style="text-align:right">Omzet</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php for($i=1;$i<=132;$i++){?>
+						<?php foreach($vcs as $vc){?>
 						<tr>
-							<td><span class="circle circle-inprog circle-lg""></span></td><td>Grosir</td><td>MEGA INDAH</td><td>Kanwil 10</td><td>3,108,250</td><td>FMCG</td>
+							<td>
+								<span class="circle circle-notyet circle-lg""></span>
+							</td>
+							<td><?php echo $vc->relationship?></td>
+							<td><button type="button" class="btn-link" style="padding:0px; color:black;" onclick="show_detail(<?php echo $vc->id?>)"><?php echo $vc->name?></button></td>
+							<td><?php echo $vc->kanwil?></td>
+							<td><?php echo $vc->sector?></td>
+							<td style="text-align:right"><?php echo number_format($vc->omzet,0,'.',',')?></td>
 						</tr>
 						<?php }?>
 					</tbody>
@@ -29,15 +36,7 @@
 		<div class="panel panel-wsa">
 			<div class="panel-heading">Detail Info</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
-				<div>
-					<div style="color:#cacaca; font-size:12px">Name</div>
-					<div>MEGA INDAH</div>
-					<div style="color:#cacaca; font-size:12px">Address</div>
-					<div>Jl. Raya Pekalongan no 48, Purbalingga</div>
-					<div style="color:#cacaca; font-size:12px">Contact Person</div>
-					<div>Ade Shinta Ramadhani</div>
-					<div style="color:#cacaca; font-size:12px">Phone</div>
-					<div>+628527364783</div>
+				<div id="info_detail">
 				</div>
 			</div>
 		</div>
@@ -113,237 +112,18 @@
 </div>
 
 <script type="text/javascript">
-	$(function () {
-		var chart;
-	
-		$(document).ready(function () {
-		
-			// Build the chart
-			$('#container_wsa').highcharts({
-				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: true
-				},
-				legend: {
-					enabled: false
-				},
-				title: {
-					text: null
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							distance: 1,
-							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
-							style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
-                    }
-						},
-						showInLegend: true
-					}
-				},
-				series: [{
-					type: 'pie',
-					name: 'Income share',
-					innerSize: '30%',
-					data: [
-						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income_ly?>, color:"#eda32b"},
-						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income_ly?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
-						{name: 'Trade Finance', y: <?php echo $trd_income_ly?>, color:"grey"},
-						<?php }if($lnfee_income){?>
-						{name: 'Loan Fee', y: <?php echo $lnfee_income_ly?>, color:"#b3b3b3"},
-						<?php }if($otr_income){?>
-						{name: 'Others', y: <?php echo $otr_income_ly?>, color:"#d1d1d1"},
-						<?php }?>
-					]
-				}]
-			});
+	function show_detail(id){
+		$.ajax({
+			type: "GET",
+			url: config.base+"value_chain/show_detail",
+			data: {id: id},
+			dataType: 'json',
+			cache: false,
+			success: function(resp){
+				if(resp.status==1){
+					$("#info_detail").html(resp.html);
+				}else{}
+			}
 		});
-	
-	});
-</script>
-
-<script type="text/javascript">
-	$(function () {
-		var chart;
-	
-		$(document).ready(function () {
-		
-			// Build the chart
-			$('#container_wsa2').highcharts({
-				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: true
-				},
-				legend: {
-					enabled: false
-				},
-				title: {
-					text: null
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							distance: 1,
-							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
-							style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
-                    }
-						},
-						showInLegend: true
-					}
-				},
-				series: [{
-					type: 'pie',
-					name: 'Income share',
-					innerSize: '30%',
-					data: [
-						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
-						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
-						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
-						<?php }if($lnfee_income){?>
-						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
-						<?php }if($otr_income){?>
-						{name: 'Others', y: <?php echo $otr_income?>, color:"#d1d1d1"},
-						<?php }?>
-					]
-				}]
-			});
-		});
-	
-	});
-</script>
-<script type="text/javascript">
-	$(function () {
-		var chart;
-	
-		$(document).ready(function () {
-		
-			// Build the chart
-			$('#container_wsa2').highcharts({
-				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: true
-				},
-				legend: {
-					enabled: false
-				},
-				title: {
-					text: null
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							distance: 1,
-							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
-							style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
-                    }
-						},
-						showInLegend: true
-					}
-				},
-				series: [{
-					type: 'pie',
-					name: 'Income share',
-					innerSize: '30%',
-					data: [
-						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
-						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
-						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
-						<?php }if($lnfee_income){?>
-						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
-						<?php }if($otr_income){?>
-						{name: 'Others', y: <?php echo $otr_income?>, color:"#d1d1d1"},
-						<?php }?>
-					]
-				}]
-			});
-		});
-	
-	});
-</script>
-
-<script type="text/javascript">
-	$(function () {
-		var chart;
-	
-		$(document).ready(function () {
-		
-			// Build the chart
-			$('#container_wsa3').highcharts({
-				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: true
-				},
-				legend: {
-					enabled: false
-				},
-				title: {
-					text: null
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							distance: 1,
-							format: '<b>{point.name}</b>:<br> {point.percentage:.1f} %',
-							style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor), fontSize: "9px"
-                    }
-						},
-						showInLegend: true
-					}
-				},
-				series: [{
-					type: 'pie',
-					name: 'Income share',
-					innerSize: '30%',
-					data: [
-						<?php $h=1; foreach($inc_cb as $cb){?>
-								
-							{name: 'CB <?php echo $h?>', y: <?php echo $cb['tot']?>, color:"#eda32b"},
-						<?php $h++; }?>
-					]
-				}]
-			});
-		});
-	
-	});
+	}
 </script>
