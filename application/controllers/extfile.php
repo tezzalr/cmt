@@ -46,7 +46,7 @@ class Extfile extends CI_Controller {
 			$data['sector'] = $arrres[$row][13];
 			$data['anchor_id'] = 164;
 			
-			$this->manchor->insert_value_chain($data);
+			$this->mvalue_chain->insert_value_chain($data);
 			/*if($anchor){
 				$this->manchor->update_anchor($data,$anchor->id);
 			}
