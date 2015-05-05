@@ -23,6 +23,39 @@ class Extfile extends CI_Controller {
 		redirect('program/list_programs');
     }
 	
+	public function input_data_vc(){
+		$exel = $this->read_excel("Daftar VC.xlsx",1);
+    	$arrres = array(); $s=0;
+		for ($row = 2; $row <= $exel['row']; ++$row) {
+			$data = "";
+			for ($col = 0; $col < $exel['col']; ++$col) {
+				$arrres[$row][$col] = $exel['wrksheet']->getCellByColumnAndRow($col, $row)->getValue();
+			}
+			
+			$data['name'] = $arrres[$row][5];
+			$data['relationship'] = $arrres[$row][3];
+			$data['cif'] = $arrres[$row][4];
+			$data['address'] = $arrres[$row][6];
+			$data['kanwil'] = $arrres[$row][7];
+			$data['area'] = $arrres[$row][8];
+			$data['contact_person'] = $arrres[$row][9];
+			$data['telp'] = $arrres[$row][10];
+			$data['email'] = $arrres[$row][11];
+			$data['omzet'] = $arrres[$row][12];
+			$data['sector'] = $arrres[$row][13];
+			$data['anchor_id'] = 164;
+			
+			$anchor = $this->manchor->get_anchor_by_name($data['name']);
+			
+			if($anchor){
+				$this->manchor->update_anchor($data,$anchor->id);
+			}
+			else{
+				$this->manchor->insert_anchor_only($data);
+			}	
+		}
+	}
+	
 	public function input_data_anchor(){
 		$exel = $this->read_excel("Data Anchor.xlsx",1);
     	$arrres = array(); $s=0;

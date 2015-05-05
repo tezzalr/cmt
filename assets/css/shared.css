@@ -181,3 +181,26 @@ input.valid{
 	display:block;
 	font-weight:bold;
 }
+
+.circle.text-left{margin-left:0;}
+.circle{
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	border-radius: 500px;
+	margin: 0 .5em;
+	background-color: #ddd;
+	vertical-align: baseline;
+	border: 2px solid transparent;
+}
+.circle-lg{
+	width: 14px;
+	height: 14px;
+}
+.circle-notyet{background-color:#bbb;}
+.circle-inprog{background-color:#27c24c;}
+.circle-delay{background-color:#FF0000;}
+.circle-atrisk{background-color:#F6C600;}
+.circle-completed{background-color:#337ab7;}
+
+.text-left{text-align:left;}

@@ -11,7 +11,7 @@
 	<div class="pull-right" style="padding-right:10px;">
 		<a href="<?php echo base_url()?>plan/edit_strategy/<?php echo $anchor->id?>" class="btn btn-success btn-sm">Edit Strategy</a>
 	</div>
-	<hr>
+	<hr style="margin:10px 0 10px 0;">
 	<div>
 		<div>
 			<span style="color:#eda32b" class="glyphicon glyphicon-signal" aria-hidden="true"></span> : Progress
