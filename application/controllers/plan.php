@@ -169,6 +169,39 @@ class Plan extends CI_Controller {
 		$this->load->view('front',$data);
     }
     
+    public function edit_action_plan(){
+		$id = $this->input->get('id');
+    	$content['plan'] = $this->mplan->get_plan_by_id($id);
+    	$content['anchor'] = $this->input->get('anchor');
+    	$content['product'] = $this->input->get('product');
+    	if($id){
+			if($content['plan']){
+				$json['status'] = 1;
+				$json['html'] = $this->load->view('plan/_form_action_plan',$content,TRUE);
+			}else{
+				$json['status'] = 0;
+			}
+		}
+		else{
+			$json['status'] = 1;
+				$json['html'] = $this->load->view('plan/_form_action_plan',$content,TRUE);
+		}
+		$this->output->set_content_type('application/json')
+                     ->set_output(json_encode($json));
+	}
+	
+	public function delete_plan(){
+        if($this->mplan->delete_plan($this->input->post('id'))){
+        	
+    		$json['status'] = 1;
+    	}
+    	else{
+    		$json['status'] = 0;
+    	}
+    	$this->output->set_content_type('application/json')
+                     ->set_output(json_encode($json));
+	}
+    
     public function refresh_product(){
     	$prod = $this->input->post('product');
     	$level = $this->uri->segment(3);
@@ -209,21 +242,28 @@ class Plan extends CI_Controller {
     
     public function submit_action_plan(){
     	$user = $this->session->userdata('userdb');
+    	$id = $this->input->post('id');
     	
     	$program['anchor_id'] = $this->input->post('anchor');
     	$program['product'] = $this->input->post('product');
       	$program['action'] = $this->input->post('action');
       	$program['pic'] = $this->input->post('pic');
-      	$program['due_date'] = $this->input->post('due_date');
+      	if($this->input->post('due_date')){$start = DateTime::createFromFormat('m/d/Y', $this->input->post('due_date'));
+    		$program['due_date'] = $start->format('Y-m-d');
+    	}
+      	//$program['due_date'] = $this->input->post('due_date');
         $program['user_id'] = $user['id'];
         $program['created'] = date("Y-m-d h:i:s");
         
-        if($this->mplan->insert_plan($program)){
-        	$json['status'] = 1;
-        	$plans = $this->mplan->get_plan($program['anchor_id'], $program['product']);
-        	$json['html'] = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
+        if($id){
+        	if($this->mplan->update_plan($program,$id)){$json['status'] = 1;}
         }
-        
+        else{
+			if($this->mplan->insert_plan($program)){$json['status'] = 1;}
+        }
+        $plans = $this->mplan->get_plan($program['anchor_id'], $program['product']);
+		$json['html'] = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
+		
         $this->output->set_content_type('application/json')
                      ->set_output(json_encode($json));
     }

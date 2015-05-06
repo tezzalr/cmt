@@ -38,6 +38,11 @@ class Mplan extends CI_Model {
         $this->db->where('anchor_id',$anchor_id);
         return $this->db->update('strategy', $program);
     }
+    
+    function update_plan($program,$id){
+        $this->db->where('id',$id);
+        return $this->db->update('plan', $program);
+    }
         
     //GET FUNCTION
     function get_plan($anchor_id,$product){
@@ -78,6 +83,17 @@ class Mplan extends CI_Model {
     }
     
     //DELETE FUNCTION
+    
+    function delete_plan($id){
+    	$this->db->where('id',$id);
+    	$this->db->delete('plan');
+    	if($this->db->affected_rows()>0){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
     
     function delete_strategy($prod,$anchor_id){
     	$this->db->where('product',$prod);

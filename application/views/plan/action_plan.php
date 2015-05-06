@@ -15,39 +15,10 @@
 			</div>
 			<div style="float: left; width:50%;">
 				<h4 style="float:left">Daftar Action Plan</h4>
-				<button style="float:right; margin-right:10px" class="btn btn-primary btn-xs" onclick="toggle_visibility('form_input_action_plan');">
+				<button style="float:right; margin-right:10px" class="btn btn-primary btn-xs" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
 					<span class="glyphicon glyphicon-plus"></span> Action Plan
 				</button><div style="clear:both"></div><hr style="margin:0px">
 				<div id="form_input_action_plan" style="display:none; margin-top:20px">
-					<form class="form-horizontal" action="<?php echo base_url();?>plan/submit_action_plan" method ="post" id="formap" role="form">
-						<input type="hidden" name="product" value="<?php echo $this->uri->segment(5)?>">
-						<input type="hidden" name="anchor" value="<?php echo $this->uri->segment(4)?>">
-						<div class="form-group">
-							<label class="col-sm-2 control-label input-sm">Action Plan</label>
-							<div class="col-sm-10">
-							  <textarea class="form-control" style="height:120px" placeholder="Action Plan" name="action"></textarea>
-							</div><div style="clear:both"></div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label input-sm">PIC</label>
-							<div class="col-sm-10">
-							  <input type="text" class="form-control" placeholder="PIC" name="pic">
-							</div><div style="clear:both"></div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label input-sm">Due Date</label>
-							<div class="col-sm-4">
-							  <input type="text" class="form-control input-sm" placeholder="mm/dd/yy" name="due_date" id="due_date" value="">
-							</div><div style="clear:both"></div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label input-sm"></label>
-							<div class="col-sm-10">
-								<button class="btn btn-lg btn-success btn-sm" type="submit" onclick="submit_ap();">Submit</button>
-							</div>
-						</div>
-						<hr>
-					</form>
 				</div>
 				<div style="margin-top:20px" id="list_ap">
 					<?php echo $list_ap?>
@@ -85,6 +56,43 @@
 				if(resp.status==1){
 					$("#list_update").html(resp.html);
 				}else{}
+			}
+		});
+	}
+	
+	function edit_plan(id,anchor,product){
+		$.ajax({
+			type: "GET",
+			url: config.base+"plan/edit_action_plan",
+			data: {id: id, anchor: anchor, product: product},
+			dataType: 'json',
+			cache: false,
+			success: function(resp){
+				if(resp.status==1){
+					if($('#form_input_action_plan').css('display') == 'none'){
+						$('#form_input_action_plan').animate({'height':'toggle','opacity':'toggle'});
+					}
+					$("#form_input_action_plan").html(resp.html);
+				}else{}
+			}
+		});
+	}
+	
+	function delete_plan(id, event){
+		bootbox.confirm("Apa anda yakin?", function(confirmed) {
+			if(confirmed===true){
+				$.ajax({
+					url: config.base+"plan/delete_plan",
+					data: {id: id},
+					dataType: 'json',
+					type: "POST",
+					success: function (resp) {
+						if(resp.status == 1){
+							$('#plan_'+id).animate({'opacity':'toggle'});
+							succeedMessage('Action Plan berhasil dihapus');
+						}
+					}
+				});
 			}
 		});
 	}
