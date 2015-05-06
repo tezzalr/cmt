@@ -1,7 +1,16 @@
 <?php echo $sidebar?>
 
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2>
+	<h2 style="margin-bottom:0px;">
+		<?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?>
+		<button class="btn btn-link" onclick="toggle_visibility('contact_id')"><span style="color:#bababa; font-size:16px" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+	</h2>
+	<div style="display:none" id="contact_id">
+		<div style="color:#bababa">Contact Person</div>
+		Martha Viona (0812-8613-3839) / (0812-2115-9888)<br>
+		Hally CB1 (0812-8531-9261)
+		<br><br>
+	</div>
 	<span style="font-size:18px; color:#bbb">Value Chain </span>
 	<hr style="margin:10px 0 10px 0;">
 	<div style="margin-bottom:10px;">
@@ -39,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="width:30%; float:left; padding:0 5px 0 0px">
+	<div style="width:25%; float:left; padding:0 5px 0 0px; position:fixed; right:5px;">
 		<div class="panel panel-wsa">
 			<div class="panel-heading">Detail Info</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
@@ -99,7 +108,7 @@
 					</div>
 					<hr>
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-3 control-label">Sort by : </label>
+						<label for="inputPassword3" class="col-sm-3 control-label">Sort : </label>
 						<div class="col-sm-7">
 						  <select class="form-control">
 							<option>Relationship</option>
