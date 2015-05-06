@@ -54,7 +54,32 @@
 			</div>
 		</div>
 	</div>
-	<div style="width:25%; float:left; padding:0 5px 0 0px; position:fixed; right:5px;">
+	<div style="width:30%; float:left; padding:0 5px 0 0px;">
+		<div class="panel panel-wsa">
+			<div class="panel-heading">Update Info</div>
+			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+				<div id="update_info">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-3 control-label">Status : </label>
+							<div class="col-sm-8">
+							  <select class="form-control">
+								<option>Not Yet</option>
+								<option>Terakuisisi</option>
+								<option>In Progress</option>
+								<option>Gagal</option>
+							</select>
+							</div>
+						</div><hr>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea class="form-control" style="height:120px" placeholder="Notes" name="action"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<div class="panel panel-wsa">
 			<div class="panel-heading">Detail Info</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">

@@ -3,7 +3,7 @@
 <style>
 	.pp_tit{
 		font-size:20px;
-		color:black;
+		color:#eda32b;
 	}
 	table td{
 		 padding:1px 0 1px 0;
@@ -48,12 +48,12 @@
 				<?php 
 					$delta_vol = $rlz[$prd_name]-$rlzly[$prd_name]; if($delta_vol>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 				?>
-				<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:black"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:black"><?php echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2)?>%</span></p>
+				<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b"><?php echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2)?>%</span></p>
 				<hr>
 				<?php 
 					$delta_inc = $rlz[$prd_name_inc]-$rlzly[$prd_name_inc]; if($delta_inc>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 				?>
-				<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:black"> <?php echo $cur." ".number_format(abs($delta_inc),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:black"><?php echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2)?>%</span></p>
+				<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_inc),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b"><?php echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2)?>%</span></p>
 			</div>
 		</div>
 	</div>

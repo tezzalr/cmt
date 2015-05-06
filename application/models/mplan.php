@@ -88,6 +88,18 @@ class Mplan extends CI_Model {
     	$this->db->where('id',$id);
     	$this->db->delete('plan');
     	if($this->db->affected_rows()>0){
+    		$this->delete_plan_plan_update($id);
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
+    function delete_plan_plan_update($plan_id){
+    	$this->db->where('plan_id',$plan_id);
+    	$this->db->delete('plan_update');
+    	if($this->db->affected_rows()>0){
     		return true;
     	}
     	else{
