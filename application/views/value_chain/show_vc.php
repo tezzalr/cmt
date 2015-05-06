@@ -22,8 +22,14 @@
 		</div>
 	<div style="width:70%; float:left; padding:0 15px 0 0px">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">List Value Chain</div>
+			<div class="panel-heading">
+				List Value Chain
+				<div class="pull-right"><button onclick="toggle_visibility('bisnismodel')" class="btn btn-link" style="color:#bababa; margin-top:-5px">Bisnis Model</button></div>
+				<div class="pull-right" style="margin-right:20px"><button onclick="toggle_visibility('petavc')" class="btn btn-link" style="color:#bababa; margin-top:-5px">Peta VC</button></div>
+			</div>
 			<div class="panel-body" style="padding:5px 0px 5px 0px;" id="body-info">
+				<div id="petavc" style="display:none"><img width='100%' src="<?php echo base_url()?>assets/img/vc/<?php echo $anchor->name?>/Peta.png"></div>
+				<div id="bisnismodel" style="display:none"><img width='100%' src="<?php echo base_url()?>assets/img/vc/<?php echo $anchor->name?>/Bisnis Model.png"></div>
 				<table class="table table-striped">
 					<thead>
 						<tr>
