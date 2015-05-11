@@ -47,6 +47,9 @@
 			<li>
 				<a href="<?php echo base_url()?>product/top_transaksi/CASA"><i class="fa fa-lightbulb-o fa-fw"></i> Product</a>
 			</li>
+			<li>
+				<a href="<?php echo base_url()?>scorecard/show/"><i class="fa fa-lightbulb-o fa-fw"></i> Scorecard</a>
+			</li>
 		</ul>
 		<hr style="margin:0 0 0 0">
 	</div>

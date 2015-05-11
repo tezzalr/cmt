@@ -1,5 +1,6 @@
+<?php echo $sidebar?>
 <?php $arrsc = array('platinum','gold','silver');?>
-<div id="" class="container no_pad">
+<div id="" class="content">
 	<div>
 		<h3>Scorecard Wholesale Income</h3>
 		<?php for($a=0;$a<3;$a++){?>

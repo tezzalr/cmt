@@ -75,10 +75,11 @@ class Scorecard extends CI_Controller {
 				if($ring==1){$s1++;}elseif($ring==2){$s2++;}else{$s3++;}
 			}
 		}
-		
+		$content['sidebar'] = $this->load->view('shared/sidebar',array('anchor'=>"", 'dir'=>""),TRUE);
+		$content['scs']=$arrsc;
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('scorecard/scorecard_table',array('scs'=>$arrsc),TRUE);
+		$data['content'] = $this->load->view('scorecard/scorecard_table',$content,TRUE);
 
 		$this->load->view('front',$data);
         
