@@ -138,33 +138,35 @@ class Plan extends CI_Controller {
     public function show(){
     	$rpttime = $this->session->userdata('rpttime');
     	$product = $this->uri->segment(5);
+    	$anchor_id = $this->uri->segment(4);
     	if($this->uri->segment(3)=='anchor'){
-			$anchor_id = $this->uri->segment(4);
 			$anchor = $this->manchor->get_anchor_by_id($anchor_id);
     		
     		$plans = $this->mplan->get_plan($anchor_id, $product);
     		
 			$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);
 			$data['title'] = "Action Plan - $anchor->name";
-			$id = $anchor_id;
-			$level = 'anchor';
+			$content['id'] = $anchor_id;
+			$content['level'] = 'anchor';
 		}
 		elseif($this->uri->segment(3)=='directorate'){
-			
+			$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($anchor_id);
+    		$content['dir']['code'] = $anchor_id;
 		}
 		$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){
     		$arr_prod[$i]['id'] = $this->mwallet->return_prod_name($i);
     		$arr_prod[$i]['name'] = $this->mwallet->change_real_name($arr_prod[$i]['id']);
     	}
-    	$list_ap = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	$content['prod_name'] = $this->mwallet->change_real_name($product);
+    	$content['arr_prod'] = $arr_prod;
+    	$content['list_ap'] = $this->load->view('plan/_list_action_plan',array('plans' => $plans),TRUE);
+    	$content['product_name'] = $this->mwallet->change_real_name($product);
+    	$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
     	
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('plan/action_plan',array('header' => $header, 
-												'arr_prod' => $arr_prod, 'id' => $id, 'level' => $level, 
-												'list_ap' => $list_ap,
-												'product_name' => $this->mwallet->change_real_name($product)),TRUE);
+		$data['content'] = $this->load->view('plan/action_plan',$content,TRUE);
 
 		$this->load->view('front',$data);
     }

@@ -1,27 +1,31 @@
-<div id="" class="container no_pad">
-	<?php echo $header?>
+<?php echo $sidebar?>
+<div class="content">
+	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
+	<span style="font-size:18px; color:#bbb">Action Plan & Progress / <?php echo $prod_name?></span>
+	<div class="pull-right" style="padding-right:10px;">
+		<select class="btn-wsa" name="product" onchange="if (this.value) window.location.href=this.value">
+			<?php foreach($arr_prod as $prod){?>
+			<option value="<?php echo base_url()."plan/show/".$kind."/".$id_nas."/".$prod['id']?>" <?php if($this->uri->segment(5)==$prod['id']){echo "selected";}?>><?php echo $prod['name']?></option>
+			<?php }?>
+		</select>
+	</div>
+	<hr style="margin:10px 0 10px 0;">
 	<div>
 		<div>
-			<div style="margin-bottom: 20px;">
-				<form method="post" action="<?php echo base_url()?>plan/refresh_product/<?php echo $level?>/<?php echo $id?>">
-					<label style="margin-right:18px;">Produk:</label> 
-					<select name="product">
-						<?php foreach($arr_prod as $prod){?>
-						<option value="<?php echo $prod['id']?>" <?php if($this->uri->segment(5)==$prod['id']){echo "selected";}?>><?php echo $prod['name']?></option>
-						<?php }?>
-					</select>
-					<button type="submit" class="btn btn-default btn-xs">Tampilkan</button>
-				</form>
-			</div>
 			<div style="float: left; width:50%;">
-				<h4 style="float:left">Daftar Action Plan</h4>
-				<button style="float:right; margin-right:10px" class="btn btn-primary btn-xs" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
-					<span class="glyphicon glyphicon-plus"></span> Action Plan
-				</button><div style="clear:both"></div><hr style="margin:0px">
-				<div id="form_input_action_plan" style="display:none; margin-top:20px">
-				</div>
-				<div style="margin-top:20px" id="list_ap">
-					<?php echo $list_ap?>
+				<div class="panel panel-wsa">
+					<div class="panel-heading">Daftar Action Plan
+						<button style="float:right; margin-right:10px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
+							<span class="glyphicon glyphicon-plus"></span> Action Plan
+						</button><div style="clear:both"></div>
+					</div>
+					<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+						<div id="form_input_action_plan" style="display:none; margin-top:20px">
+						</div>
+						<div style="margin-top:20px" id="list_ap">
+							<?php echo $list_ap?>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div style="float: left; width:50%; padding-left:40px" id="list_update">

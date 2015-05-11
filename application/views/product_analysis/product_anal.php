@@ -41,6 +41,97 @@
 	</div>
 	<hr>
 	<div>
+	<div id="japs_coloumn">
+		<h4>JAPS Form</h4>
+		<div style="width:33%; float:left; padding-right:10px">
+			<div class="panel panel-wsa">
+				<div class="panel-heading">WSA Form</div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+					<div>
+						<div class="pull-right" style="font-size:13px; color:#9a9a9a">Wallet Size</div>
+						<div style="clear:both">Rp 3.9 M</div>
+						<p>Asumsinya adalah . . . . .</p>
+					</div><hr>
+					<div>
+						<div class="pull-right" style="font-size:13px; color:#9a9a9a">Target</div>
+						<div style="clear:both">Rp 2.1 M</div>
+						<p>Asumsinya adalah . . . . .</p>
+						<div>80% Share of Wallet</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="width:33%; float:left; padding-right:20px">
+			<div class="panel panel-wsa">
+				<div class="panel-heading">RM Form</div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+					<form class="form-horizontal">
+					<div>
+						<div class="pull-right" style="font-size:13px; color:#9a9a9a">Wallet Size</div>
+						<div style="clear:both" class="form-group">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" placeholder="Wallet Size">
+							</div><br><br>
+							<div class="col-sm-12">
+								<textarea class="form-control" placeholder="Asumsi"></textarea>
+							</div>
+						</div>
+					</div><hr>
+					<div>
+						<div class="pull-right" style="font-size:13px; color:#9a9a9a">Target</div>
+						<div style="clear:both" class="form-group">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" placeholder="Target">
+							</div><br><br>
+							<div class="col-sm-12">
+								<textarea class="form-control" placeholder="Asumsi"></textarea>
+							</div>
+						</div>
+					</div>
+					<div>80% Share of Wallet</div>
+					<hr>
+					<button class="btn btn-success btn-sm">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div style="width:34%; float:left">
+			<div class="panel panel-wsa">
+				<div class="panel-heading">Indicator</div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+					Berikut ini adalah beberapa indikator yang digunakan untuk menentukan target:<br><br>
+					<div style="font-size:14px;">Growth RKAP (10%) : Rp 5 M</div>
+					<div style="font-size:14px;">Target by Group (10%) : Rp 5 M</div>
+					<div style="font-size:14px;">Growth Tahun Lalu (10%) : Rp 5 M</div>
+				</div>
+			</div>
+			<div class="panel panel-wsa">
+				<div class="panel-heading">Chat Room</div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+				<div>
+					<div style="border-bottom:1px dashed #dbdbdb; margin-bottom:5px">
+						<div style="font-size:12px; color:#9b9b9b"><span>Erwanza Nirwan</span><span class="pull-right">15 Mei 2015</span></div>
+						<p>Kenapa bisa segini ini targetnya?</p>
+					</div>
+					<div>
+						<div style="font-size:12px; color:#9b9b9b"><span>Devi el Yusak</span><span class="pull-right">15 Mei 2015</span></div>
+						<p>Karena cintaku padamu</p>
+					</div>
+				</div>
+				<hr>
+				<form class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<textarea class="form-control"></textarea>
+						</div>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<hr>
+	</div>
 	<div style="width:25%; float:left; padding:0 5px 0 5px">
 		<div class="panel panel-wsa">
 			<div class="panel-heading">Summary</div>
