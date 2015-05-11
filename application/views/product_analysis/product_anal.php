@@ -110,12 +110,12 @@
 				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div>
 					<div style="border-bottom:1px dashed #dbdbdb; margin-bottom:5px">
-						<div style="font-size:12px; color:#9b9b9b"><span>Erwanza Nirwan</span><span class="pull-right">15 Mei 2015</span></div>
+						<div style="font-size:12px; color:#9b9b9b"><span>User 1</span><span class="pull-right">15 Mei 2015</span></div>
 						<p>Kenapa bisa segini ini targetnya?</p>
 					</div>
 					<div>
-						<div style="font-size:12px; color:#9b9b9b"><span>Devi el Yusak</span><span class="pull-right">15 Mei 2015</span></div>
-						<p>Karena cintaku padamu</p>
+						<div style="font-size:12px; color:#9b9b9b"><span>User 2</span><span class="pull-right">15 Mei 2015</span></div>
+						<p>Mengikuti growth tahun lalu</p>
 					</div>
 				</div>
 				<hr>
