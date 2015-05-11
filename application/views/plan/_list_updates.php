@@ -3,8 +3,8 @@
 		<div class="panel panel-wsa" style="margin-right:15px">
 			<div class="panel-heading">
 				<span>
-					<button class="btn btn-warning  btn-xs" onclick="edit_plan(<?php echo $update->id?>,'<?php echo $plan->anchor_id?>','<?php echo $plan->product?>')"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger btn-xs" onclick="delete_plan(<?php echo $update->id?>)"><span class="glyphicon glyphicon-trash"></span></button>
+					<button class="btn btn-warning  btn-xs" onclick=""><span class="glyphicon glyphicon-pencil"></span></button>
+					<button class="btn btn-danger btn-xs" onclick=""><span class="glyphicon glyphicon-trash"></span></button>
 				</span>
 				<div class="pull-right" style="font-size:12px; color:grey">Updated : <?php 
 						$date = date("Y-m-d", strtotime($update->created));
