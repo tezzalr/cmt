@@ -32,7 +32,11 @@
 				<a href="<?php echo base_url()?>report/relation_income/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+				<?php if($data_a == "directorate"){?>
+					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+				<?php }else{?>
+					<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+				<?php }?>
 			</li>
 			<li>
 				<a href="<?php echo base_url()?>value_chain/show/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Value Chain</a>

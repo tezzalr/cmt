@@ -82,6 +82,36 @@ class Mplan extends CI_Model {
         return $query->result();
     }
     
+    function get_plan_with_latest_issue_by_prod($anchor_id,$type,$product){
+    	$arr_plan = array(); $i=0;
+    	if($type=="directorate"){
+    		$this->db->join('anchor', 'anchor.id = plan.anchor_id');
+    		get_direktorat_where($anchor_id,$this);
+    	}
+    	else{
+    		$this->db->where('anchor_id', $anchor_id);
+    	}
+    	$this->db->select('plan.*,user.name as name,anchor.name as anchor_name');
+    	$this->db->where('plan.product', $product);
+    	$this->db->join('user', 'user.id = plan.user_id');
+    	
+    	$this->db->order_by('plan.id', 'asc');
+    	$this->db->order_by('anchor.name', 'asc');
+    	$query = $this->db->get('plan');
+        $plans = $query->result();
+    	foreach($plans as $plan){
+    		$update = $this->get_plan_update($plan->id);
+    		if($update){
+    			if($update[0]->issue){
+    				$arr_plan[$i]['plan'] = $plan;
+    				$arr_plan[$i]['update'] = $update[0];
+    				$i++;
+    			}
+    		}
+    	}
+    	return $arr_plan;
+    }
+    
     //DELETE FUNCTION
     
     function delete_plan($id){

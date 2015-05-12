@@ -38,12 +38,24 @@
 							<div class="small-title pull-right" style="font-size:11px">Action Plan</div>
 							<div style="clear:both"></div>
 							<div>
-								<div><button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan</button></div>
+								<div>
+									<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan</button>
+								</div>
 								<div style="display:none;" id="prd_<?php echo $stg['strategy']->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
 									<?php foreach($stg['ap'] as $ap){?>
 										<div style="margin-bottom:8px">
 											<div>
-												<button type="button" class="btn-link" style="color:black; margin:0px; padding:0px; text-align:left" onclick="toggle_visibility('ap_<?php echo $ap['ap']->id?>');"><?php echo $ap['ap']->action?></button>
+												<div style="float:left; width:5%;">
+													<?php 
+														if($ap['ap']->status=="Status 1"){$circ = "notyet";}
+														elseif($ap['ap']->status=="Status 2"){$circ = "inprog";}
+														elseif($ap['ap']->status=="Status 3"){$circ = "atrisk";}
+													?>
+													<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>
+												</div>
+												<div style="float:left; width:95%">
+													<button type="button" class="btn-link" style="color:black; margin:0px; padding:0px; text-align:left" onclick="toggle_visibility('ap_<?php echo $ap['ap']->id?>');"><?php echo $ap['ap']->action?></button>
+												</div><div style="clear:both"></div>
 											</div>
 											<div style="display:none; margin-top:10px" id="ap_<?php echo $ap['ap']->id?>">
 												<div>

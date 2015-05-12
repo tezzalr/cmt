@@ -15,9 +15,22 @@
 			<div style="float: left; width:50%;">
 				<div class="panel panel-wsa">
 					<div class="panel-heading">Daftar Action Plan
-						<button style="float:right; margin-right:10px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
+						<div style="float:right;">
+						<div id="btn-add-ap">
+						<button style="margin-right:10px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
 							<span class="glyphicon glyphicon-plus"></span> Action Plan
-						</button><div style="clear:both"></div>
+						</button>
+						</div>
+						<div id="btn-add-uap" style="display:none">
+							<button style="margin-right:2px;" class="btn btn-wsa btn-xs" onclick="show_all_ap();">
+								<span class="glyphicon glyphicon-list"></span>
+							</button>
+							<button style="margin-right:10px;" class="btn btn-wsa btn-xs" onclick="toggle_visibility('form_input_update_plan');">
+								<span class="glyphicon glyphicon-plus"></span> Update
+							</button>
+						</div>
+						</div>
+						<div style="clear:both"></div>
 					</div>
 					<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 						<div id="form_input_action_plan" style="display:none; margin-top:20px">
@@ -58,6 +71,10 @@
 			cache: false,
 			success: function(resp){
 				if(resp.status==1){
+					$(".plan_member").css("cssText", "display: none;");
+					$("#plan_"+id).css("cssText", "display: block");
+					$("#btn-add-ap").css("cssText", "display: none");
+					$("#btn-add-uap").css("cssText", "display: block");
 					$("#list_update").html(resp.html);
 				}else{}
 			}
@@ -99,6 +116,13 @@
 				});
 			}
 		});
+	}
+	
+	function show_all_ap(){
+		$(".plan_member").css("cssText", "display: block;");
+		$("#btn-add-ap").css("cssText", "display: block");
+		$("#btn-add-uap").css("cssText", "display: none");
+		$("#list_update").html('');
 	}
 	
 	function submit_update(){

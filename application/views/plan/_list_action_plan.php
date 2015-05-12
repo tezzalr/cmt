@@ -1,8 +1,18 @@
 <div>
 	<?php foreach($plans as $plan){?>
-		<div id="plan_<?php echo $plan->id?>">
-			<a href="#" onclick="show_update(<?php echo $plan->id?>)"><h4><?php echo $plan->action?></h4></a>
-			<div style="font-size:13px; color:grey;">
+		<div id="plan_<?php echo $plan->id?>" class="plan_member">
+			<div>
+				<div style="float:left; width:5%; margin-top:3px;">
+					<?php 
+						if($plan->status=="Status 1"){$circ = "notyet";}
+						elseif($plan->status=="Status 2"){$circ = "inprog";}
+						elseif($plan->status=="Status 3"){$circ = "atrisk";}
+					?>
+					<span class="circle circle-<?php echo $circ?> circle-lg text-left"></span>
+				</div>
+				<div style="float:left; width:95%; font-size:16px"><a href="#" onclick="show_update(<?php echo $plan->id?>)"><?php echo $plan->action?></a></div>
+			</div><div style="clear:both"></div>
+			<div style="font-size:13px; color:grey; margin-top:10px;">
 				<span style="float:left">PIC: <?php echo $plan->pic?></span>
 			
 				<span style="float:right">

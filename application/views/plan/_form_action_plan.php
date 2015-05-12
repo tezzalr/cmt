@@ -21,6 +21,16 @@
 		</div><div style="clear:both"></div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-2 control-label input-sm">Due Date</label>
+		<div class="col-sm-4">
+			<select class="form-control input-sm" name="status">
+				<option value="Status 1" <?php if($plan){if($plan->status=="Status 1"){echo "selected";}}?>>Status 1</option>
+				<option value="Status 2" <?php if($plan){if($plan->status=="Status 2"){echo "selected";}}?>>Status 2</option>
+				<option value="Status 3" <?php if($plan){if($plan->status=="Status 3"){echo "selected";}}?>>Status 3</option>
+			</select>
+		</div><div style="clear:both"></div>
+	</div>
+	<div class="form-group">
 		<label class="col-sm-2 control-label input-sm"></label>
 		<div class="col-sm-10">
 			<button class="btn btn-lg btn-success btn-sm" type="submit" onclick="submit_ap();">Submit</button>
