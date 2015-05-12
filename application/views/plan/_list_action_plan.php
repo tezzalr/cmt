@@ -6,7 +6,7 @@
 					<?php 
 						if($plan->status=="Status 1"){$circ = "notyet";}
 						elseif($plan->status=="Status 2"){$circ = "inprog";}
-						elseif($plan->status=="Status 3"){$circ = "atrisk";}
+						else{$circ = "atrisk";}
 					?>
 					<span class="circle circle-<?php echo $circ?> circle-lg text-left"></span>
 				</div>
