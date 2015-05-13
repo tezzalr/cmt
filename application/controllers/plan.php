@@ -227,9 +227,40 @@ class Plan extends CI_Controller {
                      ->set_output(json_encode($json));
 	}
 	
+	public function edit_plan_update(){
+		$id = $this->input->get('id');
+		$content['plan_id'] = $this->input->get('plan_id');
+    	$content['plan_update'] = $this->mplan->get_plan_update_by_id($id);
+    	if($id){
+			if($content['plan_update']){
+				$json['status'] = 1;
+				$json['html'] = $this->load->view('plan/_update_action_form',$content,TRUE);
+			}else{
+				$json['status'] = 0;
+			}
+		}
+		else{
+			$json['status'] = 1;
+				$json['html'] = $this->load->view('plan/_update_action_form',$content,TRUE);
+		}
+		$this->output->set_content_type('application/json')
+                     ->set_output(json_encode($json));
+	}
+	
 	public function delete_plan(){
         if($this->mplan->delete_plan($this->input->post('id'))){
         	
+    		$json['status'] = 1;
+    	}
+    	else{
+    		$json['status'] = 0;
+    	}
+    	$this->output->set_content_type('application/json')
+                     ->set_output(json_encode($json));
+	}
+    
+    public function delete_plan_update(){
+        if($this->mplan->delete_plan_update($this->input->post('id'))){
     		$json['status'] = 1;
     	}
     	else{
@@ -310,6 +341,7 @@ class Plan extends CI_Controller {
     	$plan_id = $this->input->get('id');
     	$updates['updates'] = $this->mplan->get_plan_update($plan_id);
     	$comp['plan'] = $this->mplan->get_plan_by_id($plan_id);
+    	$comp['plan_id'] = $plan_id;
     	
 		$json['status'] = 1;
 		$comp['form_update'] = $this->load->view('plan/_update_action_form',$comp,TRUE);
@@ -322,6 +354,7 @@ class Plan extends CI_Controller {
     
     public function submit_update_ap(){
     	$user = $this->session->userdata('userdb');
+    	$id = $this->input->post('id');
     	
     	$program['plan_id'] = $this->input->post('plan');
     	$program['progress'] = $this->input->post('progress');
@@ -336,13 +369,17 @@ class Plan extends CI_Controller {
         $program['user_id'] = $user['id'];
         $program['created'] = date("Y-m-d h:i:s");
         
-        if($this->mplan->insert_plan_update($program)){
-        	$json['status'] = 1;
-        	$comp['plan'] = $this->mplan->get_plan_by_id($program['plan_id']);
-        	$updates['updates'] = $this->mplan->get_plan_update($program['plan_id']);
-        	$json['list_update'] = $this->load->view('plan/_list_updates',$updates,TRUE);
-        	$json['form_update'] = $this->load->view('plan/_update_action_form',$comp,TRUE);
+        if($id){
+        	if($this->mplan->update_plan_update($program,$id)){$json['status'] = 1;}
         }
+        else{
+			if($this->mplan->insert_plan_update($program)){$json['status'] = 1;}
+        }
+                
+		$comp['plan_id'] = $program['plan_id'];
+		$updates['updates'] = $this->mplan->get_plan_update($program['plan_id']);
+		$json['list_update'] = $this->load->view('plan/_list_updates',$updates,TRUE);
+		$json['form_update'] = $this->load->view('plan/_update_action_form',$comp,TRUE);
         
         $this->output->set_content_type('application/json')
                      ->set_output(json_encode($json));

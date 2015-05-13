@@ -1,22 +1,23 @@
-<div id="form_input_update_plan" style="display:none; margin-top:20px;">
+<div id="form_input_update_plan" margin-top:20px;">
 	<form class="form-horizontal" action="<?php echo base_url();?>plan/submit_update_ap" method ="post" id="formupdateap" role="form">
-		<input type="hidden" name="plan" value="<?php echo $plan->id?>">
+		<input type="hidden" name="plan" value="<?php echo $plan_id?>">
+		<input type="hidden" value="<?php if($plan_update){echo $plan_update->id;}?>" name="id">
 		<div class="form-group">
 			<label class="col-sm-2 control-label input-sm">Progress</label>
 			<div class="col-sm-10">
-			  <textarea class="form-control" style="height:60px" placeholder="Progress" name="progress"></textarea>
+			  <textarea class="form-control" style="height:60px" placeholder="Progress" name="progress"><?php if($plan_update){echo $plan_update->progress;}?></textarea>
 			</div><div style="clear:both"></div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label input-sm">Issue</label>
 			<div class="col-sm-10">
-			  <textarea class="form-control" style="height:60px" placeholder="Issue / Next Step" name="issue"></textarea>
+			  <textarea class="form-control" style="height:60px" placeholder="Issue" name="issue"><?php if($plan_update){echo $plan_update->issue;}?></textarea>
 			</div><div style="clear:both"></div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label input-sm">Next Step / Supported Needed</label>
 			<div class="col-sm-10">
-			  <textarea class="form-control" style="height:60px" placeholder="Supported Needed" name="support"></textarea>
+			  <textarea class="form-control" style="height:60px" placeholder="Next Step / Supported Needed" name="support"><?php if($plan_update){echo $plan_update->support;}?></textarea>
 			</div><div style="clear:both"></div>
 		</div>
 		<div class="form-group">
@@ -27,10 +28,3 @@
 		</div>
 	</form><hr>
 </div>
-
-<script>
-	$('#due_date').datepicker({
-		autoclose: true,
-		todayHighlight: true
-	});
-</script>

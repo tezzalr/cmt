@@ -43,6 +43,11 @@ class Mplan extends CI_Model {
         $this->db->where('id',$id);
         return $this->db->update('plan', $program);
     }
+    
+    function update_plan_update($program,$id){
+        $this->db->where('id',$id);
+        return $this->db->update('plan_update', $program);
+    }
         
     //GET FUNCTION
     function get_plan($anchor_id,$product){
@@ -74,7 +79,18 @@ class Mplan extends CI_Model {
         }
     }
     
+    function get_plan_update_by_id($id){
+        $this->db->where('plan_update.id',$id);
+        $result = $this->db->get('plan_update');
+        if($result->num_rows==1){
+            return $result->row(0);
+        }else{
+            return false;
+        }
+    }
+    
     function get_plan_update($plan_id){
+    	$this->db->select('plan_update.*,user.name as name');
     	$this->db->where('plan_id', $plan_id);
     	$this->db->join('user', 'user.id = plan_update.user_id');
     	$this->db->order_by('plan_update.id', 'desc');
@@ -128,6 +144,17 @@ class Mplan extends CI_Model {
     
     function delete_plan_plan_update($plan_id){
     	$this->db->where('plan_id',$plan_id);
+    	$this->db->delete('plan_update');
+    	if($this->db->affected_rows()>0){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
+    function delete_plan_update($id){
+    	$this->db->where('id',$id);
     	$this->db->delete('plan_update');
     	if($this->db->affected_rows()>0){
     		return true;

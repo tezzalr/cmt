@@ -23,10 +23,7 @@
 						</div>
 						<div id="btn-add-uap" style="display:none">
 							<button style="margin-right:2px;" class="btn btn-wsa btn-xs" onclick="show_all_ap();">
-								<span class="glyphicon glyphicon-list"></span>
-							</button>
-							<button style="margin-right:10px;" class="btn btn-wsa btn-xs" onclick="toggle_visibility('form_input_update_plan');">
-								<span class="glyphicon glyphicon-plus"></span> Update
+								<span class="glyphicon glyphicon-list"></span> Show All
 							</button>
 						</div>
 						</div>
@@ -75,6 +72,8 @@
 					$("#plan_"+id).css("cssText", "display: block");
 					$("#btn-add-ap").css("cssText", "display: none");
 					$("#btn-add-uap").css("cssText", "display: block");
+					$("#btn-real-uap-"+id).css("cssText", "display: inline");
+					//$("#btn-real-uap").on('onclick',edit_plan_update('',id));
 					$("#list_update").html(resp.html);
 				}else{}
 			}
@@ -90,10 +89,33 @@
 			cache: false,
 			success: function(resp){
 				if(resp.status==1){
+					$("#form_input_action_plan").html(resp.html);
 					if($('#form_input_action_plan').css('display') == 'none'){
 						$('#form_input_action_plan').animate({'height':'toggle','opacity':'toggle'});
 					}
-					$("#form_input_action_plan").html(resp.html);
+				}else{}
+			}
+		});
+	}
+	
+	function close_form_edit_plan(){
+		//$("#form_input_action_plan").html('');
+		$('#form_input_action_plan').animate({'height':'toggle','opacity':'toggle'});
+	}
+	
+	function edit_plan_update(id,plan_id){
+		$.ajax({
+			type: "GET",
+			url: config.base+"plan/edit_plan_update",
+			data: {id: id, plan_id: plan_id},
+			dataType: 'json',
+			cache: false,
+			success: function(resp){
+				if(resp.status==1){
+					$("#form_update").html(resp.html);
+					if($('#form_update').css('display') == 'none'){
+						$('#form_update').animate({'height':'toggle','opacity':'toggle'});
+					}
 				}else{}
 			}
 		});
@@ -118,10 +140,30 @@
 		});
 	}
 	
+	function delete_plan_update(id, event){
+		bootbox.confirm("Apa anda yakin?", function(confirmed) {
+			if(confirmed===true){
+				$.ajax({
+					url: config.base+"plan/delete_plan_update",
+					data: {id: id},
+					dataType: 'json',
+					type: "POST",
+					success: function (resp) {
+						if(resp.status == 1){
+							$('#update_'+id).animate({'opacity':'toggle'});
+							succeedMessage('Update Action Plan berhasil dihapus');
+						}
+					}
+				});
+			}
+		});
+	}
+	
 	function show_all_ap(){
 		$(".plan_member").css("cssText", "display: block;");
 		$("#btn-add-ap").css("cssText", "display: block");
 		$("#btn-add-uap").css("cssText", "display: none");
+		$(".btn-real-uap").css("cssText", "display: none");
 		$("#list_update").html('');
 	}
 	
@@ -132,7 +174,7 @@
     		{
         		if(resp.status==1){
 					$("#list_update_data").html(resp.list_update);
-					$("#form_update").html(resp.form_update);
+					$("#form_update").html('');
 					//toggle_visibility('form_add_workblocks');
 					//if($('#list_workblocks').css('display') == 'none'){
 						//toggle_visibility('list_workblocks');
