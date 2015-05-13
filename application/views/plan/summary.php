@@ -47,9 +47,10 @@
 											<div>
 												<div style="float:left; width:5%;">
 													<?php 
-														if($ap['ap']->status=="Status 1"){$circ = "notyet";}
-														elseif($ap['ap']->status=="Status 2"){$circ = "inprog";}
-														elseif($ap['ap']->status=="Status 3"){$circ = "atrisk";}
+														if($ap['ap']->status=="Done"){$circ = "completed";}
+														elseif($ap['ap']->status=="On Progress"){$circ = "inprog";}
+														elseif($ap['ap']->status=="Has Issued"){$circ = "delay";}
+														else{$circ = "notyet";}
 													?>
 													<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>
 												</div>

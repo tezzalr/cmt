@@ -4,13 +4,14 @@
 			<div>
 				<div style="float:left; width:5%; margin-top:3px;">
 					<?php 
-						if($plan->status=="Status 1"){$circ = "notyet";}
-						elseif($plan->status=="Status 2"){$circ = "inprog";}
-						else{$circ = "atrisk";}
+						if($plan->status=="Done"){$circ = "completed";}
+						elseif($plan->status=="On Progress"){$circ = "inprog";}
+						elseif($plan->status=="Has Issued"){$circ = "delay";}
+						else{$circ = "notyet";}
 					?>
 					<span class="circle circle-<?php echo $circ?> circle-lg text-left"></span>
 				</div>
-				<div style="float:left; width:95%; font-size:16px"><a href="#" onclick="show_update(<?php echo $plan->id?>)"><?php echo $plan->action?></a></div>
+				<div style="float:left; width:95%; font-size:16px"><a href="#" style="color:black" onclick="show_update(<?php echo $plan->id?>)"><?php echo $plan->action?></a></div>
 			</div><div style="clear:both"></div>
 			<div style="font-size:13px; color:grey; margin-top:10px;">
 				<span style="float:left">PIC: <?php echo $plan->pic?></span>

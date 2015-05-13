@@ -26,8 +26,9 @@
 										<div style="padding-left:20px; font-size:14px;"><b>										
 											<div style="float:left; width:1.5%">
 												<?php 
-													if($plan['plan']->status=="Status 1"){$circ = "atrisk";}
-													elseif($plan['plan']->status=="Status 2"){$circ = "inprog";}
+													if($plan['plan']->status=="Done"){$circ = "completed";}
+													elseif($plan['plan']->status=="On Progress"){$circ = "inprog";}
+													elseif($plan['plan']->status=="Has Issued"){$circ = "delay";}
 													else{$circ = "notyet";}
 												?>
 												<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>

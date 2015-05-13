@@ -24,9 +24,10 @@
 		<label class="col-sm-2 control-label input-sm">Due Date</label>
 		<div class="col-sm-4">
 			<select class="form-control input-sm" name="status">
-				<option value="Status 1" <?php if($plan){if($plan->status=="Status 1"){echo "selected";}}?>>Status 1</option>
-				<option value="Status 2" <?php if($plan){if($plan->status=="Status 2"){echo "selected";}}?>>Status 2</option>
-				<option value="Status 3" <?php if($plan){if($plan->status=="Status 3"){echo "selected";}}?>>Status 3</option>
+				<option value="Not Started" <?php if($plan){if($plan->status=="Not Started"){echo "selected";}}?>>Not Started</option>
+				<option value="On Progress" <?php if($plan){if($plan->status=="On Progress"){echo "selected";}}?>>On Progress</option>
+				<option value="Has Issued" <?php if($plan){if($plan->status=="Has Issued"){echo "selected";}}?>>Has Issued</option>
+				<option value="Done" <?php if($plan){if($plan->status=="Done"){echo "selected";}}?>>Done</option>
 			</select>
 		</div><div style="clear:both"></div>
 	</div>
