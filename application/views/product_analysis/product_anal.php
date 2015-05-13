@@ -41,7 +41,7 @@
 	</div>
 	<hr>
 	<div>
-	<div id="japs_coloumn">
+	<div id="japs_coloumn" style="display:none;">
 		<h4>JAPS Form</h4>
 		<div style="width:33%; float:left; padding-right:10px">
 			<div class="panel panel-wsa">
