@@ -15,7 +15,7 @@
 	
 	$loan_income = $income_ty['loan'];
 	$trx_income = $income_ty['trx'];
-	$trd_income = $income_ty['trd'];
+	//$trd_income = $income_ty['trd'];
 	$lnfee_income = $income_ty['lnfee'];
 	$otr_income = $income_ty['otr'];
 	$tot = $income_ty['tot'];
@@ -23,7 +23,8 @@
 	$trx_wallet = $wlt_ws->CASA_nii + $wlt_ws->FX_fbi + $wlt_ws->Trade_fbi + $wlt_ws->BG_fbi + + $wlt_ws->OIR_fbi;
 	$loan_wallet = $wlt_ws->WCL_nii +  $wlt_ws->IL_nii +  $wlt_ws->SL_nii + $wlt_ws->TR_nii;
 	
-	$trx_sow = ($trx_income+$rlz_ws->OIR_fbi - $rlz_ws->PWE_fbi - $rlz_ws->SCF_fbi)/$month*12/$trx_wallet/pow(10,9);
+	if($trx_wallet){$trx_sow = ($trx_income+$rlz_ws->OIR_fbi - $rlz_ws->PWE_fbi - $rlz_ws->SCF_fbi)/$month*12/$trx_wallet/pow(10,9);}
+	else{$trx_sow = 0;}
 	if($loan_wallet){
 	$loan_sow = ($loan_income+$rlz_ws->TR_nii)/$month*12/$loan_wallet/pow(10,9);
 	}else{$loan_sow=0;}
@@ -44,7 +45,7 @@
 					<div>
 						<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),1,'.',',')?> M </span></h5></div>
-						<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),1,'.',',')?> M </span></h5></div>
+						<!--<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),1,'.',',')?> M </span></h5></div>-->
 						<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div style="border-top:1px dashed #ddd">
@@ -100,7 +101,7 @@
 					<h4>
 						<?php if($anchor){?><a style="color:black" href="<?php echo base_url()?>report/trans_xsell/anchor/<?php echo $anchor->id?>"><?php }else{?>
 						<a style="color:black" href="<?php echo base_url()?>report/trans_xsell/directorate/<?php echo $dir['code']?>"><?php }?>
-							Transaction X-Sell <span class="pull-right"><?php if($loan_sow==0){$loan_sow = $trx_sow/10;} echo number_format($trx_sow/$loan_sow,1,'.',',');?></span>
+							Transaction X-Sell <span class="pull-right"><?php if(!$loan_sow && $trx_sow){$trx_sell = 10;}elseif(!$loan_sow&&!$trx_sow){$trx_sell = 0;}else{$trx_sell = $trx_sow/$loan_sow;} echo number_format($trx_sell,1)?></span>
 						</a>
 					</h4>
 					<p style="color:#bbb; font-size:12px">
@@ -238,9 +239,9 @@
 						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
 						<?php }if($trx_income){?>
 						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
+						<?php }/*if($trd_income){?>
 						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
-						<?php }if($lnfee_income){?>
+						<?php }*/if($lnfee_income){?>
 						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
 						<?php }if($otr_income){?>
 						{name: 'Others', y: <?php echo $otr_income?>, color:"#d1d1d1"},

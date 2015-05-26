@@ -16,14 +16,20 @@
 						<table class="table" style="font-size:9px">
 							<tr><th></th><th>gas</th><th>wal</th><th>ytd</th><th>sow</th><th>trx</th><th>casx</th></tr>
 						<?php foreach($scs[$arrsc[$a]][$s] as $sc){?>
+							<?php 
+								$sow_col = "black"; $trx_col = "black"; $casx_col = "black";
+								if(($s==3&&$sc['sow']<0.1)||($s==2&&$sc['sow']<0.3)){$sow_col = "red";}else{$sow_col = "black";}
+								if(($s==3&&$sc['trx']<0.5)||($s==2&&$sc['trx']<1)){$trx_col = "red";}else{$trx_col = "black";}
+								if(($s==3&&$sc['casx']<0.05)||($s==2&&$sc['casx']<0.1)){$casx_col = "red";}else{$casx_col = "black";}
+							?>
 							<tr>
 								<td><?php echo $sc['anchor']->srt_name?></td>
 								<td><?php echo number_format($sc['anchor']->gas,0)?></td>
 								<td><?php echo number_format($sc['wal']['ws'],0)?></td>
 								<td><?php echo number_format($sc['inc']['ws'],0)?></td>
-								<td><?php echo number_format($sc['sow']*100,0)?> %</td>
-								<td><?php echo number_format($sc['trx'],1)?></td>
-								<td><?php echo number_format($sc['casx'],1)?></td>
+								<td style="color:<?php echo $sow_col?>"><?php echo number_format($sc['sow']*100,0)?> %</td>
+								<td style="color:<?php echo $trx_col?>"><?php echo number_format($sc['trx'],1)?></td>
+								<td style="color:<?php echo $casx_col?>"><?php echo number_format($sc['casx'],1)?></td>
 							</tr>
 						<?php }?>
 						</table>

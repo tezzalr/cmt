@@ -115,6 +115,7 @@
 	var chartData = [
     <?php 
     	for($i=1;$i<=12;$i++){
+    		
     		$pengali = 1;
     		
     		if($this->uri->segment(7)=="ann" && not_avg_bal($this->uri->segment(5))){
@@ -127,6 +128,10 @@
     		$mth = 'mth_'.$i;
     		if($i<=$month){
     			$this_mth = $now[$i]/pow(10,$bagi)*$pengali;
+    			if($ly[$i]){
+    				$gwth = (($now[$i]/$ly[$i])-1)*100;	
+    			}elseif($now[$i]){$gwth = 100;}else{$gwth=0;}
+    			
     		}
     		$last_mth = $ly[$i]/pow(10,$bagi)*$pengali;
     	?>
@@ -134,10 +139,11 @@
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
         "this_year": <?php echo round($this_mth,1)?>,
+        "growth": <?php echo round($gwth,2)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
-        "last_year": <?php echo round($last_mth,1)?>
+        "last_year": <?php echo round($last_mth,1)?>,
     },
     <?php }?>
     
@@ -164,10 +170,16 @@ var chart = AmCharts.makeChart("chartdiv", {
     gridAlpha: 0.4,
     axisAlpha: 0,
     labelsEnabled: true
+  },{
+    id: "a3",
+    position: "right",
+    gridAlpha: 0,
+    axisAlpha: 0,
+    labelsEnabled: false
   }],
   graphs: [{
     id: "g2",
-    title: "<?php echo $year-1?>",
+    title: "<?php echo $year-1?> : ",
     valueField: "last_year",
     type: "line",
     valueAxis: "a2",
@@ -189,7 +201,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     animationPlayed: false,
   },{
     id: "g3",
-    title: "<?php echo $year?>",
+    title: "<?php echo $year?> : ",
     valueField: "this_year",
     classNameField: "bulletClass",
     type: "line",
@@ -208,6 +220,13 @@ var chart = AmCharts.makeChart("chartdiv", {
     bulletBorderAlpha: 1,
     dashLengthField: "dashLength",
     animationPlayed: false,
+  },{
+  	id: "g4",
+  	title: "Growth :",
+  	valueField: "growth",
+  	legendValueText: "[[value]]%",
+  	lineThickness: 0,
+  	valueAxis: "a3",
   }],
 
   chartCursor: {
@@ -241,6 +260,9 @@ var chart = AmCharts.makeChart("chartdiv", {
     		$mth = 'mth_'.$i;
     		if($i<=$month){
     			$this_mth = $nowic[$i]/pow(10,$bagi)*$pengali;
+    			if($lyic[$i]){
+    				$gwthic = (($nowic[$i]/$lyic[$i])-1)*100;	
+    			}elseif($nowic[$i]){$gwthic = 100;}else{$gwthic =0;}
     		}
     		$last_mth = $lyic[$i]/pow(10,$bagi)*$pengali;
     	?>
@@ -248,6 +270,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
         "this_year": <?php echo round($this_mth,3)?>,
+        "growth": <?php echo round($gwthic,2)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
@@ -277,10 +300,16 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     gridAlpha: 0.4,
     axisAlpha: 0,
     labelsEnabled: true
+  },{
+    id: "a3",
+    position: "right",
+    gridAlpha: 0,
+    axisAlpha: 0,
+    labelsEnabled: false
   }],
   graphs: [{
     id: "g2",
-    title: "<?php echo $year-1?>",
+    title: "<?php echo $year-1?> : ",
     valueField: "last_year",
     type: "line",
     valueAxis: "a2",
@@ -302,7 +331,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     animationPlayed: false,
   },{
     id: "g3",
-    title: "<?php echo $year?>",
+    title: "<?php echo $year?> : ",
     valueField: "this_year",
     classNameField: "bulletClass",
     type: "line",
@@ -321,6 +350,13 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     bulletBorderAlpha: 1,
     dashLengthField: "dashLength",
     animationPlayed: false,
+  },{
+  	id: "g4",
+  	title: "Growth : ",
+  	valueField: "growth",
+  	legendValueText: "[[value]]%",
+  	lineThickness: 0,
+  	valueAxis: "a3",
   }],
 
   chartCursor: {

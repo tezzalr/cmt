@@ -176,7 +176,6 @@ class Plan extends CI_Controller {
     	$anchor_id = $this->uri->segment(4);
     	if($this->uri->segment(3)=='anchor'){
 			$anchor = $this->manchor->get_anchor_by_id($anchor_id);
-    		
     		$plans = $this->mplan->get_plan($anchor_id, $product);
     		
 			$header = $this->load->view('anchor/anchor_header',array('anchor' => $anchor),TRUE);

@@ -39,7 +39,7 @@ class Scorecard extends CI_Controller {
 			if($sc[$i]['wal']['ws']){
 				$sc[$i]['sow'] = $sc[$i]['inc']['ws']/$sc[$i]['wal']['ws'];
 			}else{
-				$sc[$i]['sow'] = 1;
+				$sc[$i]['sow'] = 0;
 			}
 			if($sow[32]){
 				$sc[$i]['trx'] = $sow[34]/$sow[32];
@@ -59,6 +59,7 @@ class Scorecard extends CI_Controller {
 			}else{
 				$ring = 1;
 			}
+			
 			if($each['anchor']->gas >20000){
 				if($ring==1){$x=$p1;}elseif($ring==2){$x=$p2;}else{$x=$p3;}
 				$arrsc['platinum'][$ring][$x] = $each;

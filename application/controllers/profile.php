@@ -39,6 +39,7 @@ class Profile extends CI_Controller {
     	
 		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");
 		$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year'],"");
+		$content['rlz_al'] = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year'],"");
 		//$content['rlz_al'] = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year']);
 		$content['wlt_ws'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']);
 		$content['tgt_ws'] = $this->mtarget->get_anchor_ws_target($anchor_id);

@@ -286,10 +286,12 @@
     	$arr_tot_inc = array('ws'=>0,'al'=>0,'tot'=>0,'each_ws'=>0,'each_al'=>0);
     	if($ws && $al){
     	$arr_tot_inc['ws'] = ((($ws->WCL_nii +  $ws->IL_nii +  $ws->SL_nii + $ws->CASA_nii + $ws->TR_nii + $ws->OW_nii + $ws->TD_nii + 
-    					$ws->CASA_fbi + $ws->FX_fbi + $ws->SCF_fbi + $ws->Trade_fbi + $ws->PWE_fbi + $ws->BG_fbi + $ws->OIR_fbi + $ws->OW_fbi)/$month*12) + $ws->IL_fbi + $ws->SL_fbi + $ws->WCL_fbi  + $ws->ECM_fbi + $ws->DCM_fbi + $ws->MA_fbi)/pow(10,$pow);
+    					$ws->CASA_fbi + $ws->FX_fbi + $ws->SCF_fbi + $ws->Trade_fbi + $ws->PWE_fbi + $ws->BG_fbi + $ws->OIR_fbi + $ws->OW_fbi)/$month*12) + $ws->IL_fbi + $ws->SL_fbi + $ws->WCL_fbi)/pow(10,$pow);
+    	$arr_tot_inc['ms'] = ($ws->ECM_fbi + $ws->DCM_fbi + $ws->MA_fbi)/pow(10,$pow);				
     	$arr_tot_inc['al'] = ($al->WM_nii + $al->DPLK_fbi + $al->PCD_nii + $al->VCCD_nii + $al->VCCD_fbi + $al->VCL_nii + $al->VCL_fbi+ $al->VCLnDF_nii + $al->VCLnDF_fbi + $al->Micro_Loan_nii + $al->Micro_Loan_fbi + 
 					$al->MKM_nii + $al->KPR_nii + $al->Auto_nii + $al->CC_nii + $al->EDC_fbi + $al->ATM_fbi + $al->AXA_fbi + $al->MAGI_fbi + $al->retail_fbi + $al->cicil_Emas_fbi)/$month*12/pow(10,$pow);
-		$arr_tot_inc['tot'] = $arr_tot_inc['ws'] + $arr_tot_inc['al'];
+		
+		$arr_tot_inc['tot'] = $arr_tot_inc['ws'] + $arr_tot_inc['ms'] + $arr_tot_inc['al'];
 		$arr_tot_inc['each_ws'] = $ws;
 		$arr_tot_inc['each_al'] = $al;
 		}
@@ -297,22 +299,22 @@
     }
     function get_ws_income_month($rlz_ws,$month){
     	if($rlz_ws){
-			$income['loan'] = $rlz_ws->WCL_nii +  $rlz_ws->IL_nii +  $rlz_ws->SL_nii;
-			$income['trx'] = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi;
-			$income['trd'] = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
+			$income['loan'] = $rlz_ws->WCL_nii +  $rlz_ws->IL_nii +  $rlz_ws->SL_nii+$rlz_ws->TR_nii;
+			$income['trx'] = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi+$rlz_ws->OIR_fbi;
+			//$income['trd'] = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
 			$income['lnfee'] = $rlz_ws->WCL_fbi +  $rlz_ws->IL_fbi +  $rlz_ws->SL_fbi;
 			$income['otr'] = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi;
-			$income['tot'] = $income['loan']+$income['trx']+$income['trd']+$income['lnfee']+$income['otr'];
-			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['trd']+$income['otr'])/$month*12)+$income['lnfee'];
+			$income['tot'] = $income['loan']+$income['trx']+$income['lnfee']+$income['otr'];
+			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['otr'])/$month*12)+$income['lnfee'];
 		}
 		else{
 			$income['loan'] = 0;
 			$income['trx'] = 0;
-			$income['trd'] = 0;
+			//$income['trd'] = 0;
 			$income['lnfee'] = 0;
 			$income['otr'] = 0;
 			$income['tot'] = 0;
-			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['trd']+$income['otr'])/$month*12)+$income['lnfee'];
+			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['otr'])/$month*12)+$income['lnfee'];
 		}
 		return $income;
     }
@@ -452,4 +454,27 @@
 		$prod_avg = array("CASA", "TD", "IL", "SL", "WCL");
 		if(in_array($product,$prod_avg)){$res = false;}
 		return $res;
+	}
+	
+	function return_mineral($anchor){
+		if($anchor->gas >20000){
+			return "Platinum";
+		}
+		elseif($anchor->gas < 20000 && $anchor->gas > 5000){
+			return "Gold";
+		}
+		elseif($anchor->gas < 5000){
+			return "Silver";
+		}
+	}
+	
+	function return_ring($sow,$trx,$casx){
+		if($sow<=0.1 || $trx<=0.5 || $casx<=0.05){
+			return 3;
+		}
+		elseif(($sow>0.1 && $sow<=0.3) || ($trx>0.5 && $trx<=1) || ($casx>0.05 && $casx<=0.1)){
+			return 2;
+		}else{
+			return 1;
+		}
 	}

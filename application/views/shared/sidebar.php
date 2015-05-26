@@ -42,7 +42,7 @@
 				<a href="<?php echo base_url()?>value_chain/show/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Value Chain</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>logact"><i class="fa fa-edit fa-fw"></i> Review</a>
+				<a href="<?php echo base_url()?>analysis/show/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-edit fa-fw"></i> Review</a>
 			</li>
 		</ul>
 		<?php }?>

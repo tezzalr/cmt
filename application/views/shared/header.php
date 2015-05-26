@@ -64,6 +64,7 @@
 	<label style="margin-right:20px">Bulan laporan:</label>
 	<input type="hidden" name="last_url" value="<?php echo uri_string();?>">
 	<select class="btn-wsa-grey" id="year_chg" name="report_year" style="width:60px">
+		<option value="2013" <?php if($rpttime['year'] == 2014){echo "selected";}?>>2013</option>
 		<option value="2014" <?php if($rpttime['year'] == 2014){echo "selected";}?>>2014</option>
 		<option value="2015" <?php if($rpttime['year'] == 2015){echo "selected";}?>>2015</option>
 	</select>

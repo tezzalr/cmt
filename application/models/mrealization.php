@@ -41,8 +41,24 @@ class Mrealization extends CI_Model {
         }
     }
     
+    function get_anchor_ws_realization_month($anchor_id, $year,$month){
+    	$this->manchor->check_group($anchor_id,"month","realization");
+    	$this->db->where('month',$month);
+    	$this->db->where('year',$year);
+    	$result = $this->db->get('wholesale_realization');
+    	$query = $result->result();
+        if($query){
+        	return $query[0];
+        }
+    }
+    
     function get_anchor_al_realization($anchor_id, $year){
-    	//$this->manchor->check_group($anchor_id,"month","realization");
+    	/*$this->manchor->check_group($anchor_id,"month","realization");
+    	if($type == "ey"){
+    		$month = $this->get_last_month($year);
+    	}else{
+    		$month = $this->session->userdata('rpttime')['month'];
+    	}*/
     	$month = $this->session->userdata('rpttime')['month'];
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
@@ -167,6 +183,18 @@ class Mrealization extends CI_Model {
     	$al_realization = $this->get_anchor_al_realization($anchor_id, $year);
     	
 		return get_tot_income($ws_realization, $al_realization, $month, 9);
+    }
+    
+    function get_anchor_total_income_mth_to_mth_ytd($anchor_id,$month,$year){
+    	$tot_inc['ty'] = $this->return_income_ws_month($anchor_id, $year, $month);
+    	$tot_inc['ly'] = $this->return_income_ws_month($anchor_id, $year-1, $month);
+    	$tot_inc['ly_ey'] = $this->return_income_ws_month($anchor_id, $year-1, 12);
+    	return $tot_inc;
+    }
+    
+    function return_income_ws_month($anchor_id, $year, $month){
+    	$real = $this->get_anchor_ws_realization_month($anchor_id, $year,$month);
+    	return get_ws_income_month($real,$month);
     }
     
     function get_product_income_type($product){
