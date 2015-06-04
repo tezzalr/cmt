@@ -271,8 +271,7 @@ class Extfile extends CI_Controller {
 		else{
 			for ($row = 1; $row <= $highestRow; ++$row) {
 				for ($col = 0; $col < $highestColumnIndex; ++$col) {
-					$rachel[$i][$col] = $objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
-					$i++;
+					$rachel[$row][$col] = $objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
 				}
 			}
 		}
