@@ -103,25 +103,27 @@
 		</div>
 		<div style="clear:both"></div>
 	</div>
-	<div style="width:50%; float:left; padding:0 5px 0 0px" id="volume_tren">
+	<div style="width:100%; float:left; padding:0 5px 0 0px" id="volume_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Volume Trend Line<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-full" id="volume_icon"></span></div></div>
+			<div class="panel-heading">Volume Trend Line<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv"></div>
 			</div>
 		</div>
 	</div>
 	
-	<div style="width:50%; float:left; padding:0 5px 0 5px" id="income_tren">
+	<div style="width:100%; float:left; padding:0 5px 0 5px" id="income_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Income Trend Line<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-full" id="income_icon"></span></div></div>
+			<div class="panel-heading">Income Trend Line<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv-inc"></div>
 			</div>
 		</div>
 	</div>
 	<div style="clear:both"></div>
+	<?php if($this->uri->segment(3)!="anchor"){?>
 	<div>
+		<div>
 		<h4>Top Volume (Rp M)</h4>
 		<table class="table table-bordered" style="font-size:10px;">
 			<thead class="headertab"><tr>
@@ -161,7 +163,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div>
+		<div>
 		<h4>Top Nominal Growth (Rp M)</h4>
 		<table class="table table-bordered" style="font-size:10px;">
 			<thead class="headertab"><tr>
@@ -214,7 +216,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div>
+		<div>
 		<h4>Top Growth (%)</h4>
 		<table class="table table-bordered" style="font-size:10px;">
 			<thead class="headertab"><tr>
@@ -260,6 +262,8 @@
 			</tbody>
 		</table>
 	</div>
+	</div>
+	<?php }else{ echo $child_company;}?>
 </div>
 
 <script>

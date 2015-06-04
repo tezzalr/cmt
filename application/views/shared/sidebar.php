@@ -33,7 +33,7 @@
 			</li>
 			<li>
 				<?php if($data_a == "directorate"){?>
-					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>/Product"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
 				<?php }else{?>
 					<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
 				<?php }?>

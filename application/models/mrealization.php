@@ -92,7 +92,7 @@ class Mrealization extends CI_Model {
 				$arr_prod[$i] = $this->get_anchor_prd_real_month($anchor_id, $product, $kind, $i, $year,$anc_not);
 			}
 			else{
-				$arr_prod[$i] = 20;
+				$arr_prod[$i] = 0;
 			}
 		}
 		return $arr_prod;

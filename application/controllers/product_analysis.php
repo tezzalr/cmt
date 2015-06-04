@@ -82,6 +82,7 @@ class Product_analysis extends CI_Controller {
 		
 		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
 		$content['japs_form'] = $this->load->view('product_analysis/_japs_form',$content,TRUE);
+		$content['child_company'] = $this->load->view('product_analysis/_child_company',$content,TRUE);
 		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);

@@ -17,7 +17,7 @@
 					<div class="panel-heading">Daftar Action Plan
 						<div style="float:right;">
 						<div id="btn-add-ap">
-						<button style="margin-right:10px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
+						<button style="margin-right:2px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
 							<span class="glyphicon glyphicon-plus"></span> Action Plan
 						</button>
 						</div>
@@ -70,6 +70,7 @@
 				if(resp.status==1){
 					$(".plan_member").css("cssText", "display: none;");
 					$("#plan_"+id).css("cssText", "display: block");
+					$("#gear_plan_"+id).css("cssText", "display: block");
 					$("#btn-add-ap").css("cssText", "display: none");
 					$("#btn-add-uap").css("cssText", "display: block");
 					$("#btn-real-uap-"+id).css("cssText", "display: inline");
@@ -132,6 +133,7 @@
 					success: function (resp) {
 						if(resp.status == 1){
 							$('#plan_'+id).animate({'opacity':'toggle'});
+							show_all_ap();
 							succeedMessage('Action Plan berhasil dihapus');
 						}
 					}
@@ -164,6 +166,7 @@
 		$("#btn-add-ap").css("cssText", "display: block");
 		$("#btn-add-uap").css("cssText", "display: none");
 		$(".btn-real-uap").css("cssText", "display: none");
+		$(".gear_plan").css("cssText", "display: none");
 		$("#list_update").html('');
 	}
 	

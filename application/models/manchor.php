@@ -353,14 +353,14 @@ class Manchor extends CI_Model {
     	$this->db->delete('detail_realization');
     }
     function delete_ws($type,$year,$month){
-    	if($type=="realization"){
+    	if($type=="realization" || $type=="realization_company"){
     		$this->db->where('month',$month);
     	}
     	$this->db->where('year',$year);
     	$this->db->delete('wholesale_'.$type);
     }
     function delete_al($type,$year,$month){
-    	if($type=="realization"){
+    	if($type=="realization" || $type=="realization_company"){
     		$this->db->where('month',$month);
     	}
     	$this->db->where('year',$year);

@@ -115,6 +115,70 @@ class Plan extends CI_Controller {
     		$content['dir']['code'] = $anchor_id;
     		$data['title'] = "Issues Summary - ".$content['dir']['name'];
 		}
+		
+		$arr_prod = array(); $content['arr_send'] = array(); $j=0;
+		for($i=1;$i<=15;$i++){
+			$arr_prod[$i]['num'] = $i;
+			$arr_prod[$i]['id'] = return_prod_name($i);
+			$arr_prod[$i]['name'] = change_real_name($arr_prod[$i]['id']);
+			$arr_plan = $this->mplan->get_plan_with_latest_issue_by_prod($anchor_id,$this->uri->segment(3),$arr_prod[$i]['id']);
+			if($arr_plan){
+				$content['arr_send'][$j]['plans'] = $arr_plan;
+				$content['arr_send'][$j]['prod'] = $arr_prod[$i];
+				$j++;
+			}
+		}
+		
+    	if($this->uri->segment(5)=='Product'){
+			$content['by_cntn'] = $this->load->view('plan/_by_product',$content,TRUE); 
+    	}
+    	else{
+    		$arr_by_anchor = array(); $k=0;
+    		if($content['arr_send']){
+				foreach($content['arr_send'] as $send){
+					$prod = $send['prod'];
+					foreach($send['plans'] as $plan){
+						$arr_by_anchor[$k]['plan'] = $plan;
+						$arr_by_anchor[$k]['prod'] = $prod;
+						$arr_by_anchor[$k]['anc'] = $plan['plan']->anchor_name;
+						$arr_by_anchor[$k]['sort'] = $plan['plan']->anchor_name.$prod['num'];
+						$k++;
+					}
+				}
+				
+				usort($arr_by_anchor, function($a, $b) {
+					return (($b['sort'] < $a['sort']));
+				});	
+			}
+			$content['arr_by_anchor'] = $arr_by_anchor;
+			$content['by_cntn'] = $this->load->view('plan/_by_anchor',$content,TRUE);
+    	}
+    	
+		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
+		$content['kind'] = $this->uri->segment(3);
+		$content['id'] = $anchor_id;
+		
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('plan/issues_summary',$content,TRUE);
+
+		$this->load->view('front',$data);
+    }
+    
+    public function issues_summary_by_anchor(){
+    	$anchor_id = $this->uri->segment(4);
+    	$rpttime = $this->session->userdata('rpttime');
+    	$arr_strategy = array(); $j=0;
+    	$arr_ap = array();
+    	if($this->uri->segment(3)=='anchor'){
+			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
+			$data['title'] = "Action Plan - $anchor->name";
+		}
+		elseif($this->uri->segment(3)=='directorate'){
+			$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($anchor_id);
+    		$content['dir']['code'] = $anchor_id;
+    		$data['title'] = "Issues Summary - ".$content['dir']['name'];
+		}
     	$arr_prod = array(); $content['arr_send'] = array(); $j=0;
     	for($i=1;$i<=15;$i++){
     		$arr_prod[$i]['id'] = return_prod_name($i);
@@ -128,6 +192,7 @@ class Plan extends CI_Controller {
     	}
     	
 		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
+		$content['kind'] = $this->uri->segment(3);
 		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);

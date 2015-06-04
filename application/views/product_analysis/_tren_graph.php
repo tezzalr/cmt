@@ -23,6 +23,14 @@
   animation: am-moving-dashes 1s linear infinite;
 }
 
+.amcharts-graph-g5 .amcharts-graph-stroke {
+  stroke-dasharray: 3px 3px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  -webkit-animation: am-moving-dashes 1s linear infinite;
+  animation: am-moving-dashes 1s linear infinite;
+}
+
 @-webkit-keyframes am-moving-dashes {
   100% {
     stroke-dashoffset: -31px;
@@ -126,24 +134,44 @@
     		
     		$month_name = get_month_name($i);
     		$mth = 'mth_'.$i;
+    		$prd_name = $this->uri->segment(5)."_vol";
+    		$last_mth = $ly[$i]/pow(10,$bagi)*$pengali;
+    		if(!$ly[$i]){
+				if(not_avg_bal($this->uri->segment(5))){
+					$target=$tgt_ws->$prd_name/12*$i;
+				}
+				else{$target= $tgt_ws->$prd_name;}
+			}else{
+				$target = (($tgt_ws->$prd_name)*$ly[$i]/$ly[12]);
+			}
     		if($i<=$month){
     			$this_mth = $now[$i]/pow(10,$bagi)*$pengali;
     			if($ly[$i]){
     				$gwth = (($now[$i]/$ly[$i])-1)*100;	
-    			}elseif($now[$i]){$gwth = 100;}else{$gwth=0;}
-    			
+    			}
+    			elseif($now[$i]){
+    				$gwth = 100;
+    			}
+    			else{$gwth=0;}
+    			if($target){
+					$real = ($this_mth/$target*100);
+				}else{$real = 100;}
     		}
-    		$last_mth = $ly[$i]/pow(10,$bagi)*$pengali;
+    		
+    		
     	?>
     {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
         "this_year": <?php echo round($this_mth,1)?>,
         "growth": <?php echo round($gwth,2)?>,
+        "real": <?php echo round($real,1)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
         "last_year": <?php echo round($last_mth,1)?>,
+        "target": <?php echo round($target,1)?>,
+        
     },
     <?php }?>
     
@@ -227,6 +255,16 @@ var chart = AmCharts.makeChart("chartdiv", {
   	legendValueText: "[[value]]%",
   	lineThickness: 0,
   	valueAxis: "a3",
+  },{
+  	id: "g5",
+  	title: "Target :",
+  	valueField: "target",
+  	type: "line",
+  	lineColor: "red",
+  	descriptionField: "real",
+  	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
+  	lineThickness: 1,
+  	valueAxis: "a2",
   }],
 
   chartCursor: {
@@ -258,24 +296,38 @@ var chart = AmCharts.makeChart("chartdiv", {
     		
     		$month_name = get_month_name($i);
     		$mth = 'mth_'.$i;
+    		$nii_arr = array("CASA","TD","IL","WCL","TR","SL");
+			if(in_array($this->uri->segment(5),$nii_arr)){$inc_name = $this->uri->segment(5)."_nii";}
+			else{$inc_name = $this->uri->segment(5)."_fbi";}
+			
+			$last_mth = $lyic[$i]/pow(10,$bagi)*$pengali;
+			if(!$lyic[$i]){
+				$targetic=$tgt_ws->$inc_name/12*$i;
+			}else{
+				$targetic = (($tgt_ws->$inc_name)*$lyic[$i]/$lyic[12]);
+			}
     		if($i<=$month){
     			$this_mth = $nowic[$i]/pow(10,$bagi)*$pengali;
     			if($lyic[$i]){
     				$gwthic = (($nowic[$i]/$lyic[$i])-1)*100;	
     			}elseif($nowic[$i]){$gwthic = 100;}else{$gwthic =0;}
+    			if($targetic){
+					$realic = ($this_mth/$targetic*100);
+				}else{$realic = 100;}
     		}
-    		$last_mth = $lyic[$i]/pow(10,$bagi)*$pengali;
+    		
     	?>
     {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
         "this_year": <?php echo round($this_mth,3)?>,
         "growth": <?php echo round($gwthic,2)?>,
+        "real": <?php echo round($realic,1)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
         "last_year": <?php echo round($last_mth,2)?>,
-        
+        "target": <?php echo round($targetic,1)?>,
     },
     <?php }?>
     
@@ -357,6 +409,16 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
   	legendValueText: "[[value]]%",
   	lineThickness: 0,
   	valueAxis: "a3",
+  },{
+  	id: "g5",
+  	title: "Target :",
+  	valueField: "target",
+  	type: "line",
+  	lineColor: "red",
+  	descriptionField: "real",
+  	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
+  	lineThickness: 1,
+  	valueAxis: "a2",
   }],
 
   chartCursor: {

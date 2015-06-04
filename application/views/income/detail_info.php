@@ -15,7 +15,7 @@
 	
 	$loan_income = $income_ty['loan'];
 	$trx_income = $income_ty['trx'];
-	$trd_income = $income_ty['trd'];
+	//$trd_income = $income_ty['trd'];
 	$lnfee_income = $income_ty['lnfee'];
 	$otr_income = $income_ty['otr'];
 	$tot = $income_ty['tot'];
@@ -25,7 +25,7 @@
 	
 	$loan_income_ly = $income_ly['loan'];
 	$trx_income_ly = $income_ly['trx'];
-	$trd_income_ly = $income_ly['trd'];
+	//$trd_income_ly = $income_ly['trd'];
 	$lnfee_income_ly = $income_ly['lnfee'];
 	$otr_income_ly = $income_ly['otr'];
 	$tot_ly = $income_ly['tot'];
@@ -57,7 +57,7 @@
 						<div>
 							<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income_ly/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income_ly/pow(10,9),1,'.',',')?> M </span></h5></div>
-							<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income_ly/pow(10,9),1,'.',',')?> M </span></h5></div>
+							
 							<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income_ly/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income_ly/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div style="border-top:1px dashed #ddd">
@@ -83,7 +83,7 @@
 						<div>
 							<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),1,'.',',')?> M </span></h5></div>
-							<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),1,'.',',')?> M </span></h5></div>
+							
 							<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 							<div style="border-top:1px dashed #ddd">
@@ -108,8 +108,8 @@
 					<h3 style="color:<?php echo $colgwth?>">
 						Growth : 
 						<?php echo number_format($gwth,2,'.',',')?>%
-						<br>
-						<?php echo number_format(($tot-$tot_ly)/pow(10,9),2,'.',',')?>
+						
+						(Rp <?php echo number_format(($tot-$tot_ly)/pow(10,9),2,'.',',')?> M)
 					</h3>
 					</center>
 				</div>
@@ -194,8 +194,6 @@
 						{name: 'Loan', y: <?php echo $loan_income_ly?>, color:"#eda32b"},
 						<?php }if($trx_income){?>
 						{name: 'Trx+CASA', y: <?php echo $trx_income_ly?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
-						{name: 'Trade Finance', y: <?php echo $trd_income_ly?>, color:"grey"},
 						<?php }if($lnfee_income){?>
 						{name: 'Loan Fee', y: <?php echo $lnfee_income_ly?>, color:"#b3b3b3"},
 						<?php }if($otr_income){?>
@@ -255,8 +253,6 @@
 						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
 						<?php }if($trx_income){?>
 						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
-						<?php }if($trd_income){?>
-						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
 						<?php }if($lnfee_income){?>
 						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
 						<?php }if($otr_income){?>
