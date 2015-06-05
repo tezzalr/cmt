@@ -7,6 +7,7 @@ class Product_analysis extends CI_Controller {
         parent::__construct();
         $this->load->model('manchor');
         $this->load->model('mrealization');
+         $this->load->model('mrealization_company');
         $this->load->model('mtarget');
         $this->load->model('mwallet');
         $this->load->library('excel');
@@ -34,6 +35,7 @@ class Product_analysis extends CI_Controller {
 			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
     		$data['title'] = "Product - ".$content['anchor']->name;
     		$anc_not = "anchor";
+    		$content['comps'] = $this->mrealization_company->get_company_ws_realization($content['anchor']->name);
     	}
     	elseif($this->uri->segment(3)=='directorate'){
     		$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($anchor_id);
@@ -79,7 +81,6 @@ class Product_analysis extends CI_Controller {
     	$content['tren_graph'] = $this->load->view('product_analysis/_tren_graph',$content,TRUE);
     	
     	$content['arr_prod'] = $arr_prod;
-		
 		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
 		$content['japs_form'] = $this->load->view('product_analysis/_japs_form',$content,TRUE);
 		$content['child_company'] = $this->load->view('product_analysis/_child_company',$content,TRUE);

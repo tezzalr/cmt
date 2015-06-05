@@ -478,3 +478,10 @@
 			return 1;
 		}
 	}
+	
+	function return_cur($prod){
+		$usd_arr = array("FX","Trade"); $arr_cur = array();
+		if(in_array($prod,$usd_arr)){$arr_cur['cur']="$"; $arr_cur['sep']="Mn";}
+		else{$arr_cur['cur']="Rp"; $arr_cur['sep']="Bn";}
+		return $arr_cur;
+	}

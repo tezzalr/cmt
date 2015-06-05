@@ -115,8 +115,8 @@
 
 <?php
 	$usd_arr = array("FX","Trade");
-	if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Mn";}
-	else{$cur="Rp"; $sep="Bn";}
+	if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Jt";}
+	else{$cur="Rp"; $sep="M";}
 ?>
 
 <script type="text/javascript">
@@ -320,14 +320,14 @@ var chart = AmCharts.makeChart("chartdiv", {
     {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
-        "this_year": <?php echo round($this_mth,3)?>,
+        "this_year": <?php echo round($this_mth,2)?>,
         "growth": <?php echo round($gwthic,2)?>,
         "real": <?php echo round($realic,1)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
         "last_year": <?php echo round($last_mth,2)?>,
-        "target": <?php echo round($targetic,1)?>,
+        "target": <?php echo round($targetic,2)?>,
     },
     <?php }?>
     
@@ -367,7 +367,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     valueAxis: "a2",
     lineColor: "#786c56",
     lineThickness: 1,
-    legendValueText: "[[description]]/<?php echo $cur?> [[value]] <?php echo $sep?>",
+    legendValueText: "[[description]]/Rp [[value]] M",
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.5,
@@ -391,7 +391,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     lineColor: "#eda32b",
     balloonText: "[[value]]",
     lineThickness: 1,
-    legendValueText: "[[description]]/<?php echo $cur?> [[value]] <?php echo $sep?>",
+    legendValueText: "[[description]]/Rp [[value]] M",
     fillColorsField: "lineColor",
     fillAlphas: 0.4,
     descriptionField: "month",
@@ -416,7 +416,7 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
   	type: "line",
   	lineColor: "red",
   	descriptionField: "real",
-  	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
+  	legendValueText: "Rp [[value]] M ([[real]]%)",
   	lineThickness: 1,
   	valueAxis: "a2",
   }],
