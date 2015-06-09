@@ -25,8 +25,8 @@
 		$target_inc_ly = $tgt_ws_ly->$inc_name;
 		
 		$usd_arr = array("FX","Trade");
-		if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Mn";}
-		else{$cur="Rp"; $sep="Bn";}
+		if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Jt"; $lkp="Juta";}
+		else{$cur="Rp"; $sep="M"; $lkp="Milyar";}
 	?>
 
 <div class="content">
@@ -105,7 +105,7 @@
 	</div>
 	<div style="width:100%; float:left; padding:0 5px 0 0px" id="volume_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Volume Trend Line<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
+			<div class="panel-heading">Volume Trend Line (Dalam <?php echo $lkp." ".$cur?>)<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv"></div>
 			</div>
@@ -114,7 +114,7 @@
 	
 	<div style="width:100%; float:left; padding:0 5px 0 5px" id="income_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Income Trend Line<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
+			<div class="panel-heading">Income Trend Line (Dalam Milyar Rp)<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv-inc"></div>
 			</div>
