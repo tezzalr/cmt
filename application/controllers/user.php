@@ -10,15 +10,20 @@ class User extends CI_Controller {
     
     public function index()
     {
-        //$data['title'] = "beranda";
-        
-        $bahasa = $this->session->userdata('bahasa');
-        
-        if(!$bahasa){
-        	redirect('welcome');
-        }
-        else{
-        	redirect('home');
+        $user = $this->session->userdata('userdb');
+		
+		if($user){
+			$users = $this->muser->get_all_user();
+			$data['title'] = "User List";
+		
+			$data['header'] = $this->load->view('shared/header',array(),TRUE);	
+			$data['sidebar'] = $this->load->view('shared/sidebar','',TRUE);
+			$data['footer'] = $this->load->view('shared/footer','',TRUE);
+			$data['content'] = $this->load->view('user/list_user',array('user'=>$users),TRUE);
+	
+			$this->load->view('front',$data);
+        }else{
+        	redirect('user/login');
         }
         
     }
@@ -220,51 +225,16 @@ class User extends CI_Controller {
         }
         return $result;
      }
-
-	private function welcome(){
-		$data['title'] = "Welcome New User";
-		$user_name = $this->muser->get_user_name_header();
-		$stock = $this->mitem->check_all_items_stock();
-		$lookbook_header = $this->mlookbook->get_lookbook_header();
-		$cart_items = $this->mcart->get_user_item_unfinished_cart();
-		$tablecart_td = $this->load->view('shared/header/_tablecart_td',array('cart_items' => $cart_items),TRUE); 
-		$tablecart = $this->load->view('shared/header/_tablecart',array('tablecart_td' => $tablecart_td),TRUE);
-
-		$data['header'] = $this->load->view('shared/header',array('user_name' => $user_name,'stock' => $stock, 'lookbook_header' => $lookbook_header,'tablecart' => $tablecart, 'sum_ci' => count($cart_items), 'blog_header' =>$this->mblog->get_all_blog_show()),TRUE);	
+    
+    public function form_password(){
+    	$data['title'] = 'Recapt Segment';
+    	
+    	$user = $this->session->userdata('user');
+		
+		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
+		$data['sidebar'] = $this->load->view('shared/sidebar','',TRUE);
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('user/welcome',array('user'=>$this->muser->get_user_login(), 'follow' => $this->load->view('shared/_followus',array('sosmed' => $this->muser->get_sosmed()),TRUE)),TRUE);
-
+		$data['content'] = $this->load->view('user/form_password','',TRUE);
 		$this->load->view('front',$data);
-	}
-    
-    public function input_address(){
-    	$id = $this->input->get('id');
-    	$form = 'new'; $adr=''; $prov_id=1;
-    	if($id){
-    		$adr = $this->muser->get_address_by_id($id);
-    		$form = 'update';
-    		$prov_id = $adr->province;
-    	}
-    	$iptadr = $this->load->view('customer/address/_inputaddress',array('form'=>$form, 'adr'=>$adr, 
-    	'provinces' => $this->muser->get_province(), 'cities' => $this->muser->get_city_by_province($prov_id)),TRUE);
-    	$json['html']= $iptadr;
-    	$this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-    }
-    
-    public function delete_address(){
-        if($this->muser->delete_address()){
-    		$json['status'] = 1;
-    	}
-    	else{
-    		$json['status'] = 0;
-    	}
-    	$this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-    }
-    
-    public function load_cities(){
-    	$prov=$this->uri->segment(3);
-    	echo $this->load->view('user/_cities',array('cities' => $this->muser->get_city_by_province($prov),TRUE));
     }
 }

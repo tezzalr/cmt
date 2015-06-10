@@ -37,14 +37,18 @@ class Profile extends CI_Controller {
     		$data['title'] = get_direktorat_full_name($anchor_id);
     	}		
     	
-		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");
+		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"");
+		$content['rlz_ws_ly_ey'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"ey");
 		$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year'],"");
 		$content['rlz_al'] = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year'],"");
 		//$content['rlz_al'] = $this->mrealization->get_anchor_al_realization($anchor_id, $rpttime['year']);
 		$content['wlt_ws'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $rpttime['year']);
 		$content['tgt_ws'] = $this->mtarget->get_anchor_ws_target($anchor_id);
 		$content['ty'] = $this->mrealization->count_realization_now($content['rlz_ws']);
-		$content['ly'] = $this->mrealization->count_realization_now($content['rlz_ws_ly']);
+		if($content['rlz_ws_ly']){
+			$content['ly'] = $this->mrealization->count_realization_now($content['rlz_ws_ly']);
+		}else{$content['ly'] = "";}
+		$content['ly_ey'] = $this->mrealization->count_realization_now($content['rlz_ws_ly_ey']);
 		$content['now'] = $this->mrealization->count_realization_now($content['rlz_ws']);
 		$content['percent'] = $this->mrealization->count_realization($content['tgt_ws'], $content['rlz_ws']);
 		$content['ytd'] = $this->mrealization->count_realization_value($content['rlz_ws'], $content['rlz_ws']->month);

@@ -1,4 +1,5 @@
 <?php echo $sidebar?>
+<?php $show_detail_id = $this->uri->segment(6)?>
 <div class="content">
 	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
 	<span style="font-size:18px; color:#bbb">Action Plan & Progress / <?php echo $prod_name?></span>
@@ -46,6 +47,13 @@
 	</div>
 </div>
 <script>
+	$(document).ready(function() {
+		var show_detail_id = <?php echo $show_detail_id?>;
+		if(show_detail_id){
+			show_update(show_detail_id);
+		}
+	});
+	
 	function submit_ap(){
 		$("#formap").ajaxForm({	
     		dataType: 'json',

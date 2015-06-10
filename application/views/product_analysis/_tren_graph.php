@@ -163,13 +163,13 @@
     {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
-        "this_year": <?php echo round($this_mth,1)?>,
+        "this_year": <?php echo round(abs($this_mth),1)?>,
         "growth": <?php echo round($gwth,2)?>,
         "real": <?php echo round($real,1)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
-        "last_year": <?php echo round($last_mth,1)?>,
+        "last_year": <?php echo round(abs($last_mth),1)?>,
         "target": <?php echo round($target,1)?>,
         
     },
@@ -320,13 +320,13 @@ var chart = AmCharts.makeChart("chartdiv", {
     {
         "month":"<?php echo $month_name?>",
         <?php if($i<=$month){?>
-        "this_year": <?php echo round($this_mth,2)?>,
+        "this_year": <?php echo round(abs($this_mth),2)?>,
         "growth": <?php echo round($gwthic,2)?>,
         "real": <?php echo round($realic,1)?>,
         <?php if($i==$month){?>
         "bulletClass":'lastBullet',
         <?php }}?>
-        "last_year": <?php echo round($last_mth,2)?>,
+        "last_year": <?php echo round(abs($last_mth),2)?>,
         "target": <?php echo round($targetic,2)?>,
     },
     <?php }?>

@@ -31,9 +31,9 @@
 								<div style="float:left; width:97%">
 									<?php echo $plan['update']->issue?>
 								</div><div style="clear:both"></div>
-								<div style="font-size:10px; color:#aaaaaa"><i>updated :
+								<div style="font-size:10px; color:#aaaaaa">updated :
 								<?php $date = date("Y-m-d", strtotime($plan['update']->created));
-										if($date != "-0001-11-30"){echo date("n M Y", strtotime($plan['update']->created));}?></i>
+										if($date != "-0001-11-30"){echo date("n M Y", strtotime($plan['update']->created));}?>
 								</div>
 							</div>
 						</div>

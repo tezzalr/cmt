@@ -30,7 +30,7 @@
 										</div>
 										<div style="float:left; width:98%">
 											<a style="color:black" 
-											href="<?php echo base_url()?>plan/show/anchor/<?php echo $send['plan']['plan']->anchor_id.'/'.$send['prod']['name'].'/'.$send['plan']['plan']->id?>">
+											href="<?php echo base_url()?>plan/show/anchor/<?php echo $send['plan']['plan']->anchor_id.'/'.$send['prod']['id'].'/'.$send['plan']['plan']->id?>">
 											<?php echo $send['plan']['plan']->action?></a>
 										</div><div style="clear:both"></div>
 									</b>
@@ -41,9 +41,9 @@
 										<div style="float:left; width:97%">
 											<?php echo $send['plan']['update']->issue?>
 										</div><div style="clear:both"></div>
-										<div style="font-size:10px; color:#aaaaaa"><i>updated :
+										<div style="font-size:10px; color:#aaaaaa">updated :
 										<?php $date = date("Y-m-d", strtotime($send['plan']['update']->created));
-												if($date != "-0001-11-30"){echo date("n M Y", strtotime($send['plan']['update']->created));}?></i>
+												if($date != "-0001-11-30"){echo date("n M Y", strtotime($send['plan']['update']->created));}?>
 										</div>
 									</div>
 								</div>
