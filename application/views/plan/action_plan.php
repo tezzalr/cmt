@@ -1,5 +1,5 @@
 <?php echo $sidebar?>
-<?php $show_detail_id = $this->uri->segment(6)?>
+<?php $show_detail_id = $this->uri->segment(6);if(!$show_detail_id){$show_detail_id=0;}?>
 <div class="content">
 	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
 	<span style="font-size:18px; color:#bbb">Action Plan & Progress / <?php echo $prod_name?></span>
