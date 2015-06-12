@@ -18,7 +18,7 @@
 		</ul>
 		<?php if($anchor || $dir){?>
 		<hr style="margin:0 0 0 0">
-		<ul class="nav" id="side-menu">
+		<ul class="nav" id="side-menu" style="padding-left:20px">
 			<li>
 				<a href="<?php echo base_url()?>profile/show/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-lightbulb-o fa-fw"></i> Summary</a>
 			</li>
@@ -28,9 +28,9 @@
 			<li>
 				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
 			</li>
-			<li>
+			<!--<li>
 				<a href="<?php echo base_url()?>report/relation_income/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
-			</li>
+			</li>-->
 			<li>
 				<?php if($data_a == "directorate"){?>
 					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>/Product"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>

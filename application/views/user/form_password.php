@@ -1,4 +1,4 @@
-<div style="padding:5px">
+<div style="padding:5px" class="content">
 	<div id="succeed" class="alert alert-success col-md-12" style="display:none; height:40px; padding:10px;"><span class="glyphicon glyphicon-ok-sign"></span> <label id="succeed-message"></label></div>
 	<h4>Change Password</h4><hr>
 	<form class="form-horizontal" action="<?php echo base_url();?>user/change_password" method ="post" id="formpsswd" role="form">

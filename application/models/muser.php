@@ -39,6 +39,11 @@ class Muser extends CI_Model {
     function insert_user($user){
         return $this->db->insert('user', $user);
     }
+    function insert_user_log($user_id){
+        $user['user_id'] = $user_id;
+        $user['login_time'] = date("Y-m-d H:i:s");
+        return $this->db->insert('user_log', $user);
+    }
     
     function insert_payment($payment){
         return $this->db->insert('payment', $payment);
@@ -67,6 +72,13 @@ class Muser extends CI_Model {
     function get_all_user(){
     	$this->db->order_by('name', 'asc');
     	$query = $this->db->get('user');
+        return $query->result();
+    }
+    
+    function get_all_user_log(){
+    	$this->db->join('user', 'user.id = user_log.user_id');
+    	$this->db->order_by('login_time', 'desc');
+    	$query = $this->db->get('user_log');
         return $query->result();
     }
     
@@ -145,8 +157,13 @@ class Muser extends CI_Model {
     }
     
     function update_user($user){
-    	$usr = $this->session->userdata('user');
-        $this->db->where('id', $usr['user_id']);
+    	$usr = $this->session->userdata('userdb');
+        $this->db->where('id', $usr['id']);
+        return $this->db->update('user', $user);
+    }
+    
+    function update_user_general($user,$id){
+        $this->db->where('id', $id);
         return $this->db->update('user', $user);
     }
     

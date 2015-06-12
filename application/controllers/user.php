@@ -28,6 +28,26 @@ class User extends CI_Controller {
         
     }
     
+    public function user_log()
+    {
+        $user = $this->session->userdata('userdb');
+		
+		if($user){
+			$content['logs'] = $this->muser->get_all_user_log();
+			$data['title'] = "User Log";
+		
+			$data['header'] = $this->load->view('shared/header',array(),TRUE);	
+			$data['sidebar'] = $this->load->view('shared/sidebar','',TRUE);
+			$data['footer'] = $this->load->view('shared/footer','',TRUE);
+			$data['content'] = $this->load->view('user/list_log',$content,TRUE);
+	
+			$this->load->view('front',$data);
+        }else{
+        	redirect('user/login');
+        }
+        
+    }
+    
     public function login($params=null)
     {
     	/*$session = $this->session->userdata('user');
@@ -45,11 +65,15 @@ class User extends CI_Controller {
     
     public function input_user()
     {
+    	$user_id = $this->uri->segment(3); $content['info']="";
+    	
+    	if($user_id){$content['info'] = $this->muser->get_user_by_id($user_id);}
+    	
     	$data['title'] = "Input User";
     	
         $data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-        $data['content'] = $this->load->view('user/input',array(),TRUE);
+        $data['content'] = $this->load->view('user/input',$content,TRUE);
     
         $this->load->view('front',$data);
     }
@@ -69,6 +93,7 @@ class User extends CI_Controller {
                 'role' => $user->role
             );
             $this->session->set_userdata('userdb',$data);
+            $this->muser->insert_user_log($data['id']);
             if($user->role == "admin"){
                 redirect('general');
             }elseif($user->role == "cmt"){
@@ -92,83 +117,36 @@ class User extends CI_Controller {
     }
     
     public function register(){
+      	$id = $this->uri->segment(3);
       	$user['username'] = $this->input->post('username');
-        $user['password'] = md5($this->input->post('password'));
+      	if(!$id){
+        	$user['password'] = md5($this->input->post('password'));
+        }
+        
+      	$user['username'] = $this->input->post('username');
+        if($id && $this->input->post('password')){
+        	$user['password'] = md5($this->input->post('password'));
+        }
         $user['name'] = $this->input->post('name');
         $user['role'] = $this->input->post('role');
         $user['anchor'] = $this->input->post('anchor');
         $user['product'] = $this->input->post('product');
         
-        if($this->muser->register($user)){
-        	/*$user_id = $this->muser->get_user_id_by_username($user['username']);
-            $data = array(
-                'username' => $user['username'],
-                'id' => $user_id->id,
-                'name' => $user_id->name,
-                'is_logged_in' => true,
-                'role' => $user_id->role
-            );
-            $this->session->set_userdata('userdb',$data);*/
-        	redirect('update/activity_wall');
-        }else{redirect('user/input_user');}
+        if($id){
+			if($this->muser->update_user_general($user,$id)){
+				redirect('user');
+			}
+    	}else{
+			if($this->muser->register($user)){
+        		redirect('user');
+			}
+    	}
     }
     
     public function logout(){
         $this->session->unset_userdata('userdb');
         redirect('/user/login');
     }
-    
-    public function check_existing_email($email=null,$format=null){
-         if($email==null){
-             $email = $this->input->post('email');
-         }
-         $value;
-         if($this->muser->get_existing_email($email)==true){
-             $value = false;
-         }else{
-             $value = true;
-         }
-         if($format==null){
-            $this->output->set_content_type('application/json')
-                        ->set_output(json_encode(array("value" => $value)));
-         }
-         return $value;
-     }
-     
-    public function check_existing_email_edit($email=null,$format=null){
-         if($email==null){
-             $email = $this->input->post('email');
-             $old_email = $this->input->post('old_email');
-         }
-         $value;
-         if($this->muser->get_existing_email_edit($email,$old_email)==true){
-             $value = false;
-         }else{
-             $value = true;
-         }
-         if($format==null){
-            $this->output->set_content_type('application/json')
-                        ->set_output(json_encode(array("value" => $value)));
-         }
-         return $value;
-     }
-     
-     public function check_email_is_user($email=null,$format=null){
-     	if($email==null){
-             $email = $this->input->post('email');
-         }
-         $value;
-         if($this->muser->get_customer_id_by_username($email)==true){
-             $value = true;
-         }else{
-             $value = false;
-         }
-         if($format==null){
-            $this->output->set_content_type('application/json')
-                        ->set_output(json_encode(array("value" => $value)));
-         }
-         return $value;
-     }
      
      public function check_user_password($password=null,$format=null){
          if($password==null){
@@ -186,24 +164,6 @@ class User extends CI_Controller {
          }
          return $value;
      }
-    
-    public function update_account(){
-    	$user['username'] = $this->input->post('email');
-        $user['name'] = $this->input->post('name');
-        $user['telp'] = $this->input->post('telp');
-        $user['email_lang'] = $this->input->post('email_lang');
-        
-        if($this->muser->update_user($user)){
-        	if($this->input->post('signature')){
-        		$misc['signature']=$this->input->post('signature');
-        		if($this->muser->update_misc($misc)){
-        			$json['status']=1;	
-        		}else{$json['status']=0;}
-        	}else{$json['status']=1;}
-        }
-        $this->output->set_content_type('application/json')
-                     ->set_output(json_encode($json));
-    }
     
     public function change_password(){
     	$user['password'] = md5($this->input->post('password_new'));
@@ -227,9 +187,9 @@ class User extends CI_Controller {
      }
     
     public function form_password(){
-    	$data['title'] = 'Recapt Segment';
+    	$data['title'] = 'Change Password';
     	
-    	$user = $this->session->userdata('user');
+    	$user = $this->session->userdata('userdb');
 		
 		$data['header'] = $this->load->view('shared/header',array('user' => $user),TRUE);	
 		$data['sidebar'] = $this->load->view('shared/sidebar','',TRUE);

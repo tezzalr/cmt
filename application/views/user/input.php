@@ -11,15 +11,18 @@ $(document).ready(function(){
         
     $("#formsignup").validate({
 		rules: {
+			name: {
+				required: true,
+			},
 			username: {
 				required: true,
 			},
 			password: {
-				required: true,
+				//required: true,
 				minlength: 5
 			},
 			verify_password: {
-				required: true,
+				//required: true,
 				equalTo: "#password"
 			},
 			name: "required",
@@ -42,22 +45,22 @@ $(document).ready(function(){
 });
 </script>
 
-<div id="" class="container no_pad">
+<div id="" class="content">
 	<div class="col-md-7">
 		<div class="form-signin">
 		<h3 class="form-signin-heading">New User</h3>
 		<p class="desc_login_form">Enter new user</p>
-		<form class="form-horizontal" action="<?php echo base_url();?>user/register" method ="post" id="formsignup" role="form">
+		<form class="form-horizontal" action="<?php if($info){echo base_url()."user/register/".$info->id;}else{echo base_url()."user/register";}?>" method ="post" id="formsignup" role="form">
 			 <div class="form-group">
 				<label class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+					<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<?php if($info){echo $info->name;}?>">
 				</div>
 			</div>
 			 <div class="form-group">
 				<label class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="username" id="username" placeholder="Username">
+					<input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php if($info){echo $info->username;}?>">
 				</div>
 			</div>
 			<div class="form-group">
@@ -88,9 +91,9 @@ $(document).ready(function(){
 				<label class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
 					<select id="" class="form-control" name="role">
-						<option value='admin' >Admin</option>
-						<option value='cmt' >CMT</option>
-						<option value='rm' >RM</option>
+						<option value='admin' <?php if($info){if($info->role=="admin"){echo "selected";}}?>>Admin</option>
+						<option value='cmt' <?php if($info){if($info->role=="cmt"){echo "selected";}}?>>CMT</option>
+						<option value='rm' <?php if($info){if($info->role=="rm"){echo "selected";}}?>>RM</option>
 					</select>
 				</div>
 			</div>

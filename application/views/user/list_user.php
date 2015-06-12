@@ -1,4 +1,4 @@
-<div id="" class="container no_pad">
+<div id="" class="content" style="margin-right:20px">
 	<div class="no_pad" style="margin-bottom: 50px;">
 		<h2 style="">All User</h2>
 	</div>

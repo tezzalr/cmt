@@ -217,12 +217,11 @@ var chart = AmCharts.makeChart("chartdiv", {
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.5,
-    bullet: "square",
     bulletBorderColor: "#786c56",
     bulletBorderAlpha: 1,
-    bulletBorderThickness: 1,
+    bulletBorderThickness: 0.3,
     bulletColor: "#786c56",
-    labelText: "[[value]]",
+    
     labelPosition: "right",
     balloonText: "last_year:[[value]]",
     showBalloon: true,
@@ -265,6 +264,8 @@ var chart = AmCharts.makeChart("chartdiv", {
   	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
   	lineThickness: 1,
   	valueAxis: "a2",
+  	labelText: "[[value]]",
+  	bullet: "square",
   }],
 
   chartCursor: {
@@ -371,12 +372,11 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.5,
-    bullet: "square",
+    
     bulletBorderColor: "#786c56",
     bulletBorderAlpha: 1,
-    bulletBorderThickness: 1,
+    bulletBorderThickness: 0.3,
     bulletColor: "#786c56",
-    labelText: "[[value]]",
     labelPosition: "right",
     balloonText: "last_year:[[value]]",
     showBalloon: true,
@@ -419,6 +419,8 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
   	legendValueText: "Rp [[value]] M ([[real]]%)",
   	lineThickness: 1,
   	valueAxis: "a2",
+  	labelText: "[[value]]",
+  	bullet: "square",
   }],
 
   chartCursor: {
