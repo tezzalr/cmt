@@ -24,10 +24,10 @@ class Mwallet extends CI_Model {
     
     /*Anchor Function*/
     
-    function get_anchor_ws_wallet($anchor_id, $year){
-    	$this->manchor->check_group($anchor_id,"","wallet_size");
+    function get_anchor_ws_wallet($anchor_id, $year,$type){
+    	$this->manchor->check_group($anchor_id,"","wallet_size",$type);
     	$this->db->where('year',$year);
-    	$result = $this->db->get('wholesale_wallet_size');
+    	$result = $this->db->get($type.'_wallet_size');
     	$query = $result->result();
         if($query){
         	return $query[0];
@@ -123,6 +123,19 @@ class Mwallet extends CI_Model {
     			$arr_sow[34] = ($trx_inc_rlz)/($trx_inc_wlt)*100;
     		}else{$arr_sow[34] = 0;}
     		
+    	}else{
+    		for($i=1;$i<=17;$i++){
+    			$wlt_prd = return_prod_name_al($i)."_vol";
+    			if(!$wallet->$wlt_prd){$arr_sow[$i]=0;}
+    			else{$arr_sow[$i]=$realization[$wlt_prd]/$wallet->$wlt_prd*100;}
+    		}
+    		for($i=18;$i<=34;$i++){
+    			$nii_arr = array(18,20,21,22,23,24,25,26,27,28);
+    			$imbuhan = "_fbi"; if(in_array($i,$nii_arr)){$imbuhan = "_nii";}
+    			$wlt_inc = return_prod_name_al($i-17).$imbuhan;
+    			if(!$wallet->$wlt_inc){$arr_sow[$i]=0;}
+    			else{$arr_sow[$i]=$realization[return_prod_name_al($i-17)."_inc"]/$wallet->$wlt_inc*100;}	
+    		}
     	}
     	return $arr_sow;
     }

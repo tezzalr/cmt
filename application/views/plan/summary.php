@@ -6,8 +6,8 @@
 </style>
 <?php echo $sidebar?>
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
-	<span style="font-size:18px; color:#bbb">Summary Strategy & Action Plan</span>
+	<h2 style="margin-bottom:0px;">STRATEGY & ACTION PLAN</h2>
+	<span style="font-size:18px; color:#bbb"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></span>
 	<div class="pull-right" style="padding-right:10px;">
 		<a href="<?php echo base_url()?>plan/edit_strategy/<?php echo $anchor->id?>" class="btn btn-success btn-sm">Edit Strategy</a>
 	</div>
@@ -38,9 +38,9 @@
 							<div class="small-title pull-right" style="font-size:11px">Action Plan</div>
 							<div style="clear:both"></div>
 							<div>
-								<div>
-									<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan</button>
-								</div>
+								<center>
+									<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan <span class="caret"></span></button>
+								</center>
 								<div style="display:none;" id="prd_<?php echo $stg['strategy']->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
 									<?php foreach($stg['ap'] as $ap){?>
 										<div style="margin-bottom:8px">
@@ -55,10 +55,14 @@
 													<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>
 												</div>
 												<div style="float:left; width:95%">
-													<button type="button" class="btn-link" style="color:black; margin:0px; padding:0px; text-align:left" onclick="toggle_visibility('ap_<?php echo $ap['ap']->id?>');"><?php echo $ap['ap']->action?></button>
+													<a class="btn-link" style="color:black; margin:0px; padding:0px; text-align:left" href="<?php echo base_url().'plan/show/anchor/'.$anchor->id.'/'.$stg['strategy']->product.'/'.$ap['ap']->id?>"><?php echo $ap['ap']->action?></a>
 												</div><div style="clear:both"></div>
 											</div>
-											<div style="display:none; margin-top:10px" id="ap_<?php echo $ap['ap']->id?>">
+											<div style="margin-top:10px; color:#878787; font-size:13.4px" id="ap_<?php echo $ap['ap']->id?>">
+												<?php if($ap['last_update']){?><div style="font-size:11px; color:grey; margin-top:5px" class="pull-right">updated: <?php 
+														$date = date("Y-m-d", strtotime($ap['last_update']->created));
+														if($date != "-0001-11-30"){echo date("d M Y", strtotime($ap['last_update']->created));}?></div><?php }?><div style="clear:both"></div>
+												
 												<div>
 													<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-signal" aria-hidden="true"></span></div>
 													<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->progress;}?></div>
@@ -74,9 +78,6 @@
 													<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->support;}?></div>
 													<div style="clear:both"></div>
 												</div>
-												<?php if($ap['last_update']){?><div style="font-size:11px; color:grey; margin-top:5px" class="pull-right">updated: <?php 
-													$date = date("Y-m-d", strtotime($ap['last_update']->created));
-													if($date != "-0001-11-30"){echo date("d M Y", strtotime($ap['last_update']->created));}?></div><?php }?><div style="clear:both"></div>
 											</div>
 											<hr>
 										</div>

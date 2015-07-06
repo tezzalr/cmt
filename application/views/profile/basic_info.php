@@ -50,31 +50,31 @@
 					<div>
 						<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div class="hide_temp_inc">
-							<div><h5>WCL : <span class="pull-right">Rp <?php echo number_format($ty['WCL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>IL : <span class="pull-right">Rp <?php echo number_format($ty['IL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>SL : <span class="pull-right">Rp <?php echo number_format($ty['SL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>TR : <span class="pull-right">Rp <?php echo number_format($ty['TR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
+							<?php if($ty['CASA_inc']){?><div><h5>WCL : <span class="pull-right">Rp <?php echo number_format($ty['WCL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>IL : <span class="pull-right">Rp <?php echo number_format($ty['IL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>SL : <span class="pull-right">Rp <?php echo number_format($ty['SL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>TR : <span class="pull-right">Rp <?php echo number_format($ty['TR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
 						</div>
 						
 						<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div class="hide_temp_inc">
-							<div><h5>CASA : <span class="pull-right">Rp <?php echo number_format($ty['CASA_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>FX : <span class="pull-right">Rp <?php echo number_format($ty['FX_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>Trade : <span class="pull-right">Rp <?php echo number_format($ty['Trade_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>BG : <span class="pull-right">Rp <?php echo number_format($ty['BG_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>SCF : <span class="pull-right">Rp <?php echo number_format($ty['SCF_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>PWE : <span class="pull-right">Rp <?php echo number_format($ty['PWE_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
-							<div><h5>OIR : <span class="pull-right">Rp <?php echo number_format($ty['OIR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
+							<?php if($ty['CASA_inc']){?><div><h5>CASA : <span class="pull-right">Rp <?php echo number_format($ty['CASA_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['FX_inc']){?><div><h5>FX : <span class="pull-right">Rp <?php echo number_format($ty['FX_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['Trade_inc']){?><div><h5>Trade : <span class="pull-right">Rp <?php echo number_format($ty['Trade_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['BG_inc']){?><div><h5>BG : <span class="pull-right">Rp <?php echo number_format($ty['BG_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['SCF_inc']){?><div><h5>SCF : <span class="pull-right">Rp <?php echo number_format($ty['SCF_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['PWE_inc']){?><div><h5>PWE : <span class="pull-right">Rp <?php echo number_format($ty['PWE_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['OIR_inc']){?><div><h5>OIR : <span class="pull-right">Rp <?php echo number_format($ty['OIR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
 						</div>
 						<!--<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),1,'.',',')?> M </span></h5></div>-->
 						<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),1,'.',',')?> M </span></h5></div>
 						<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),1,'.',',')?> M </span></h5></div>
-						<div class="hide_temp_inc">
-							<div><h5>TD : <span class="pull-right">Rp <?php echo number_format($ty['TD_inc']/pow(10,9),2,'.',',')?> M </span></h5></div>
+						<div class="hide_temp_inc" style="border-bottom:0px">
+							<?php if($ty['TD_inc']){?><div><h5>TD : <span class="pull-right">Rp <?php echo number_format($ty['TD_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
 						</div>
 						<div style="border-top:1px dashed #ddd">
 							<h4>
-								<button class="btn-link" style="color:black; padding:0px" onclick="$('.hide_temp_inc').animate({'height':'toggle','opacity':'toggle'});">Total : <span class="caret"></span></button>
+								<button class="btn-link" style="color:black; padding:0px" onclick="$('.hide_temp_inc').animate({'height':'toggle','opacity':'toggle'});">Total <span class="caret"></span></button>
 								<span class="pull-right">Rp <?php echo number_format($tot/pow(10,9),2,'.',',')?> M </span>
 							</h4>
 						</div>
@@ -93,7 +93,7 @@
 					<tr>
 						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
 						<!--<th class="align-right"><?php echo $year?></th>-->
-						<th class="align-right"><?php echo $year?></th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
+						<th class="align-right"><?php echo $year?></th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">Growth</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -101,11 +101,11 @@
 						<tr>
 							<?php 
 								if($tgt_ws){
-									if($ly && $ly[$prod_name]){
+									if($ly && $ly[$prod_name] && $ly_ey[$prod_name]){
 										$tgt = $tgt_ws->$prod_name*$ly[$prod_name]/$ly_ey[$prod_name];
 									}
 									else{
-										$anl = array('CASA','TD','WCL','IL');
+										$anl = array('CASA','TD','WCL','IL','TR');
 										if(in_array($prod['initial'],$anl)){
 											$tgt = $tgt_ws->$prod_name;
 										}else{$tgt = $tgt_ws->$prod_name/12*$month;}
@@ -170,13 +170,13 @@
 					<tr>
 						<th>Product</th><th class="align-right"><?php echo $year-1?></th>
 						<!--<th class="align-right"><?php echo $year?></th>-->
-						<th class="align-right"><?php echo $year?></th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">%Gwt</th>
+						<th class="align-right"><?php echo $year?></th><th class="align-right">Target</th><th class="align-right">%Rlztn</th><th class="align-right">Growth</th>
 					</tr>
 					</thead>
 					<tbody>
 						<?php foreach($arr_prod as $prod){ 
 							$prd_name_arr = $prod['initial']."_inc";
-							$nii_arr = array("CASA","TD","IL","WCL");
+							$nii_arr = array("CASA","TD","IL","WCL","TR");
 							if(in_array($prod['initial'],$nii_arr)){$prd_name = $prod['initial']."_nii";}
 							else{$prd_name = $prod['initial']."_fbi";}
 							$target = $tgt_ws->$prd_name;				
@@ -184,7 +184,7 @@
 						<tr>
 							<?php 
 								if($tgt_ws){
-									if($ly && $ly[$prd_name_arr]){
+									if($ly && $ly[$prd_name_arr] && $ly_ey[$prd_name_arr]){
 										$tgt = $tgt_ws->$prd_name*$ly[$prd_name_arr]/$ly_ey[$prd_name_arr];
 									}
 									else{

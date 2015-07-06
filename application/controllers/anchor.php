@@ -23,7 +23,7 @@ class Anchor extends CI_Controller {
     public function index()
     {	
 		$lstyear = $this->mrealization->get_last_year();
-		$lstmth = $this->mrealization->get_last_month($lstyear);
+		$lstmth = $this->mrealization->get_last_month($lstyear,'wholesale');
 		
 		$lsttime = array(
 						'month' => $lstmth,

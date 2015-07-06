@@ -22,8 +22,8 @@
 				<span style="float:right">
 					<button class="btn btn-warning  btn-xs" onclick="edit_plan(<?php echo $plan->id?>,'<?php echo $plan->anchor_id?>','<?php echo $plan->product?>')"><span class="glyphicon glyphicon-pencil"></span></button>
 					<button class="btn btn-danger btn-xs" onclick="delete_plan(<?php echo $plan->id?>)"><span class="glyphicon glyphicon-trash"></span></button>
-					<button style="margin-right:10px; display:none;" class="btn btn-wsa btn-xs btn-real-uap" id="btn-real-uap-<?php echo $plan->id?>" onclick="edit_plan_update('',<?php echo $plan->id?>);">
-						<span class="glyphicon glyphicon-plus"></span> Update
+					<button style="margin-right:10px; display:none;" class="btn btn-wsa-green btn-xs btn-real-uap" id="btn-real-uap-<?php echo $plan->id?>" onclick="edit_plan_update('',<?php echo $plan->id?>);">
+						<span class="glyphicon glyphicon-plus"></span> Activity
 					</button>
 				</span><div style="clear:both"></div>
 			</div>

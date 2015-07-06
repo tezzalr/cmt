@@ -23,19 +23,19 @@
 				<a href="<?php echo base_url()?>profile/show/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-lightbulb-o fa-fw"></i> Summary</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url()?>product_analysis/show/<?php echo $data_a?>/<?php echo $data_b?>/CASA/volume"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
-			</li>
-			<li>
-				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
+				<a href="<?php echo base_url()?>product_analysis/show/<?php echo $data_a?>/<?php echo $data_b?>/CASA"><i class="fa fa-table fa-fw"></i> Product Analysis</a>
 			</li>
 			<!--<li>
+				<a href="<?php echo base_url()?>income/detail/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-table fa-fw"></i> Income Analysis</a>
+			</li>
+			<li>
 				<a href="<?php echo base_url()?>report/relation_income/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-sitemap fa-fw"></i> Dashboard</a>
 			</li>-->
 			<li>
 				<?php if($data_a == "directorate"){?>
-					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>/Product"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+					<a href="<?php echo base_url()?>plan/issues_summary/directorate/<?php echo $data_b?>/Product"><i class="fa fa-dashboard fa-fw"></i> Activity Analysis</a>
 				<?php }else{?>
-					<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Action Plan</a>
+					<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $data_b?>"><i class="fa fa-dashboard fa-fw"></i> Activity Analysis</a>
 				<?php }?>
 			</li>
 			<li>
@@ -44,16 +44,17 @@
 			<li>
 				<a href="<?php echo base_url()?>analysis/show/<?php echo $data_a?>/<?php echo $data_b?>"><i class="fa fa-edit fa-fw"></i> Review</a>
 			</li>
+			<?php if($data_a == "directorate"){?>
+			<li>
+				<a href="<?php echo base_url()?>scorecard/show/<?php echo $data_b?>"><i class="fa fa-lightbulb-o fa-fw"></i> Scorecard</a>
+			</li>
+			<?php }?>
 		</ul>
 		<?php }?>
-		<hr style="margin:0 0 0 0">
 		<ul class="nav" id="side-menu">
-			<li>
+			<!--<li>
 				<a href="<?php echo base_url()?>product/top_transaksi/CASA"><i class="fa fa-lightbulb-o fa-fw"></i> Product</a>
-			</li>
-			<li>
-				<a href="<?php echo base_url()?>scorecard/show/"><i class="fa fa-lightbulb-o fa-fw"></i> Scorecard</a>
-			</li>
+			</li>-->
 		</ul>
 		<hr style="margin:0 0 0 0">
 	</div>

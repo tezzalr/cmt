@@ -16,6 +16,7 @@ class Scorecard extends CI_Controller {
     public function show(){
 		$data['title'] = "Scorecard";
 		
+		$id = $this->uri->segment(3);
 		$rpttime = $this->session->userdata('rpttime');
     	$year = $rpttime['year']; 
     	$content['year'] = $year; $content['month'] = $rpttime['month'];
@@ -26,11 +27,11 @@ class Scorecard extends CI_Controller {
 		$month = $content['month'];
 		//$arrsc = array('platinum','gold','silver');
 		
-		$anchors = $this->manchor->get_anchor_sc();
+		$anchors = $this->manchor->get_anchor_sc($id);
 		foreach($anchors as $anchor){
-			$rlz_raw = $this->mrealization->get_anchor_ws_realization($anchor->id, $year,"");
+			$rlz_raw = $this->mrealization->get_anchor_realization($anchor->id, $year,"","wholesale");
 			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year);		
-    		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month);
+    		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month,"wholesale");
     		$sow = $this->mwallet->get_sow($wallet, $rlz, 'wholesale');
     		
 			$sc[$i]['anchor'] = $anchor;
@@ -49,6 +50,10 @@ class Scorecard extends CI_Controller {
 			}else{$sc[$i]['casx'] = 10;}
 			$i++;
 		}
+		
+		$arrsc['platinum'][1]=""; $arrsc['platinum'][2]=""; $arrsc['platinum'][3]="";
+		$arrsc['gold'][1]=""; $arrsc['gold'][2]=""; $arrsc['gold'][3]="";
+		$arrsc['silver'][1]=""; $arrsc['silver'][2]=""; $arrsc['silver'][3]="";
 		
 		foreach($sc as $each){
 			if($each['sow']<=0.1 || $each['trx']<=0.5 || $each['casx']<=0.05){
@@ -76,7 +81,9 @@ class Scorecard extends CI_Controller {
 				if($ring==1){$s1++;}elseif($ring==2){$s2++;}else{$s3++;}
 			}
 		}
-		$content['sidebar'] = $this->load->view('shared/sidebar',array('anchor'=>"", 'dir'=>""),TRUE);
+		$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($id);
+    	$content['dir']['code'] = $id;
+		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
 		$content['scs']=$arrsc;
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);

@@ -36,9 +36,9 @@ class Analysis extends CI_Controller {
 			
 		}
 		
-		$rlz_raw = $this->mrealization->get_anchor_ws_realization($anchor->id, $year,"");
+		$rlz_raw = $this->mrealization->get_anchor_realization($anchor->id, $year,"","wholesale");
 		$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year);		
-		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month);
+		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month,"wholesale");
 		$sow = $this->mwallet->get_sow($wallet, $rlz, 'wholesale');
 		$content['all_sow'] = $this->mwallet->get_sow_lengkap($wallet, $rlz, 'wholesale');
 		$content['wal'] = $this->mwallet->get_anchor_total_wallet($anchor->id, $year);

@@ -15,7 +15,7 @@
 					<div style="width:33%; float:left;">
 						<table class="table" style="font-size:9px">
 							<tr><th></th><th>gas</th><th>wal</th><th>ytd</th><th>sow</th><th>trx</th><th>casx</th></tr>
-						<?php foreach($scs[$arrsc[$a]][$s] as $sc){?>
+						<?php if($scs[$arrsc[$a]][$s]){foreach($scs[$arrsc[$a]][$s] as $sc){?>
 							<?php 
 								$sow_col = "black"; $trx_col = "black"; $casx_col = "black";
 								if(($s==3&&$sc['sow']<0.1)||($s==2&&$sc['sow']<0.3)){$sow_col = "red";}else{$sow_col = "black";}
@@ -31,7 +31,7 @@
 								<td style="color:<?php echo $trx_col?>"><?php echo number_format($sc['trx'],1)?></td>
 								<td style="color:<?php echo $casx_col?>"><?php echo number_format($sc['casx'],1)?></td>
 							</tr>
-						<?php }?>
+						<?php }}?>
 						</table>
 					</div>
 				<?php }?>

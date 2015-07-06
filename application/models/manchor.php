@@ -19,13 +19,13 @@ class Manchor extends CI_Model {
     
     //INSERT or CREATE FUNCTION
     
-    function check_group($anchor_id,$month,$db){
+    function check_group($anchor_id,$month,$db,$type){
     	$list_group = array("CB1","CB2","CB3","CB4","CB5","CB6","CB7","CB");
     	if(in_array($anchor_id,$list_group)){
-    		if($month){get_type_select_month('wholesale',$this);}
-			else{get_type_select('wholesale',$this);}
+    		if($month){get_type_select_month($type,$this);}
+			else{get_type_select($type,$this);}
     		get_direktorat_where($anchor_id,$this);
-    		$this->db->join('anchor', 'anchor.id = wholesale_'.$db.'.anchor_id');
+    		$this->db->join('anchor', 'anchor.id = '.$type.'_'.$db.'.anchor_id');
     	}
     	else{
 			$anchor = $this->get_anchor_by_id($anchor_id);
@@ -82,10 +82,10 @@ class Manchor extends CI_Model {
     //GET FUNCTION
     
     /*Anchor Function*/
-    function get_anchor_sc(){
+    function get_anchor_sc($dir){
 		$this->db->where('show_anc', 1);
     	$this->db->where('holding', "");
-		get_direktorat_where("CB",$this);
+		get_direktorat_where($dir,$this);
 		
     	$this->db->order_by('gas','desc');
     	//$this->db->order_by('name','asc');

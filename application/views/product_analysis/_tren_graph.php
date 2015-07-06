@@ -115,8 +115,12 @@
 
 <?php
 	$usd_arr = array("FX","Trade");
-	if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Jt";}
-	else{$cur="Rp"; $sep="M";}
+	$item_arr = array("EDC","ATM");
+	if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Jt"; $lkp="Juta";}
+	elseif(in_array($this->uri->segment(5),$item_arr)){$cur=""; $sep=" Mesin"; $lkp=" Mesin";}
+	elseif($this->uri->segment(5) == "CC"){$cur=""; $sep=" Kartu"; $lkp=" Kartu";}
+	elseif($this->uri->segment(5) == "PCD"){$cur=""; $sep=" Rek"; $lkp=" Rekening";}
+	else{$cur="Rp"; $sep="M"; $lkp="Milyar";}
 ?>
 
 <script type="text/javascript">
@@ -205,7 +209,45 @@ var chart = AmCharts.makeChart("chartdiv", {
     axisAlpha: 0,
     labelsEnabled: false
   }],
-  graphs: [{
+  graphs: [
+  {
+  	id: "g5",
+  	title: "Target :",
+  	valueField: "target",
+  	type: "line",
+  	lineColor: "red",
+  	descriptionField: "real",
+  	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
+  	lineThickness: 1,
+  	valueAxis: "a2",
+  	labelText: "[[value]]",
+  	bullet: "square",
+  },{
+    id: "g3",
+    title: "<?php echo $year?> : ",
+    valueField: "this_year",
+    classNameField: "bulletClass",
+    type: "line",
+    valueAxis: "a2",
+    lineColor: "#eda32b",
+    balloonText: "[[value]]",
+    lineThickness: 1,
+    legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> (Growth : [[description]]%)",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    descriptionField: "growth",
+    bullet: "round",
+    labelText: "[[value]]",
+    bulletBorderColor: "#eda32b",
+    bulletBorderThickness: 1,
+    bulletBorderAlpha: 1,
+    dashLengthField: "dashLength",
+    animationPlayed: false,
+  },{
+  	id: "g4",	
+  	lineThickness: 0,
+  	valueAxis: "a3",
+  },{
     id: "g2",
     title: "<?php echo $year-1?> : ",
     valueField: "last_year",
@@ -213,7 +255,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     valueAxis: "a2",
     lineColor: "#786c56",
     lineThickness: 1,
-    legendValueText: "[[description]]/<?php echo $cur?> [[value]] <?php echo $sep?>",
+    legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?>",
     descriptionField: "month",
     fillColorsField: "lineColor",
     fillAlphas: 0.5,
@@ -226,46 +268,6 @@ var chart = AmCharts.makeChart("chartdiv", {
     balloonText: "last_year:[[value]]",
     showBalloon: true,
     animationPlayed: false,
-  },{
-    id: "g3",
-    title: "<?php echo $year?> : ",
-    valueField: "this_year",
-    classNameField: "bulletClass",
-    type: "line",
-    valueAxis: "a2",
-    lineColor: "#eda32b",
-    balloonText: "[[value]]",
-    lineThickness: 1,
-    legendValueText: "[[description]]/<?php echo $cur?> [[value]] <?php echo $sep?>",
-    fillColorsField: "lineColor",
-    fillAlphas: 0.4,
-    descriptionField: "month",
-    bullet: "round",
-    labelText: "[[value]]",
-    bulletBorderColor: "#eda32b",
-    bulletBorderThickness: 1,
-    bulletBorderAlpha: 1,
-    dashLengthField: "dashLength",
-    animationPlayed: false,
-  },{
-  	id: "g4",
-  	title: "Growth :",
-  	valueField: "growth",
-  	legendValueText: "[[value]]%",
-  	lineThickness: 0,
-  	valueAxis: "a3",
-  },{
-  	id: "g5",
-  	title: "Target :",
-  	valueField: "target",
-  	type: "line",
-  	lineColor: "red",
-  	descriptionField: "real",
-  	legendValueText: "<?php echo $cur?> [[value]] <?php echo $sep?> ([[real]]%)",
-  	lineThickness: 1,
-  	valueAxis: "a2",
-  	labelText: "[[value]]",
-  	bullet: "square",
   }],
 
   chartCursor: {
@@ -297,7 +299,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     		
     		$month_name = get_month_name($i);
     		$mth = 'mth_'.$i;
-    		$nii_arr = array("CASA","TD","IL","WCL","TR","SL");
+    		$nii_arr = array("CASA","TD","IL","WCL","TR","SL","WM","PCD","VCCD","VCL","VCLnDF","Micro_Loan","MKM","KPR","Auto","CC");
 			if(in_array($this->uri->segment(5),$nii_arr)){$inc_name = $this->uri->segment(5)."_nii";}
 			else{$inc_name = $this->uri->segment(5)."_fbi";}
 			
@@ -360,7 +362,45 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     axisAlpha: 0,
     labelsEnabled: false
   }],
-  graphs: [{
+  graphs: [
+  {
+  	id: "g5",
+  	title: "Target :",
+  	valueField: "target",
+  	type: "line",
+  	lineColor: "red",
+  	descriptionField: "real",
+  	legendValueText: "Rp [[value]] M ([[real]]%)",
+  	lineThickness: 1,
+  	valueAxis: "a2",
+  	labelText: "[[value]]",
+  	bullet: "square",
+  },{
+    id: "g3",
+    title: "<?php echo $year?> : ",
+    valueField: "this_year",
+    classNameField: "bulletClass",
+    type: "line",
+    valueAxis: "a2",
+    lineColor: "#eda32b",
+    balloonText: "[[value]]",
+    lineThickness: 1,
+    legendValueText: "Rp [[value]] M (Growth : [[description]]%)",
+    fillColorsField: "lineColor",
+    fillAlphas: 0.4,
+    descriptionField: "growth",
+   	bullet: "round",
+    labelText: "[[value]]",
+    bulletBorderColor: "#eda32b",
+    bulletBorderThickness: 1,
+    bulletBorderAlpha: 1,
+    dashLengthField: "dashLength",
+    animationPlayed: false,
+  },{
+  	id: "g4",
+  	lineThickness: 0,
+  	valueAxis: "a3",
+  },{
     id: "g2",
     title: "<?php echo $year-1?> : ",
     valueField: "last_year",
@@ -381,46 +421,6 @@ var chart = AmCharts.makeChart("chartdiv-inc", {
     balloonText: "last_year:[[value]]",
     showBalloon: true,
     animationPlayed: false,
-  },{
-    id: "g3",
-    title: "<?php echo $year?> : ",
-    valueField: "this_year",
-    classNameField: "bulletClass",
-    type: "line",
-    valueAxis: "a2",
-    lineColor: "#eda32b",
-    balloonText: "[[value]]",
-    lineThickness: 1,
-    legendValueText: "[[description]]/Rp [[value]] M",
-    fillColorsField: "lineColor",
-    fillAlphas: 0.4,
-    descriptionField: "month",
-   	bullet: "round",
-    labelText: "[[value]]",
-    bulletBorderColor: "#eda32b",
-    bulletBorderThickness: 1,
-    bulletBorderAlpha: 1,
-    dashLengthField: "dashLength",
-    animationPlayed: false,
-  },{
-  	id: "g4",
-  	title: "Growth : ",
-  	valueField: "growth",
-  	legendValueText: "[[value]]%",
-  	lineThickness: 0,
-  	valueAxis: "a3",
-  },{
-  	id: "g5",
-  	title: "Target :",
-  	valueField: "target",
-  	type: "line",
-  	lineColor: "red",
-  	descriptionField: "real",
-  	legendValueText: "Rp [[value]] M ([[real]]%)",
-  	lineThickness: 1,
-  	valueAxis: "a2",
-  	labelText: "[[value]]",
-  	bullet: "square",
   }],
 
   chartCursor: {

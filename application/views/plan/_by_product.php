@@ -21,7 +21,7 @@
 									<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>
 								</div>
 								<div style="float:left; width:98%">
-									<a style="color:black" href="<?php echo base_url()?>plan/show/anchor/<?php echo $plan['plan']->anchor_id.'/'.$send['prod']['name']?>"><?php echo $plan['plan']->action?></a>
+									<a style="color:black" href="<?php echo base_url()?>plan/show/anchor/<?php echo $plan['plan']->anchor_id.'/'.$send['prod']['name'].'/'.$plan['plan']->id?>"><?php echo $plan['plan']->action?></a>
 								</div><div style="clear:both"></div>
 							</div></b>
 							<div style="padding-left:50px;">

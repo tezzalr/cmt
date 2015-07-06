@@ -34,8 +34,8 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label input-sm"></label>
 		<div class="col-sm-10">
-			<button class="btn btn-lg btn-success btn-sm" type="submit" onclick="submit_ap();">Submit</button>
-			<button class="btn btn-lg btn-danger btn-sm" type="button" onclick="close_form_edit_plan();">Close</button>
+			<button class="btn btn-lg btn-wsa-green btn-sm" type="submit" onclick="submit_ap();">Submit</button>
+			<button class="btn btn-lg btn-wsa-red btn-sm" type="button" onclick="close_form_edit_plan();">Close</button>
 		</div>
 	</div>
 	<hr>

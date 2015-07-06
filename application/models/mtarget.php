@@ -24,19 +24,19 @@ class Mtarget extends CI_Model {
     
     /*Anchor Function*/
     
-    function get_anchor_ws_target($anchor_id){
-    	$this->manchor->check_group($anchor_id,"","target");
+    function get_anchor_ws_target($anchor_id,$type){
+    	$this->manchor->check_group($anchor_id,"","target",$type);
     	$year = $this->session->userdata('rpttime')['year'];
     	$this->db->where('year',$year);
-    	$result = $this->db->get('wholesale_target');
+    	$result = $this->db->get($type.'_target');
     	$query = $result->result();
         return $query[0];
     }
     
-    function get_anchor_ws_target_w_year($anchor_id,$year){
-    	$this->manchor->check_group($anchor_id,"","target");
+    function get_anchor_ws_target_w_year($anchor_id,$year,$type){
+    	$this->manchor->check_group($anchor_id,"","target",$type);
     	$this->db->where('year',$year);
-    	$result = $this->db->get('wholesale_target');
+    	$result = $this->db->get($type.'_target');
     	$query = $result->result();
         return $query[0];
     }

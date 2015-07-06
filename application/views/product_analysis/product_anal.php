@@ -16,7 +16,7 @@
 	<?php 
 		$prd_name = $this->uri->segment(5)."_vol";
 		$prd_name_inc = $this->uri->segment(5)."_inc";
-		$nii_arr = array("CASA","TD","IL","WCL","TR","SL");
+		$nii_arr = array("CASA","TD","IL","WCL","TR","SL","WM","PCD","VCCD","VCL","VCLnDF","Micro_Loan","MKM","KPR","Auto","CC");
 		if(in_array($this->uri->segment(5),$nii_arr)){$inc_name = $this->uri->segment(5)."_nii";}
 		else{$inc_name = $this->uri->segment(5)."_fbi";}
 		$target_vol = $tgt_ws->$prd_name;
@@ -25,17 +25,28 @@
 		$target_inc_ly = $tgt_ws_ly->$inc_name;
 		
 		$usd_arr = array("FX","Trade");
+		$item_arr = array("EDC","ATM");
 		if(in_array($this->uri->segment(5),$usd_arr)){$cur="$"; $sep="Jt"; $lkp="Juta";}
+		elseif(in_array($this->uri->segment(5),$item_arr)){$cur=""; $sep=" Mesin"; $lkp=" Mesin";}
+		elseif($this->uri->segment(5) == "CC"){$cur=""; $sep=" Kartu"; $lkp=" Kartu";}
+		elseif($this->uri->segment(5) == "PCD"){$cur=""; $sep=" Rek"; $lkp=" Rekening";}
 		else{$cur="Rp"; $sep="M"; $lkp="Milyar";}
 	?>
 
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
-	<span style="font-size:18px; color:#bbb">Product Analysis / <?php echo change_real_name($this->uri->segment(5))?></span>
+	<h2 style="margin-bottom:0px;">PRODUCT ANALYSIS - <?php echo change_real_name($this->uri->segment(5))?></h2>
+	<span style="font-size:18px; color:#bbb"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></span>
 	<div class="pull-right" style="padding-right:10px;">
-		<select class="btn-wsa" name="product" onchange="if (this.value) window.location.href=this.value">
+		<select class="btn-wsa" name="product" onchange="if (this.value && this.value!='not') window.location.href=this.value">
+			<option value="not">-- Wholesale --</option>
 			<?php foreach($arr_prod as $prod){?>
 			<option value="<?php echo base_url()."product_analysis/show/".$kind."/".$id_nas."/".$prod['id']?>" <?php if($this->uri->segment(5)==$prod['id']){echo "selected";}?>><?php echo $prod['name']?></option>
+			<?php }?>
+		</select>
+		<select class="btn-wsa" name="product" onchange="if (this.value && this.value!='not') window.location.href=this.value">
+			<option value="not">-- Alliance --</option>
+			<?php foreach($arr_prod_al as $prod_al){?>
+			<option value="<?php echo base_url()."product_analysis/show/".$kind."/".$id_nas."/".$prod_al['id']?>" <?php if($this->uri->segment(5)==$prod_al['id']){echo "selected";}?>><?php echo $prod_al['name']?></option>
 			<?php }?>
 		</select>
 	</div>
@@ -49,12 +60,14 @@
 					<?php 
 						$delta_vol = $rlz[$prd_name]-$rlzly[$prd_name]; if($delta_vol>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
-					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b"><?php echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2)?>%</span></p>
+					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b">
+					<?php if($rlz[$prd_name]){if($rlzly[$prd_name]){echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
 					<hr>
 					<?php 
 						$delta_inc = $rlz[$prd_name_inc]-$rlzly[$prd_name_inc]; if($delta_inc>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
-					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_inc),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b"><?php echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2)?>%</span></p>
+					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#eda23b"> <?php echo "Rp ".number_format(abs($delta_inc),1,'.',',')." M"?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b">
+					<?php if($rlz[$prd_name_inc]){if($rlzly[$prd_name_inc]){echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
 				</div>
 			</div>
 		</div>
@@ -86,7 +99,7 @@
 								<td>Target</td><td class="al-right"><?php echo number_format($target_inc,1,'.',',')?></td><td class="al-right"><?php echo number_format($target_inc_ly,1,'.',',')?></td>
 							</tr>
 							<tr class="pp_tit" style="border-top:1px solid #ebebeb">
-								<td>Margin</td><td class="al-right"><?php echo number_format($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2,'.',',')?>%</td><td class="al-right"><?php echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2)?>%</td>
+								<td>Margin</td><td class="al-right"><?php if($rlz[$prd_name]){echo number_format($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2,'.',',');}else{echo 0;}?>%</td><td class="al-right"><?php if($rlzly[$prd_name]){echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2);}else{echo 0;}?>%</td>
 							</tr>
 						</table>
 					</div>
@@ -95,7 +108,7 @@
 		</div>
 		<div style="width:50%; float:left; padding:0 5px 0 5px">
 			<div class="panel panel-wsa">
-				<div class="panel-heading">Share of Wallet Volume</div>
+				<div class="panel-heading">Share of Wallet Volume (<?php echo $lkp." ".$cur?>)</div>
 				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 					<div id="chartdivsw"></div>
 				</div>
@@ -105,7 +118,7 @@
 	</div>
 	<div style="width:100%; float:left; padding:0 5px 0 0px" id="volume_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Volume Trend Line (Dalam <?php echo $lkp." ".$cur?>)<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
+			<div class="panel-heading">Volume Trend Line (<?php echo $lkp." ".$cur?>)<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv"></div>
 			</div>
@@ -114,7 +127,7 @@
 	
 	<div style="width:100%; float:left; padding:0 5px 0 5px" id="income_tren">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Income Trend Line (Dalam Milyar Rp)<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
+			<div class="panel-heading">Income Trend Line (Milyar Rp)<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="chartdiv-inc"></div>
 			</div>

@@ -6,7 +6,7 @@ body {
   height: 100%;
   background-color:#f4f4f4;
   font-size:14px;
-  font-family:'Helvetica';
+  font-family:'corbel';
   /* The html and body elements cannot have any padding or margin. */
 }
 .sidebar_nav_left{
@@ -36,6 +36,27 @@ body {
 	color:#eda32b;
 	background-color:white;
 	border-color:#eda32b;
+}
+
+.btn-wsa-green{
+	color:#4cd964;
+	background-color:white;
+	border-color:#4cd964;
+}
+.btn-wsa-green:hover{
+	color:#4cd964;
+	background-color:white;
+	border-color:#4cd964;
+}
+.btn-wsa-red{
+	color:#ff3b30;
+	background-color:white;
+	border-color:#ff3b30;
+}
+.btn-wsa-red:hover{
+	color:#ff3b30;
+	background-color:white;
+	border-color:#ff3b30;
 }
 
 .btn-wsa-grey{

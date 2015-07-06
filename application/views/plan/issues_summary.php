@@ -6,8 +6,8 @@
 </style>
 <?php echo $sidebar?>
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></h2>
-	<span style="font-size:18px; color:#bbb">Issues Summary By <?php echo $this->uri->segment(5)?></span>
+	<h2 style="margin-bottom:0px;">ISSUES SUMMARY - By <?php echo $this->uri->segment(5)?></h2>
+	<span style="font-size:18px; color:#bbb"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></span>
 	<span class="pull-right" style="margin-right:20px;">
 		<select class="btn-wsa" name="product" onchange="if (this.value) window.location.href=this.value">
 			<option value="Product" <?php if($this->uri->segment(5)=="Product"){echo "selected";}?>>By Product</option>

@@ -18,7 +18,7 @@
 					<div class="panel-heading">Daftar Action Plan
 						<div style="float:right;">
 						<div id="btn-add-ap">
-						<button style="margin-right:2px" class="btn btn-xs btn-wsa" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
+						<button style="margin-right:2px" class="btn btn-xs btn-wsa-green" onclick="edit_plan('','<?php echo $this->uri->segment(4)?>','<?php echo $this->uri->segment(5)?>');">
 							<span class="glyphicon glyphicon-plus"></span> Action Plan
 						</button>
 						</div>
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="float: left; width:50%; padding-left:40px" id="list_update">
+			<div style="float: left; width:48.5%; padding-left:40px" id="list_update">
 			</div>
 			<div style="clear:both"></div>
 		</div>
@@ -194,6 +194,10 @@
 				}else{}
     		},
 		});
+	}
+	function close_form_edit_update_plan(){
+		//$("#form_input_action_plan").html('');
+		$('#form_update').animate({'height':'toggle','opacity':'toggle'});
 	}
 	$('#due_date').datepicker({
 		autoclose: true,

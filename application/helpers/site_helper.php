@@ -226,6 +226,12 @@
     	
     }
     
+    function return_ws_or_al($product){
+    	$ws = array("CASA","TD","WCL","IL","SL","TR","FX","SCF","Trade","BG","OIR","PWE","ECM","DCM","MA");
+    	if(in_array($product,$ws)){return "wholesale";}
+    	else{return "alliance";}
+    }
+    
     function return_prod_name($i){
     	if($i==1){return "CASA";}
     	elseif($i==2){return "TD";}
@@ -246,6 +252,28 @@
     	elseif($i==17){return "SF";}
     	elseif($i==18){return "OW_nii";}
     	elseif($i==19){return "OW_fbi";}
+    }
+    
+    function return_prod_name_al($i){
+    	if($i==1){return "WM";}
+    	elseif($i==2){return "DPLK";}
+    	elseif($i==3){return "PCD";}
+    	elseif($i==4){return "VCCD";}
+    	elseif($i==5){return "VCL";}
+    	elseif($i==6){return "VCLnDF";}
+    	elseif($i==7){return "Micro_Loan";}
+    	elseif($i==8){return "MKM";}
+    	elseif($i==9){return "KPR";}
+    	elseif($i==10){return "Auto";}
+    	elseif($i==11){return "CC";}
+    	elseif($i==12){return "EDC";}
+    	elseif($i==13){return "ATM";}
+    	elseif($i==14){return "AXA";}
+    	elseif($i==15){return "MAGI";}
+    	elseif($i==16){return "retail";}
+    	elseif($i==17){return "cicil_Emas";}
+    	elseif($i==18){return "OA_nii";}
+    	elseif($i==19){return "OA_fbi";}
     }
        
     function change_real_name($initial){
@@ -270,14 +298,25 @@
 		elseif($initial ==  "OW_fbi"){return 'FBI Others';}
 		elseif($initial ==  "VC"){return 'Value Chain';}
 		elseif($initial ==  "WM"){return 'Wealth Management';}
+		elseif($initial ==  "DPLK"){return 'DPLK';}
+		elseif($initial ==  "PCD"){return 'Payroll CASA Deposit';}
+		elseif($initial ==  "VCCD"){return 'VC CASA Deposit';}
+		elseif($initial ==  "VCL"){return 'VC Lending';}
+		elseif($initial ==  "VCLnDF"){return 'VC Lending non DF';}
+		elseif($initial ==  "Micro_Loan"){return 'Micro Loan';}
+		elseif($initial ==  "MKM"){return 'MKM & KTA';}
+		elseif($initial ==  "KPR"){return 'KPR & MGM';}
+		elseif($initial ==  "Auto"){return 'AUTO & 2W Loan';}
 		elseif($initial ==  "EDC"){return 'EDC';}
 		elseif($initial ==  "ATM"){return 'ATM';}
+		elseif($initial ==  "AXA"){return 'Life Insurance - AXA';}
+		elseif($initial ==  "retail"){return 'Retail Trading - MANSEK';}
 		elseif($initial ==  "Micro"){return 'Micro';}
 		elseif($initial ==  "CC"){return 'Credit Card';}
 		elseif($initial ==  "CM"){return 'Cash Management';}
 		elseif($initial ==  "cicil_Emas"){return 'Cicil Emas';}
 		elseif($initial ==  "DPLK"){return 'DPLK';}
-		elseif($initial ==  "MAGI"){return 'Mandiri AXA General Insurance';}
+		elseif($initial ==  "MAGI"){return 'General Insurance - MAGI';}
 		elseif($initial ==  "MTF"){return 'Mandiri Tunas Finance';}
 		elseif($initial ==  "Mansek"){return 'Mandiri Sekuritas';}
     }
@@ -397,7 +436,10 @@
     }
     
     function get_produk_pow($product){
-    	$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+    	$bagi=9; 
+    	$item_arr = array("PCD","CC","EDC","ATM");
+    	if($product == 'FX' || $product == 'Trade'){$bagi=6;}
+    	elseif(in_array($product,$item_arr)){$bagi=0;}
     	return $bagi;
     }
     
@@ -443,10 +485,11 @@
     }
     
     function get_product_income_type($product){
-    	$prod_nii = array("CASA", "TD", "IL", "SL", "WCL", "TR", "WM");
-    	$prod_fbi = array("FX", "SCF", "Trade", "PWE", "BG", "OIR", "OW", "ECM", "DCM", "MA");
+    	$prod_nii = array("CASA", "TD", "IL", "SL", "WCL", "TR", "WM","PCD","VCCD","VCLnDF","Micro_Loan","MKM","KPR","Auto","CC");
+    	//$prod_fbi = array("FX", "SCF", "Trade", "PWE", "BG", "OIR", "OW", "ECM", "DCM", "MA");
     	if(in_array($product, $prod_nii)){return 'nii';}
-    	elseif(in_array($product, $prod_fbi)){return 'fbi';}
+    	//elseif(in_array($product, $prod_fbi)){return 'fbi';}
+    	else{return 'fbi';}
     }
 	
 	function not_avg_bal($product){
