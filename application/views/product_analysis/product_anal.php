@@ -145,9 +145,10 @@
 				<th>Actual</th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Kontribusi (%)</th>
 			</tr></thead><tbody>
 			<?php 
+				$arr_avgbal = array("CASA","TD","WCL","IL","TR");
 				$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $sum_cmpny=1; $trgt = $vol."_target"; $trgt_tot=0;
 				$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-				foreach($top_anchor_vol as $anchor){ $ytd = $anchor->$vol/$anchor->month*12;?>
+				foreach($top_anchor_vol as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
 				<tr>
 					<td><?php echo $anchor->name?></td>
 					<!--<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
@@ -166,13 +167,13 @@
 					$sum_cmpny++;
 					if(($temp_tot/$total_prd->$vol) > 0.7  && $sum_cmpny >5){break;}
 				}?>
-			 <tr>
+			 <!--<tr>
 				 <td><b>Sub-total</b></td><td><?php echo number_format($ly_tot/pow(10,$bagi),0,',','.')?></td>
 				 
 				 <td><?php echo number_format($temp_tot/pow(10,$bagi),0,',','.')?></td>
 				 <td><?php echo number_format($temp_tot/$anchor->month*12/pow(10,$bagi),0,',','.')?></td>
 				 <td><?php echo number_format($temp_tot/$total_prd->$vol*100,0,',','.')?> %</td>
-			 </tr>
+			 </tr>-->
 			</tbody>
 		</table>
 	</div>

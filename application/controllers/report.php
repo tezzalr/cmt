@@ -98,12 +98,12 @@ class Report extends CI_Controller {
     	if($this->uri->segment(3)=='anchor'){
     		$anchor_id = $this->uri->segment(4);
     		
-    		$inc = $this->mrealization->get_anchor_ws_realization($anchor_id, $year,"");
+    		$inc = $this->mrealization->get_anchor_realization($anchor_id, $year,"","wholesale");
     		$data_xsell['wal'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $year);		
-    		$data_xsell['inc'] = $this->mrealization->count_realization_value($inc, $inc->month);
+    		$data_xsell['inc'] = $this->mrealization->count_realization_value($inc, $inc->month,"wholesale");
     		$data_xsell['sow'] = $this->mwallet->get_sow($data_xsell['wal'], $data_xsell['inc'], 'wholesale');
     		
-    		$inc_ly = $this->mrealization->get_anchor_ws_realization($anchor_id, ($year-1), "");
+    		$inc_ly = $this->mrealization->get_anchor_ws_realization($anchor_id, ($year-1), "","wholesale");
     		$data_xsell['wal_ly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, ($year-1));
     		$data_xsell['inc_ly'] = $this->mrealization->count_realization_value($inc_ly, $inc_ly->month);
     		$data_xsell['sow_ly'] = $this->mwallet->get_sow($data_xsell['wal_ly'], $data_xsell['inc_ly'], 'wholesale');
@@ -119,12 +119,12 @@ class Report extends CI_Controller {
     		
     		$inc = $this->mrealization->get_directorate_realization($direktorat, $year, 'wholesale');
     		$data_xsell['wal'] = $this->mwallet->get_directorate_wallet($direktorat, $year, 'wholesale');		
-    		$data_xsell['inc'] = $this->mrealization->count_realization_value($inc, $inc->month);
+    		$data_xsell['inc'] = $this->mrealization->count_realization_value($inc, $inc->month,"wholesale");
     		$data_xsell['sow'] = $this->mwallet->get_sow($data_xsell['wal'], $data_xsell['inc'], 'wholesale');
     		
     		$inc_ly = $this->mrealization->get_directorate_realization($direktorat, $year-1, 'wholesale');
     		$data_xsell['wal_ly'] = $this->mwallet->get_directorate_wallet($direktorat, $year-1, 'wholesale');
-    		$data_xsell['inc_ly'] = $this->mrealization->count_realization_value($inc_ly, $inc_ly->month);
+    		$data_xsell['inc_ly'] = $this->mrealization->count_realization_value($inc_ly, $inc_ly->month,"wholesale");
     		$data_xsell['sow_ly'] = $this->mwallet->get_sow($data_xsell['wal_ly'], $data_xsell['inc_ly'], 'wholesale');
     		
     		$data['title'] = "Transaction Cross Sell";

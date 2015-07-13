@@ -71,8 +71,8 @@ class Income extends CI_Controller {
     		$i=0; $content['top_anc']=array();
     		foreach($anchors as $anc){
     			$content['top_anc'][$i]['anc'] = $anc['anc'];
-    			$content['top_anc'][$i]['real'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year'],"");
-    			$content['top_anc'][$i]['real_ly'] = $this->mrealization->get_anchor_ws_realization($anc['anc']->id, $rpttime['year']-1,"");
+    			$content['top_anc'][$i]['real'] = $this->mrealization->get_anchor_realization($anc['anc']->id, $rpttime['year'],"","wholesale");
+    			$content['top_anc'][$i]['real_ly'] = $this->mrealization->get_anchor_realization($anc['anc']->id, $rpttime['year']-1,"","wholesale");
     			$content['top_anc'][$i]['tot_inc'] = get_ws_income_month($content['top_anc'][$i]['real'],$content['month']);
     			$content['top_anc'][$i]['tot_inc_ly'] = get_ws_income_month($content['top_anc'][$i]['real_ly'],$content['month']);
     			if($content['top_anc'][$i]['tot_inc_ly']['tot']){
@@ -88,13 +88,13 @@ class Income extends CI_Controller {
 			
 			for($k=1;$k<=7;$k++){
 				$c = "CB".$k;
-				$content['rlz_cb'][$k] = $this->mrealization->get_anchor_ws_realization($c, $rpttime['year'],"");
+				$content['rlz_cb'][$k] = $this->mrealization->get_anchor_realization($c, $rpttime['year'],"","wholesale");
 				$content['inc_cb'][$k] = get_ws_income_month($content['rlz_cb'][$k],$content['month']);
 			}
     	}		
     	
-		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year']-1,"");
-		$content['rlz_ws'] = $this->mrealization->get_anchor_ws_realization($anchor_id, $rpttime['year'],"");
+		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year']-1,"","wholesale");
+		$content['rlz_ws'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year'],"","wholesale");
 		$content['ly'] = $this->mrealization->count_realization_now($content['rlz_ws_ly']);
 		$content['now'] = $this->mrealization->count_realization_now($content['rlz_ws']);
 		
