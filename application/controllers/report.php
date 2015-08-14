@@ -116,7 +116,7 @@ class Report extends CI_Controller {
     	}
     	elseif($this->uri->segment(3)=='directorate'){
     		$direktorat = $this->uri->segment(4);
-    		
+    		$anchor = "";
     		$inc = $this->mrealization->get_directorate_realization($direktorat, $year, 'wholesale');
     		$data_xsell['wal'] = $this->mwallet->get_directorate_wallet($direktorat, $year, 'wholesale');		
     		$data_xsell['inc'] = $this->mrealization->count_realization_value($inc, $inc->month,"wholesale");
