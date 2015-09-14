@@ -262,44 +262,44 @@ class Manchor extends CI_Model {
     	return $result->result();
     }
     
-    function get_top_anchor_prd($product, $month, $year,$id){
+    function get_top_anchor_prd($product, $month, $year,$id,$type){
     	
-    	$this->db->select('ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, wholesale_target.'.$product.'_vol as '.$product.'_vol_target');
+    	$this->db->select('ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
-    	$this->db->join('wholesale_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
-    	$this->db->join('wholesale_target', 'anchor.id = wholesale_target.anchor_id');
+    	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
+    	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');
     	$this->db->where('ws_main.month',$month);
     	get_direktorat_where($id,$this);
     	$this->db->where('ws_main.year',$year);
-    	$this->db->where('wholesale_target.year',$year);
+    	$this->db->where($type.'_target.year',$year);
     	$this->db->where('ws_ly.month',12);
     	//$this->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'SYNDICATION, OIL & GAS')");
     	$this->db->where('ws_ly.year',($year-1));
     	$this->db->order_by('ws_main.'.$product.'_vol', 'desc');
-    	$result = $this->db->get('wholesale_realization as ws_main');
+    	$result = $this->db->get($type.'_realization as ws_main');
     	return $result->result();
     }
     
-    function get_top_anchor_prd_grw($product, $month, $year, $ly_month, $sort,$id){
-    	$this->db->select('((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/ (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as grow,  (ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as nom_grow, ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, wholesale_target.'.$product.'_vol as '.$product.'_vol_target');
+    function get_top_anchor_prd_grw($product, $month, $year, $ly_month, $sort,$id,$type){
+    	$this->db->select('((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/ (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as grow,  (ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as nom_grow, ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
-    	$this->db->join('wholesale_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
-    	$this->db->join('wholesale_target', 'anchor.id = wholesale_target.anchor_id');
+    	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
+    	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');
     	$this->db->where('ws_main.month',$month);
     	get_direktorat_where($id,$this);
     	$this->db->where('ws_main.year',$year);
-    	$this->db->where('wholesale_target.year',$year);
+    	$this->db->where($type.'_target.year',$year);
     	$this->db->where('ws_ly.month',$ly_month);
     	$this->db->where('ws_ly.'.$product.'_vol <>',0);
     	$this->db->where('ws_ly.year',($year-1));
     	$this->db->order_by('grow', $sort);
     	$this->db->order_by('nom_grow', 'asc');
     	$this->db->limit(5);
-    	$result = $this->db->get('wholesale_realization as ws_main');
+    	$result = $this->db->get($type.'_realization as ws_main');
     	return $result->result();
     }
     
-    function get_top_anchor_prd_nml_grw($product, $month, $year, $ly_month, $sort,$id){
+    function get_top_anchor_prd_nml_grw($product, $month, $year, $ly_month, $sort,$id,$type){
     	$arr_avb = array("CASA","TD","WCL","IL");
     	if(in_array($product,$arr_avb)){
     		$nom_grow_set= '((ws_main.'.$product.'_vol) - (ws_ly.'.$product.'_vol)) as nom_grow,';
@@ -307,21 +307,21 @@ class Manchor extends CI_Model {
     	else{
     		$nom_grow_set= '((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/12*'.$ly_month.' as nom_grow,';
     	}
-    	$this->db->select($nom_grow_set.'ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, wholesale_target.'.$product.'_vol as '.$product.'_vol_target');
+    	$this->db->select($nom_grow_set.'ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
-    	$this->db->join('wholesale_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
-    	$this->db->join('wholesale_target', 'anchor.id = wholesale_target.anchor_id');
+    	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
+    	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');
     	$this->db->where('ws_main.month',$month);
     	get_direktorat_where($id,$this);
     	$this->db->where('ws_main.year',$year);
     	$this->db->where('ws_ly.'.$product.'_vol <>',0);
-    	$this->db->where('wholesale_target.year',$year);
+    	$this->db->where($type.'_target.year',$year);
     	//$this->db->where("(`group` = 'CORPORATE BANKING AGRO BASED' OR `group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'SYNDICATION, OIL & GAS')");
     	$this->db->where('ws_ly.month',$ly_month);
     	$this->db->where('ws_ly.year',($year-1));
     	$this->db->order_by('nom_grow', $sort);
     	$this->db->limit(5);
-    	$result = $this->db->get('wholesale_realization as ws_main');
+    	$result = $this->db->get($type.'_realization as ws_main');
     	return $result->result();
     } 
     

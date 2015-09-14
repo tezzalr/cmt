@@ -30,7 +30,7 @@ class Scorecard extends CI_Controller {
 		$anchors = $this->manchor->get_anchor_sc($id);
 		foreach($anchors as $anchor){
 			$rlz_raw = $this->mrealization->get_anchor_realization($anchor->id, $year,"","wholesale");
-			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year);		
+			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year,"wholesale");		
     		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month,"wholesale");
     		$sow = $this->mwallet->get_sow($wallet, $rlz, 'wholesale');
     		

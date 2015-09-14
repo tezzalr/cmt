@@ -64,15 +64,15 @@ class Product_analysis extends CI_Controller {
 		
 		$content['asu'] = 'ytd';
 		$content['total_prd'] = $this->manchor->get_total_vol_prd($product, $content['month'], $year, $content['type_prod'].'_realization','');
-    	$content['top_anchor_vol'] = $this->manchor->get_top_anchor_prd($product, $content['month'], $year,$anchor_id);
-    	$content['top_anchor_nom_grow'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'desc',$anchor_id);
-    	$content['top_anchor_nom_grow_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'asc',$anchor_id);
-    	$content['top_anchor_nom_grow_tm'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id);
-    	$content['top_anchor_nom_grow_tm_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id);
-    	$content['top_anchor_grow'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'desc',$anchor_id);
-    	$content['top_anchor_grow_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'asc',$anchor_id);
-    	$content['top_anchor_grow_tm'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id);
-    	$content['top_anchor_grow_tm_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id);
+    	$content['top_anchor_vol'] = $this->manchor->get_top_anchor_prd($product, $content['month'], $year,$anchor_id,$content['type_prod']);
+    	$content['top_anchor_nom_grow'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'desc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_nom_grow_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, 12, 'asc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_nom_grow_tm'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_nom_grow_tm_min'] = $this->manchor->get_top_anchor_prd_nml_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_grow'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'desc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_grow_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, 12, 'asc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_grow_tm'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id,$content['type_prod']);
+    	$content['top_anchor_grow_tm_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id,$content['type_prod']);
     	
     	$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){

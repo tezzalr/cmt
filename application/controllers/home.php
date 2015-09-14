@@ -5,7 +5,7 @@ class Home extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model('mmycash');
+        $this->load->model('mrealization');
         
     }
     /**
@@ -13,12 +13,31 @@ class Home extends CI_Controller {
      */
     public function index()
     {
-
-		$data['title'] = "Beranda";
+		$lstyear = $this->mrealization->get_last_year();
+		$lstmth = $this->mrealization->get_last_month($lstyear,'wholesale');
+		
+		$lsttime = array(
+						'month' => $lstmth,
+						'year' => $lstyear
+					);
+					
+		$data['title'] = "Home";
+		
+		$this->session->set_userdata('lsttime',$lsttime);
+		
+		$rpttime = $this->session->userdata('rpttime');
+		if(!$rpttime){
+			$this->session->set_userdata('rpttime',$lsttime);
+		}
+		
+		for($i=1;$i<=7;$i++){
+			$cb = get_direktorat_full_name("CB$i");
+			$anchor[$i] = $this->manchor->get_anchor_by_group($cb);
+		}
 		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('home/index',array(),TRUE);
+		$data['content'] = $this->load->view('home/index',array('anchor' => $anchor),TRUE);
 
 		$this->load->view('front',$data);
         
