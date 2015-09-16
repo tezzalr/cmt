@@ -275,6 +275,28 @@
     	elseif($i==18){return "OA_nii";}
     	elseif($i==19){return "OA_fbi";}
     }
+    
+    function return_prod_number($i){
+    	if($i=="CASA"){return 1;}
+    	elseif($i=="TD"){return 2;}
+    	elseif($i=="WCL"){return 3;}
+    	elseif($i=="IL"){return 4;}
+    	elseif($i=="SL"){return 5;}
+    	elseif($i=="TR"){return 6;}
+    	elseif($i=="FX"){return 7;}
+    	elseif($i=="SCF"){return 8;}
+    	elseif($i=="Trade"){return 9;}
+    	elseif($i=="BG"){return 10;}
+    	elseif($i=="OIR"){return 11;}
+    	elseif($i=="PWE"){return 12;}
+    	elseif($i=="ECM"){return 13;}
+    	elseif($i=="DCM"){return 14;}
+    	elseif($i=="MA"){return 15;}
+    	elseif($i=="LMF"){return 16;}
+    	elseif($i=="SF"){return 17;}
+    	elseif($i=="OW_nii"){return 18;}
+    	elseif($i=="OW_fbi"){return 19;}
+    }
        
     function change_real_name($initial){
     	if($initial == "CASA"){return "CASA";}

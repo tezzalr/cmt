@@ -12,7 +12,11 @@
 		display:none;
 	}
 </style>
-<?php echo $sidebar?>
+<?php 
+	$user = $this->session->userdata('userdb');
+	$is_anchor = $this->uri->segment(3); $this_id = $this->uri->segment(4);
+?>
+
 
 <?php
 
@@ -37,8 +41,24 @@
 ?>
 
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2>
-	<span style="font-size:18px; color:#bbb">Summary Info </span>
+	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?>
+		<?php if($user['role']=='admin'){?>
+			<button class="btn btn-link" style="color:#eda32b; padding:0;" onclick="edit_sumdesc()"><span class="glyphicon glyphicon-pencil" style="font-size:18px; margin-left:10px;"></span></button>
+		<?php }?>
+	</h2>
+	<div>
+		<div id="sumdesc_title"><span style="font-size:18px; color:#bbb"><?php if($summary_desc){echo $summary_desc->sum_desc;}?></span></div>
+		<div id="sumdesc_form" style="display:none; margin-top:20px;">
+			<form class="form-horizontal" action="<?php echo base_url()."summary_desc/submit_sumdesc";?>" method ="post" role="form">
+				<input type="hidden" name="id_sumdesc" value="<?php if($summary_desc){echo $summary_desc->id;}?>">
+				<input type="hidden" name="for_what" value="basic_info">
+				<input type="hidden" name="comp_id" value="<?php echo $this_id?>">
+				<input type="hidden" name="kind" value="<?php echo $is_anchor?>">
+				<textarea class="form-control" style="width:99%; height:120px; margin-bottom:10px;" name="sum_desc"><?php if($summary_desc){echo $summary_desc->sum_desc;}?></textarea>
+				<button type="submit" class="btn btn-wsa inverse">Submit</button>
+			</form>
+		</div>
+	</div>
 	<hr>
 	<div style="width:30%; float:left; padding:0 5px 0 0px">
 		<div class="panel panel-wsa">
@@ -119,7 +139,7 @@
 								if($pct>=1){$color="green";}elseif($pct<0.95){$color="red";}else{$color="#f0ce5d";}
 								if($gwt>0){$color_gwt="green";}else{$color_gwt="red";}
 								?>
-							<td><?php echo $prod['initial']?></td>
+							<td><a href="<?php echo base_url().'product_analysis/show/'.$is_anchor.'/'.$this_id.'/'.$prod['initial'];?>"><?php echo $prod['initial']?></a></td>
 							<td class="align-right"><?php echo number_format($ly_val/pow(10,9),1,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($ty[$prod_name]/pow(10,9),1,'.',',');?></td>
 							<!--<td class="align-right"><?php echo number_format($ytd[$prod_name],1,'.',',');?></td>-->
@@ -202,7 +222,7 @@
 								if($pct>=1){$color="green";}elseif($pct<0.95){$color="red";}else{$color="#f0ce5d";}
 								if($gwt>0){$color_gwt="green";}else{$color_gwt="red";}
 							?>
-							<td><?php echo $prod['initial']?></td>
+							<td><a href="<?php echo base_url().'product_analysis/show/'.$is_anchor.'/'.$this_id.'/'.$prod['initial'];?>"><?php echo $prod['initial']?></a></td>
 							<td class="align-right"><?php echo number_format($ly_val_inc/pow(10,9),2,'.',',');?></td>
 							<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),2,'.',',');?></td>
 							<!--<td class="align-right"><?php echo number_format($ytd[$prd_name_arr],1,'.',',');?></td>-->
@@ -304,4 +324,9 @@
 		});
 	
 	});
+	
+	function edit_sumdesc(){
+		toggle_visibility('sumdesc_title');
+		toggle_visibility('sumdesc_form');
+	} 
 </script>

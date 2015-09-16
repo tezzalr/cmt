@@ -1,4 +1,3 @@
-<?php echo $sidebar?>
 <?php echo $tren_graph?>
 <style>
 	.pp_tit{
@@ -35,7 +34,9 @@
 
 <div class="content">
 	<h2 style="margin-bottom:0px;">PRODUCT ANALYSIS - <?php echo change_real_name($this->uri->segment(5))?></h2>
-	<span style="font-size:18px; color:#bbb"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></span>
+	<span style="font-size:18px; color:#bbb">
+		<a href="<?php echo base_url().'profile/show/'.$kind.'/'.$anchor_id?>"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id;}else{echo $dir['name']; $id_nas=$dir['code'];}?>
+	</span>
 	<div class="pull-right" style="padding-right:10px;">
 		<select class="btn-wsa" name="product" onchange="if (this.value && this.value!='not') window.location.href=this.value">
 			<option value="not">-- Wholesale --</option>
@@ -55,7 +56,7 @@
 	<div>
 		<div style="width:25%; float:left; padding:0 5px 0 5px">
 			<div class="panel panel-wsa">
-				<div class="panel-heading">Summary</div>
+				<div class="panel-heading">Growth</div>
 				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 					<?php 
 						$delta_vol = $rlz[$prd_name]-$rlzly[$prd_name]; if($delta_vol>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
@@ -116,22 +117,96 @@
 		</div>
 		<div style="clear:both"></div>
 	</div>
-	<div style="width:100%; float:left; padding:0 5px 0 0px" id="volume_tren">
-		<div class="panel panel-wsa">
-			<div class="panel-heading">Volume Trend Line (<?php echo $lkp." ".$cur?>)<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
-			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
-				<div id="chartdiv"></div>
+	<div style="float:left; width:70%">
+		<div style="width:100%; float:left; padding:0 5px 0 0px" id="volume_tren">
+			<div class="panel panel-wsa">
+				<div class="panel-heading">Volume Trend Line (<?php echo $lkp." ".$cur?>)<div class="pull-right"><button onclick="full_size('volume_tren','chartdiv','volume_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="volume_icon"></span></div></div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+					<div id="chartdiv"></div>
+				</div>
+			</div>
+		</div>
+	
+		<div style="width:100%; float:left; padding:0 5px 0 5px" id="income_tren">
+			<div class="panel panel-wsa">
+				<div class="panel-heading">Income Trend Line (Milyar Rp)<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
+				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
+					<div id="chartdiv-inc"></div>
+				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div style="width:100%; float:left; padding:0 5px 0 5px" id="income_tren">
+	<div style="float:left; width:30%">
+		<?php if($kind=="anchor"){?>
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Income Trend Line (Milyar Rp)<div class="pull-right"><button onclick="full_size('income_tren','chartdiv-inc','income_icon')" class="btn btn-xs btn-wsa"><span class="glyphicon glyphicon-resize-small" id="income_icon"></span></div></div>
+			<div class="panel-heading">
+				Activity Monitoring
+				<!--<a href="<?php echo base_url()?>plan/show/anchor/<?php echo $anchor->id."/".$stg['strategy']->product?>"><?php echo $stg['name_prod']?></a>-->
+			</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
-				<div id="chartdiv-inc"></div>
+				<?php if($strategy){?>
+					<div>
+						<div class="small-title pull-right" style="font-size:11px">Strategy</div>
+						<div style="clear:both"></div>
+						<center><p>
+							<?php echo $strategy->strategy?>
+						</p></center>
+					</div><hr style="margin:0 0 10px 0">
+					<div>
+						<div class="small-title pull-right" style="font-size:11px">Action Plan</div>
+						<div style="clear:both"></div>
+						<div>
+							<center>
+								<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $strategy->product?>');"><?php echo count($ap)?> Action Plan <span class="caret"></span></button>
+							</center>
+							<div style="display:none;" id="prd_<?php echo $strategy->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
+								<?php foreach($ap as $ap){?>
+									<div style="margin-bottom:8px">
+										<div>
+											<div style="float:left; width:5%;">
+												<?php 
+													if($ap['ap']->status=="Done"){$circ = "completed";}
+													elseif($ap['ap']->status=="On Progress"){$circ = "inprog";}
+													elseif($ap['ap']->status=="Has Issued"){$circ = "delay";}
+													else{$circ = "notyet";}
+												?>
+												<span class="circle circle-<?php echo $circ?> circle-sm text-left"></span>
+											</div>
+											<div style="float:left; width:95%">
+												<a class="btn-link" style="color:black; margin:0px; padding:0px; text-align:left" href="<?php echo base_url().'plan/show/anchor/'.$anchor->id.'/'.$strategy->product.'/'.$ap['ap']->id?>"><?php echo $ap['ap']->action?></a>
+											</div><div style="clear:both"></div>
+										</div>
+										<div style="margin-top:10px; color:#878787; font-size:13.4px" id="ap_<?php echo $ap['ap']->id?>">
+											<?php if($ap['last_update']){?><div style="font-size:11px; color:grey; margin-top:5px" class="pull-right">updated: <?php 
+													$date = date("Y-m-d", strtotime($ap['last_update']->created));
+													if($date != "-0001-11-30"){echo date("d M Y", strtotime($ap['last_update']->created));}?></div><?php }?><div style="clear:both"></div>
+									
+											<div>
+												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-signal" aria-hidden="true"></span></div>
+												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->progress;}?></div>
+												<div style="clear:both"></div>
+											</div>
+											<div>
+												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></div>
+												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->issue;}?></div>
+												<div style="clear:both"></div>
+											</div>
+											<div>
+												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></div>
+												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->support;}?></div>
+												<div style="clear:both"></div>
+											</div>
+										</div>
+										<hr>
+									</div>
+								<?php }?>
+							</div>
+						</div>
+					</div>
+				<?php }else{?><center style="color:#c3c3c3"><h3>No Activity</h3></center><?php }?>
 			</div>
 		</div>
+		<?php }?>
 	</div>
 	<div style="clear:both"></div>
 	<?php if($this->uri->segment(3)!="anchor"){?>
@@ -302,7 +377,7 @@
 		{
 			"balloonText": "Wallet:[[value]]",
 			"fillAlphas": 0.8,
-			lineColor: "#eda32b",
+			lineColor: "#786c56",
 			labelText: "[[value]]",
 			"id": "AmGraph-1",
 			"lineAlpha": 0.2,
@@ -314,7 +389,7 @@
 		{
 			"balloonText": "Realization:[[value]]",
 			"fillAlphas": 0.8,
-			lineColor: "#786c56",
+			lineColor: "#eda32b",
 			labelText: "[[value]]",
 			"id": "AmGraph-2",
 			"lineAlpha": 0.2,

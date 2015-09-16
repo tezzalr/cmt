@@ -7,9 +7,10 @@ class Product_analysis extends CI_Controller {
         parent::__construct();
         $this->load->model('manchor');
         $this->load->model('mrealization');
-         $this->load->model('mrealization_company');
+        $this->load->model('mrealization_company');
         $this->load->model('mtarget');
         $this->load->model('mwallet');
+        $this->load->model('mplan');
         $this->load->library('excel');
         
         $session = $this->session->userdata('userdb');
@@ -27,10 +28,10 @@ class Product_analysis extends CI_Controller {
     	$year = $rpttime['year']; $content['year'] = $year; $content['month'] = $rpttime['month'];
     	$product = $this->uri->segment(5);
     	$content['product'] = $product;
-    	$kind = $this->uri->segment(6);
+    	$kind = $this->uri->segment(6); $content['kind'] = $this->uri->segment(3);
     	if($kind=="volume"){$tambahan = "_vol";}else{$tambahan = "_".get_product_income_type($product);}
     	$prd_name = $product.$tambahan;
-    	$anchor_id = $this->uri->segment(4);
+    	$anchor_id = $this->uri->segment(4); $content['anchor_id']=$anchor_id;
     	$content['type_prod'] = return_ws_or_al($product);
     	if($this->uri->segment(3)=='anchor'){
 			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
@@ -74,6 +75,27 @@ class Product_analysis extends CI_Controller {
     	$content['top_anchor_grow_tm'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'desc',$anchor_id,$content['type_prod']);
     	$content['top_anchor_grow_tm_min'] = $this->manchor->get_top_anchor_prd_grw($product, $content['month'], $year, $content['month'], 'asc',$anchor_id,$content['type_prod']);
     	
+    	$stgy = $this->mplan->get_strategy_by_prod($product,$anchor_id);
+		$content['strategy'] = "";
+		$plans = $this->mplan->get_plan($anchor_id, $product);
+		if($stgy){
+			$content['strategy'] = $stgy;
+			//$arr_strategy[$arr_prod[$i]['id']]['name_prod'] = $arr_prod[$i]['name'];
+			//$arr_strategy[$arr_prod[$i]['id']]['ap'] = $plans;
+			$arr_ap = array();
+			$p=1;
+			foreach($plans as $plan){
+				$arr_ap[$p]['ap'] = $plan;
+				$arr_ap[$p]['last_update'] = "";
+				$up = $this->mplan->get_plan_update($plan->id);
+				if($up){
+					$arr_ap[$p]['last_update'] = $up[0];
+				}
+				$p++;
+			}
+			$content['ap'] = $arr_ap;
+		}
+    	
     	$arr_prod = array(); 
     	for($i=1;$i<=15;$i++){
     		$arr_prod[$i]['id'] = return_prod_name($i);
@@ -86,7 +108,6 @@ class Product_analysis extends CI_Controller {
     	}
     	
     	$content['tren_graph'] = $this->load->view('product_analysis/_tren_graph',$content,TRUE);
-    	
     	$content['arr_prod'] = $arr_prod; $content['arr_prod_al'] = $arr_prod_al;
 		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
 		$content['japs_form'] = $this->load->view('product_analysis/_japs_form',$content,TRUE);
@@ -95,6 +116,92 @@ class Product_analysis extends CI_Controller {
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
 		$data['content'] = $this->load->view('product_analysis/product_anal',$content,TRUE);
+
+		$this->load->view('front',$data);
+        
+    }
+    
+    public function scorecard()
+    {
+		$rpttime = $this->session->userdata('rpttime');
+    	$year = $rpttime['year']; $content['year'] = $year; $content['month'] = $rpttime['month'];
+    	$product = $this->uri->segment(5);
+    	$content['product'] = $product;
+		
+		$data['title'] = "Scorecard";
+		
+		$id = $this->uri->segment(3);
+		$rpttime = $this->session->userdata('rpttime');
+    	$year = $rpttime['year']; 
+    	$content['year'] = $year; $content['month'] = $rpttime['month'];
+		
+		$sc = array(); $i=0; 
+		$real = array();
+		$p1=0; $p2=0; $p3=0; $g1=0; $g2=0; $g3=0; $s1=0; $s2=0; $s3=0;
+		$month = $content['month'];
+		//$arrsc = array('platinum','gold','silver');
+		
+		$anchors = $this->manchor->get_anchor_sc($id);
+		foreach($anchors as $anchor){
+			$rlz_raw = $this->mrealization->get_anchor_realization($anchor->id, $year,"","wholesale");
+			$wallet = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year,"wholesale");
+    		$rlz = $this->mrealization->count_realization_value($rlz_raw, $month,"wholesale");
+    		$sow = $this->mwallet->get_sow($wallet, $rlz, 'wholesale');
+    		
+			$sc[$i]['anchor'] = $anchor;
+			$sc[$i]['wal'] = $this->mwallet->get_anchor_total_wallet($anchor->id, $year);
+			$sc[$i]['inc'] = $this->mrealization->get_anchor_total_income($anchor->id, $year);
+			if($sc[$i]['wal']['ws']){
+				$sc[$i]['sow'] = $sc[$i]['inc']['ws']/$sc[$i]['wal']['ws'];
+			}else{
+				$sc[$i]['sow'] = 0;
+			}
+			if($sow[32]){
+				$sc[$i]['trx'] = $sow[34]/$sow[32];
+			}else{$sc[$i]['trx'] = 10;}
+			if($rlz['IL_vol']+$rlz['WCL_vol']+$rlz['SL_vol']){
+				$sc[$i]['casx'] = $rlz['CASA_vol']/($rlz['IL_vol']+$rlz['WCL_vol']+$rlz['SL_vol']);
+			}else{$sc[$i]['casx'] = 10;}
+			$i++;
+		}
+		
+		$arrsc['platinum'][1]=""; $arrsc['platinum'][2]=""; $arrsc['platinum'][3]="";
+		$arrsc['gold'][1]=""; $arrsc['gold'][2]=""; $arrsc['gold'][3]="";
+		$arrsc['silver'][1]=""; $arrsc['silver'][2]=""; $arrsc['silver'][3]="";
+		
+		foreach($sc as $each){
+			if($each['sow']<=0.3 /*|| $each['trx']<=0.5 || $each['casx']<=0.05*/){
+				$ring = 3;
+			}
+			elseif(($each['sow']>0.3 && $each['sow']<=0.6) /*|| ($each['trx']>0.5 && $each['trx']<=1) || ($each['casx']>0.05 && $each['casx']<=0.1)*/){
+				$ring = 2;
+			}else{
+				$ring = 1;
+			}
+			
+			if($each['anchor']->gas >20000){
+				if($ring==1){$x=$p1;}elseif($ring==2){$x=$p2;}else{$x=$p3;}
+				$arrsc['platinum'][$ring][$x] = $each;
+				if($ring==1){$p1++;}elseif($ring==2){$p2++;}else{$p3++;}
+			}
+			elseif($each['anchor']->gas < 20000 && $each['anchor']->gas > 5000){
+				if($ring==1){$x=$g1;}elseif($ring==2){$x=$g2;}else{$x=$g3;}
+				$arrsc['gold'][$ring][$x] = $each;
+				if($ring==1){$g1++;}elseif($ring==2){$g2++;}else{$g3++;}
+			}
+			elseif($each['anchor']->gas < 5000){
+				if($ring==1){$x=$s1;}elseif($ring==2){$x=$s2;}else{$x=$s3;}
+				$arrsc['silver'][$ring][$x] = $each;
+				if($ring==1){$s1++;}elseif($ring==2){$s2++;}else{$s3++;}
+			}
+		}
+		$content['anchor'] = ""; $content['dir']['name'] = get_direktorat_full_name($id);
+    	$content['dir']['code'] = $id;
+		$content['sidebar'] = $this->load->view('shared/sidebar',$content,TRUE);
+		$content['scs']=$arrsc;
+		$data['header'] = $this->load->view('shared/header','',TRUE);	
+		$data['footer'] = $this->load->view('shared/footer','',TRUE);
+		$data['content'] = $this->load->view('scorecard/scorecard_table',$content,TRUE);
 
 		$this->load->view('front',$data);
         

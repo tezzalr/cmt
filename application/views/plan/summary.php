@@ -5,7 +5,7 @@
 	}
 </style>
 <?php echo $sidebar?>
-<div class="content">
+<div class="content_with_sidebar">
 	<h2 style="margin-bottom:0px;">STRATEGY & ACTION PLAN</h2>
 	<span style="font-size:18px; color:#bbb"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id; $kind="anchor";}else{echo $dir['name']; $id_nas=$dir['code']; $kind="directorate";}?></span>
 	<div class="pull-right" style="padding-right:10px;">

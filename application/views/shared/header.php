@@ -35,8 +35,7 @@
 	</div>
 	<div style="float:left; width:20%; text-align:center">
 		<a href="<?php echo base_url()?>home">
-		<img src="<?php echo base_url()?>assets/img/icon/home - white.png" style="height:40px; margin-top:-10px;">
-		
+			<img src="<?php echo base_url()?>assets/img/icon/home - white.png" style="height:40px; margin-top:-10px;">
 		</a>
 	</div>
 	<div class="dropdown" style="float:left; text-align:right; width:40%;">
@@ -50,6 +49,7 @@
 		<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo base_url()?>user/logout">Logout</a></li>
 		<?php if($user['role']=='admin'){?>
 		<li class="divider"></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo base_url()?>anchor/form_input_file">Input File</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo base_url()?>user/">User Management</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo base_url()?>user/user_log">User Log</a></li>
 		<?php }?>

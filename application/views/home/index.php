@@ -59,8 +59,8 @@
 	
 </style>
 
-<div style="position:relative; z-index:10; height:100%; background-color:white;">
-	<div style="padding:10px; margin-top:100px;">
+<div style="z-index:10; min-height:100%; background-color:white;">
+	<div style="padding:10px; padding-top:100px;">
 		<center>
 			<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
 			<div style="font-size:48px">
@@ -68,12 +68,23 @@
 			</div>
 			<div id="menu-RINGWeb" style="margin-top:80px;">
 				<div class="each_menu">
-					<a href="<?php echo base_url()?>profile/show/directorate/CB">
+					<button class="btn btn-link" style="color:#656565; margin:0; padding:0;" href="#" onclick="toggle_visibility('list_group_cb');">
 					<div class="logo_outer">
 						<img src="<?php echo base_url()?>assets/img/icon/library - white.png">
 					</div>
 					<h3>Group Analysis</h3>
-					</a>
+					</button>
+					<div id="list_group_cb" style="display:none">
+						<hr>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB"><h3>Corporate Banking</h3></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB1"><h4>Corporate Banking I</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB2"><h4>Corporate Banking II</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB3"><h4>Corporate Banking III</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB4"><h4>Corporate Banking IV</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB5"><h4>Corporate Banking V</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB6"><h4>Corporate Banking VI</h4></a>
+						<a href="<?php echo base_url()?>profile/show/directorate/CB7"><h4>Corporate Banking VII</h4></a>
+					</div>
 				</div>
 				<div class="each_menu">
 					<a href="<?php echo base_url()?>scorecard/show/CB">
@@ -84,7 +95,7 @@
 					</a>
 				</div>
 				<div class="each_menu">
-					<a href="<?php echo base_url()?>product_analysis/show/directorate/CB/CASA">
+					<a href="<?php echo base_url()?>scorecard/product/CASA">
 					<div class="logo_outer">
 						<img src="<?php echo base_url()?>assets/img/icon/product - white.png">
 					</div>

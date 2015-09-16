@@ -11,7 +11,7 @@ src: url('/cbic/assets/fonts/MyriadPro-Light.woff') format('woff');
 html,
 body {
   height: 100%;
-  background-color:white;
+  background-color:#f4f4f4;
   font-size:14px;
   font-family:'Myriad Pro Light';
   color:#656565;
@@ -20,6 +20,17 @@ body {
 body a{
 	color:#656565;
 }
+
+.content_with_sidebar{
+	margin-left:180px; padding-left:10px;
+	margin-top:70px;
+}
+
+.content{
+	padding:15px;
+	margin-top:50px;
+}
+
 .sidebar_nav_left{
 	padding:20px 5px 0 5px;
 	position:fixed;
@@ -43,10 +54,12 @@ body a{
 	background-color:white;
 	border-color:#eda32b;
 }
+.btn-wsa.inverse{
+	background-color:#eda32b;
+	color:white;
+}
 .btn-wsa:hover{
-	color:#eda32b;
-	background-color:white;
-	border-color:#eda32b;
+	text-decoration:underline;
 }
 
 .btn-wsa-green{
@@ -110,11 +123,6 @@ body a{
 
 .sidebar_nav_left .nav-second-level li a {
     padding-left: 37px;
-}
-
-.content{
-	margin-left:180px; padding-left:10px;
-	margin-top:70px;
 }
 
 a{

@@ -95,11 +95,11 @@ class User extends CI_Controller {
             $this->session->set_userdata('userdb',$data);
             $this->muser->insert_user_log($data['id']);
             if($user->role == "admin"){
-                redirect('general');
+                redirect('home');
             }elseif($user->role == "cmt"){
-                redirect('general');
+                redirect('home');
             }elseif($user->role == "rm"){
-            	redirect('general');
+            	redirect('home');
             }
         }else{
             $params['type_login']="failed";

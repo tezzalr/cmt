@@ -9,6 +9,7 @@ class Profile extends CI_Controller {
         $this->load->model('mrealization');
         $this->load->model('mtarget');
         $this->load->model('mwallet');
+        $this->load->model('msummary_desc');
         $this->load->library('excel');
         
         $session = $this->session->userdata('userdb');
@@ -36,7 +37,7 @@ class Profile extends CI_Controller {
     		$content['dir']['code'] = $anchor_id;
     		$data['title'] = get_direktorat_full_name($anchor_id);
     	}		
-    	
+    	$content['summary_desc'] = $this->msummary_desc->get_summary_desc($content['month'],$year,'basic_info',$anchor_id);
 		$content['rlz_ws_ly'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year']-1,"","wholesale");
 		$content['rlz_ws_ly_ey'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year']-1,"ey","wholesale");
 		$content['rlz_ws'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year'],"","wholesale");
