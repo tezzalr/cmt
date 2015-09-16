@@ -1,5 +1,5 @@
 <style>
-	body{
+	html, body{
 	  	background-color:white;
 	  	margin: 0px auto;
 	}
