@@ -1,6 +1,6 @@
 <style>
 	body{
-	  	background-color:#f4f4f4;
+	  	background-color:white;
 	  	max-width:1280px;
 	  	margin: 0px auto;
 	}
