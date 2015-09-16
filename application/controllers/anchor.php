@@ -162,7 +162,7 @@ class Anchor extends CI_Controller {
     		$this->manchor->delete_al($filetype,$year,$month);
     		$this->input_ws_al($filetype,$year,$month);
     	}
-    	redirect('anchor');
+    	redirect('home');
     	
     }
     

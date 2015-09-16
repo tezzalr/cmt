@@ -1,7 +1,6 @@
 <style>
 	body{
 	  	background-color:white;
-	  	max-width:1280px;
 	  	margin: 0px auto;
 	}
 	.group_cb{
