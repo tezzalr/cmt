@@ -48,7 +48,7 @@
 	$castrxres = calculate_array($castrxarr, 'fbi', $xsell);
 	
 ?>
-<?php echo $sidebar?>
+
 <div id="" class="content">
 	<?php echo $header?>
 	<div>
