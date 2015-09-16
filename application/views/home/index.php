@@ -59,7 +59,7 @@
 	
 </style>
 
-<div style="z-index:10; min-height:100%; background-color:white;">
+<div style="z-index:10; min-height:100%; width:100%; background-color:white;">
 	<div style="padding:10px; padding-top:100px;">
 		<center>
 			<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>

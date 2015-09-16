@@ -35,7 +35,7 @@
 <div class="content">
 	<h2 style="margin-bottom:0px;">PRODUCT ANALYSIS - <?php echo change_real_name($this->uri->segment(5))?></h2>
 	<span style="font-size:18px; color:#bbb">
-		<a href="<?php echo base_url().'profile/show/'.$kind.'/'.$anchor_id?>"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id;}else{echo $dir['name']; $id_nas=$dir['code'];}?>
+		<a href="<?php echo base_url().'profile/show/'.$kind.'/'.$anchor_id?>"><?php if($anchor){echo $anchor->name; $id_nas=$anchor->id;}else{echo $dir['name']; $id_nas=$dir['code'];}?></a>
 	</span>
 	<div class="pull-right" style="padding-right:10px;">
 		<select class="btn-wsa" name="product" onchange="if (this.value && this.value!='not') window.location.href=this.value">
