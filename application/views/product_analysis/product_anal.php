@@ -213,7 +213,7 @@
 	<div>
 		<div>
 		<h4>Top Volume (Rp M)</h4>
-		<table class="table table-bordered" style="font-size:10px;">
+		<table class="table table-bordered" style="font-size:14px;">
 			<thead class="headertab"><tr>
 				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
 			</tr><tr>
@@ -254,7 +254,7 @@
 	</div>
 		<div>
 		<h4>Top Nominal Growth (Rp M)</h4>
-		<table class="table table-bordered" style="font-size:10px;">
+		<table class="table table-bordered" style="font-size:14px;">
 			<thead class="headertab"><tr>
 				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
 			</tr><tr>
@@ -307,7 +307,7 @@
 	</div>
 		<div>
 		<h4>Top Growth (%)</h4>
-		<table class="table table-bordered" style="font-size:10px;">
+		<table class="table table-bordered" style="font-size:14px;">
 			<thead class="headertab"><tr>
 				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
 			</tr><tr>
