@@ -146,6 +146,8 @@ class Scorecard extends CI_Controller {
     	
     	$content['arr_prod'] = $arr_prod;
 		
+		$batas = get_batas_wallet($content['prd_id']);
+		
 		foreach($sc as $each){
 			if($each['sow']){
 				if($each['sow']<=30 /*|| $each['trx']<=0.5 || $each['casx']<=0.05*/){
@@ -157,17 +159,17 @@ class Scorecard extends CI_Controller {
 					$ring = 1;
 				}
 			
-				if($each['anchor']->gas >20000){
+				if($each['wal'] > $batas['atas']){
 					if($ring==1){$x=$p1;}elseif($ring==2){$x=$p2;}else{$x=$p3;}
 					$arrsc['platinum'][$ring][$x] = $each;
 					if($ring==1){$p1++;}elseif($ring==2){$p2++;}else{$p3++;}
 				}
-				elseif($each['anchor']->gas < 20000 && $each['anchor']->gas > 5000){
+				elseif($each['wal'] < $batas['atas'] && $each['wal'] > $batas['bawah']){
 					if($ring==1){$x=$g1;}elseif($ring==2){$x=$g2;}else{$x=$g3;}
 					$arrsc['gold'][$ring][$x] = $each;
 					if($ring==1){$g1++;}elseif($ring==2){$g2++;}else{$g3++;}
 				}
-				elseif($each['anchor']->gas < 5000){
+				elseif($each['wal'] < $batas['bawah']){
 					if($ring==1){$x=$s1;}elseif($ring==2){$x=$s2;}else{$x=$s3;}
 					$arrsc['silver'][$ring][$x] = $each;
 					if($ring==1){$s1++;}elseif($ring==2){$s2++;}else{$s3++;}

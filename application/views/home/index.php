@@ -46,7 +46,7 @@
 		width:33%;
 	}
 	.logo_outer{
-		background-color: #eda32b;
+		background-color: #c3c3c3;
 		width:160px;
 		height:160px;
 		border-radius:40px;

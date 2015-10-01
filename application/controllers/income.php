@@ -57,7 +57,8 @@ class Income extends CI_Controller {
     	$year = $rpttime['year']; $content['year'] = $year; $content['month'] = $rpttime['month'];
     	$data_rl_inc = array();
     	$anchor_id = $this->uri->segment(4);
-    	
+    	$content['anchor_id'] = $anchor_id;
+    	$content['kind'] = $this->uri->segment(3);
     	if($this->uri->segment(3)=='anchor'){
 			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
 			$data['title'] = $content['anchor']->name;

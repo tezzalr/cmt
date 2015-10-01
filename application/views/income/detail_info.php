@@ -41,8 +41,8 @@
 ?>
 
 <div class="content">
-	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2>
-	<span style="font-size:18px; color:#bbb">Summary Info </span>
+	<a href="<?php echo base_url().'profile/show/'.$kind.'/'.$anchor_id?>"><h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?></h2></a>
+	<span style="font-size:18px; color:#bbb">Wholesale Income Analysis </span>
 	<hr>
 	<div style="width:60%; float:left; padding:0 5px 0 0px">
 		<div class="panel panel-wsa">
@@ -190,9 +190,9 @@
 					innerSize: '30%',
 					data: [
 						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income_ly?>, color:"#eda32b"},
+						{name: 'Loan', y: <?php echo $loan_income_ly?>, color:"#007aff"},
 						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income_ly?>, color:"#f2be13"},
+						{name: 'Trx+CASA', y: <?php echo $trx_income_ly?>, color:"#5ac8fa"},
 						<?php }if($lnfee_income){?>
 						{name: 'Loan Fee', y: <?php echo $lnfee_income_ly?>, color:"#b3b3b3"},
 						<?php }if($otr_income){?>
@@ -249,9 +249,9 @@
 					innerSize: '30%',
 					data: [
 						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
+						{name: 'Loan', y: <?php echo $loan_income?>, color:"#007aff"},
 						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
+						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#5ac8fa"},
 						<?php }if($lnfee_income){?>
 						{name: 'Loan Fee', y: <?php echo $lnfee_income?>, color:"#b3b3b3"},
 						<?php }if($otr_income){?>
@@ -307,9 +307,9 @@
 					innerSize: '30%',
 					data: [
 						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
+						{name: 'Loan', y: <?php echo $loan_income?>, color:"#007aff"},
 						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
+						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#5ac8fa"},
 						<?php }if($trd_income){?>
 						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
 						<?php }if($lnfee_income){?>

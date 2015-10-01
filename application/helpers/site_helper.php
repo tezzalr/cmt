@@ -11,7 +11,31 @@
  * @author Maulnick
  */
    	
-   	 
+   	
+   	function get_batas_wallet($prd){
+   		$batas['atas'] = 1000;
+   		$batas['bawah'] = 500;
+   		
+   		if($prd == "CASA"){
+   			$batas['atas'] = 1000;
+   			$batas['bawah'] = 500;
+   		}
+   		elseif($prd == "TD"){
+   			$batas['atas'] = 2000;
+   			$batas['bawah'] = 200;
+   		}
+   		elseif($prd == "WCL" || $prd == "IL" || $prd == "SL" || $prd == "TR"){
+   			$batas['atas'] = 3000;
+   			$batas['bawah'] = 300;
+   		}
+   		elseif($prd == "BG" || $prd == "Trade" || $prd == "FX" || $prd == "SCF"){
+   			$batas['atas'] = 500;
+   			$batas['bawah'] = 100;
+   		}
+   		
+   		return $batas;
+   	} 
+	
 	function get_direktorat_where($direktorat,$model){
 		if($direktorat == 'CB'){
 			$model->db->where("(`group` = 'CORPORATE BANKING I' OR `group` = 'CORPORATE BANKING II' OR `group` = 'CORPORATE BANKING III' OR `group` = 'CORPORATE BANKING IV' OR `group` = 'CORPORATE BANKING V' OR `group` = 'CORPORATE BANKING VI' OR `group` = 'CORPORATE BANKING VII')");

@@ -2,7 +2,7 @@
 <style>
 	.pp_tit{
 		font-size:20px;
-		color:#eda32b;
+		color:#007aff;
 	}
 	table td{
 		 padding:1px 0 1px 0;
@@ -61,13 +61,13 @@
 					<?php 
 						$delta_vol = $rlz[$prd_name]-$rlzly[$prd_name]; if($delta_vol>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
-					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#eda23b"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b">
+					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#007aff"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#007aff">
 					<?php if($rlz[$prd_name]){if($rlzly[$prd_name]){echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
 					<hr>
 					<?php 
 						$delta_inc = $rlz[$prd_name_inc]-$rlzly[$prd_name_inc]; if($delta_inc>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
-					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#eda23b"> <?php echo "Rp ".number_format(abs($delta_inc),1,'.',',')." M"?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#eda23b">
+					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#007aff"> <?php echo "Rp ".number_format(abs($delta_inc),1,'.',',')." M"?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#007aff">
 					<?php if($rlz[$prd_name_inc]){if($rlzly[$prd_name_inc]){echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
 				</div>
 			</div>
@@ -142,13 +142,21 @@
 			<div class="panel-heading">
 				Activity Monitoring
 				<!--<a href="<?php echo base_url()?>plan/show/anchor/<?php echo $anchor->id."/".$stg['strategy']->product?>"><?php echo $stg['name_prod']?></a>-->
+				<div style="font-size:10px; margin-top:5px;">
+					<span style="color:#007aff" class="glyphicon glyphicon-signal" aria-hidden="true"></span> : Progress
+					<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> : Issues
+					<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> : Next Step & Support Needed
+					<!--<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-calendar" aria-hidden="true"></span> : Due Date
+					<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-user" aria-hidden="true"></span> : PIC-->
+					
+				</div>
 			</div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<?php if($strategy){?>
 					<div>
 						<div class="small-title pull-right" style="font-size:11px">Strategy</div>
 						<div style="clear:both"></div>
-						<center><p>
+						<center style="font-size:18px;"><p>
 							<?php echo $strategy->strategy?>
 						</p></center>
 					</div><hr style="margin:0 0 10px 0">
@@ -157,9 +165,9 @@
 						<div style="clear:both"></div>
 						<div>
 							<center>
-								<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $strategy->product?>');"><?php echo count($ap)?> Action Plan <span class="caret"></span></button>
+								<button type="button" class="btn-link" style="color:#007aff; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $strategy->product?>');"><?php echo count($ap)?> Action Plan <span class="caret"></span></button>
 							</center>
-							<div style="display:none;" id="prd_<?php echo $strategy->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
+							<div style="" id="prd_<?php echo $strategy->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
 								<?php foreach($ap as $ap){?>
 									<div style="margin-bottom:8px">
 										<div>
@@ -182,17 +190,17 @@
 													if($date != "-0001-11-30"){echo date("d M Y", strtotime($ap['last_update']->created));}?></div><?php }?><div style="clear:both"></div>
 									
 											<div>
-												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-signal" aria-hidden="true"></span></div>
+												<div style="float:left; width:9%"><span style="color:#007aff" class="glyphicon glyphicon-signal" aria-hidden="true"></span></div>
 												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->progress;}?></div>
 												<div style="clear:both"></div>
 											</div>
 											<div>
-												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></div>
+												<div style="float:left; width:9%"><span style="color:#007aff" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></div>
 												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->issue;}?></div>
 												<div style="clear:both"></div>
 											</div>
 											<div>
-												<div style="float:left; width:9%"><span style="color:#eda32b" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></div>
+												<div style="float:left; width:9%"><span style="color:#007aff" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></div>
 												<div style="float:left; width:91%"><?php if($ap['last_update']){echo $ap['last_update']->support;}?></div>
 												<div style="clear:both"></div>
 											</div>
@@ -377,7 +385,7 @@
 		{
 			"balloonText": "Wallet:[[value]]",
 			"fillAlphas": 0.8,
-			lineColor: "#786c56",
+			lineColor: "#c3c3c3",
 			labelText: "[[value]]",
 			"id": "AmGraph-1",
 			"lineAlpha": 0.2,
@@ -389,7 +397,7 @@
 		{
 			"balloonText": "Realization:[[value]]",
 			"fillAlphas": 0.8,
-			lineColor: "#eda32b",
+			lineColor: "#007aff",
 			labelText: "[[value]]",
 			"id": "AmGraph-2",
 			"lineAlpha": 0.2,

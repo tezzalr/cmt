@@ -9,7 +9,7 @@
 		color:white;
 	}
 	.header_top{
-		width:100%; background-color:#eda32b; padding:15px 20px 0 30px; height:50px; top:0; left:0;
+		width:100%; background-color:#3f3f3f; padding:15px 20px 0 30px; height:50px; top:0; left:0;
 		position:fixed; opacity:0.9; z-index:999;
 	}
 </style>

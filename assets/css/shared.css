@@ -50,12 +50,18 @@ body a{
 }
 
 .btn-wsa{
+	color:#007aff;
+	background-color:white;
+	border-color:#007aff;
+}
+
+/*.btn-wsa{
 	color:#eda32b;
 	background-color:white;
 	border-color:#eda32b;
-}
+}*/
 .btn-wsa.inverse{
-	background-color:#eda32b;
+	background-color:#007aff;
 	color:white;
 }
 .btn-wsa:hover{

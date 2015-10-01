@@ -1,6 +1,6 @@
 <style>
 	.ring_title{
-		border-top:3px solid #eda32b;
+		border-top:3px solid #007aff;
 		text-align:center;
 	}
 </style>
@@ -13,7 +13,7 @@
 				<div>
 					<h3 style="margin:0; padding:0;">
 						<a href="<?php echo base_url()?>product_analysis/show/directorate/CB/<?php echo $prd_id?>"><?php echo $prd_name?></a>
-						<button class="btn btn-link" style="padding:0; color:#eda32b" onclick="toggle_visibility('select_prod')">
+						<button class="btn btn-link" style="padding:0; color:#007aff" onclick="toggle_visibility('select_prod')">
 						<span class="glyphicon glyphicon-chevron-down"></span></span></button>
 					</h3> 
 					<div style="margin-top:5px; display:none;" id="select_prod">

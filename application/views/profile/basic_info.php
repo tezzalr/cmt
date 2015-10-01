@@ -43,7 +43,7 @@
 <div class="content">
 	<h2 style="margin-bottom:0px;"><?php if($anchor){echo $anchor->name;}else{echo $dir['name'];}?>
 		<?php if($user['role']=='admin'){?>
-			<button class="btn btn-link" style="color:#eda32b; padding:0;" onclick="edit_sumdesc()"><span class="glyphicon glyphicon-pencil" style="font-size:18px; margin-left:10px;"></span></button>
+			<button class="btn btn-link" style="color:#007aff; padding:0;" onclick="edit_sumdesc()"><span class="glyphicon glyphicon-pencil" style="font-size:18px; margin-left:10px;"></span></button>
 		<?php }?>
 	</h2>
 	<div>
@@ -62,7 +62,7 @@
 	<hr>
 	<div style="width:30%; float:left; padding:0 5px 0 0px">
 		<div class="panel panel-wsa">
-			<div class="panel-heading">Total Wholesale Income</div>
+			<div class="panel-heading"><a href="<?php echo base_url().'income/detail/'.$is_anchor.'/'.$this_id?>">Total Wholesale Income</a></div>
 			<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 				<div id="container_wsa" style="width: 100%; height:280px;"></div>
 				<div>
@@ -308,9 +308,9 @@
 					innerSize: '30%',
 					data: [
 						<?php if($loan_income){?>
-						{name: 'Loan', y: <?php echo $loan_income?>, color:"#eda32b"},
+						{name: 'Loan', y: <?php echo $loan_income?>, color:"#007aff"},
 						<?php }if($trx_income){?>
-						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#f2be13"},
+						{name: 'Trx+CASA', y: <?php echo $trx_income?>, color:"#5ac8fa"},
 						<?php }/*if($trd_income){?>
 						{name: 'Trade Finance', y: <?php echo $trd_income?>, color:"grey"},
 						<?php }*/if($lnfee_income){?>

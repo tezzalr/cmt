@@ -14,11 +14,11 @@
 	<hr style="margin:10px 0 10px 0;">
 	<div>
 		<div>
-			<span style="color:#eda32b" class="glyphicon glyphicon-signal" aria-hidden="true"></span> : Progress
-			<span style="color:#eda32b; margin-left:10px" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> : Issues
-			<span style="color:#eda32b; margin-left:10px" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> : Next Step & Support Needed
-			<span style="color:#eda32b; margin-left:10px" class="glyphicon glyphicon-calendar" aria-hidden="true"></span> : Due Date
-			<span style="color:#eda32b; margin-left:10px" class="glyphicon glyphicon-user" aria-hidden="true"></span> : PIC
+			<span style="color:#007aff" class="glyphicon glyphicon-signal" aria-hidden="true"></span> : Progress
+			<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> : Issues
+			<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> : Next Step & Support Needed
+			<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-calendar" aria-hidden="true"></span> : Due Date
+			<span style="color:#007aff; margin-left:10px" class="glyphicon glyphicon-user" aria-hidden="true"></span> : PIC
 			<br><br>
 		</div>
 		<?php $fouryes=1; foreach($strategies as $stg){?>
@@ -39,7 +39,7 @@
 							<div style="clear:both"></div>
 							<div>
 								<center>
-									<button type="button" class="btn-link" style="color:#eda32b; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan <span class="caret"></span></button>
+									<button type="button" class="btn-link" style="color:#007aff; margin:0px; padding:0px;" onclick="toggle_visibility('prd_<?php echo $stg['strategy']->product?>');"><?php echo count($stg['ap'])?> Action Plan <span class="caret"></span></button>
 								</center>
 								<div style="display:none;" id="prd_<?php echo $stg['strategy']->product?>"><hr style="border-style:dashed; margin:10px 0 10px 0;">
 									<?php foreach($stg['ap'] as $ap){?>

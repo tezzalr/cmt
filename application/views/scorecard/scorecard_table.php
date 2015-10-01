@@ -1,6 +1,6 @@
 <style>
 	.ring_title{
-		border-top:3px solid #eda32b;
+		border-top:3px solid #007aff;
 		text-align:center;
 	}
 </style>
