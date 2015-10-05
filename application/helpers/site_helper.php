@@ -10,7 +10,11 @@
  *
  * @author Maulnick
  */
-   	
+   	function get_disabled($submenu,$url){
+		if($submenu == $url){
+			echo "disabled";
+		}	
+	}
    	
    	function get_batas_wallet($prd){
    		$batas['atas'] = 1000;

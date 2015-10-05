@@ -245,7 +245,7 @@ $config['encryption_key'] = 'dync-store.com';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'ci_session';
+$config['sess_cookie_name']		= 'ci_session_cmt';
 $config['sess_expiration']		= 3600*10;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= TRUE;

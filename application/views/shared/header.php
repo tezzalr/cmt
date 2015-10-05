@@ -12,10 +12,26 @@
 		width:100%; background-color:#3f3f3f; padding:15px 20px 0 30px; height:50px; top:0; left:0;
 		position:fixed; opacity:0.9; z-index:999;
 	}
+	.menu_header{
+		font-size:16px; 
+		color:white !important; 
+		margin: 0 15px 0 15px;
+		padding:0px !important;
+		opacity:1 !important;
+	}
+	.menu_header:hover{
+		color:white;
+	}
+	.menu_header.btn.disabled{
+		color:#8f8f8f !important;
+	}
 </style>
-
+<?php 
+	$contr = $this->uri->segment(1);
+	$func = $this->uri->segment(2);
+?>
 <div class="header_top">
-	<div style="float:left; width:40%; color:white">
+	<div style="float:left; width:30%; color:white">
 		<form method="post" action="<?php echo base_url()?>anchor/change_report_month">
 			<?php $rpttime = $this->session->userdata('rpttime'); $lsttime = $this->session->userdata('lsttime');?>
 			<!--<label style="margin-right:20px">Bulan laporan:</label>-->
@@ -33,12 +49,13 @@
 			<input type="submit" class="btn btn-xs btn-default" value="Ubah" style="background-color:#737373; border-color:#737373; color:white;">
 		</form>
 	</div>
-	<div style="float:left; width:20%; text-align:center">
-		<a href="<?php echo base_url()?>home">
-			<img src="<?php echo base_url()?>assets/img/icon/home - white.png" style="height:40px; margin-top:-10px;">
-		</a>
+	<div style="float:left; width:40%; text-align:center">
+		<a href="<?php echo base_url()?>profile/show/directorate/CB" class="menu_header btn btn-link <?php echo get_disabled($contr,'fund')?>">Group Analysis</a>
+		<a href="<?php echo base_url()?>scorecard/show/CB" class="menu_header btn btn-link <?php echo get_disabled($contr,'loan')?>">Anchor Analysis</a>
+		<a href="<?php echo base_url()?>scorecard/product/CASA" class="menu_header btn btn-link <?php echo get_disabled($contr,'fee')?>">Product Analysis</a>
+		
 	</div>
-	<div class="dropdown" style="float:left; text-align:right; width:40%;">
+	<div class="dropdown" style="float:left; text-align:right; width:30%;">
 		<button style="color:white;" class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 			<span class="glyphicon glyphicon-user"></span> <span style="font-size:13px"><?php echo $user['name']?></span>
 			<span class="caret"></span>

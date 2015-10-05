@@ -7,11 +7,11 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->load->model('mrealization');
         
-        $session = $this->session->userdata('userdb');
+        /*$session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
-        }
+        }*/
         
     }
     /**
