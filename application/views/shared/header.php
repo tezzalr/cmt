@@ -49,13 +49,15 @@
 			<input type="submit" class="btn btn-xs btn-default" value="Ubah" style="background-color:#737373; border-color:#737373; color:white;">
 		</form>
 	</div>
-	<div style="float:left; width:40%; text-align:center">
+	<div style="float:left; width:50%; text-align:center">
+		<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST']?>/cbic" class="menu_header btn btn-link ">CBIC</a>
+		<a href="<?php echo base_url()?>" class="menu_header btn btn-link <?php echo get_disabled($contr,'fund')?>">Home</a>
 		<a href="<?php echo base_url()?>profile/show/directorate/CB" class="menu_header btn btn-link <?php echo get_disabled($contr,'fund')?>">Group Analysis</a>
 		<a href="<?php echo base_url()?>scorecard/show/CB" class="menu_header btn btn-link <?php echo get_disabled($contr,'loan')?>">Anchor Analysis</a>
 		<a href="<?php echo base_url()?>scorecard/product/CASA" class="menu_header btn btn-link <?php echo get_disabled($contr,'fee')?>">Product Analysis</a>
 		
 	</div>
-	<div class="dropdown" style="float:left; text-align:right; width:30%;">
+	<div class="dropdown" style="float:left; text-align:right; width:20%;">
 		<button style="color:white;" class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 			<span class="glyphicon glyphicon-user"></span> <span style="font-size:13px"><?php echo $user['name']?></span>
 			<span class="caret"></span>

@@ -36,6 +36,7 @@ class Manchor extends CI_Model {
 					if($where_sent){$where_sent = $where_sent." OR ";}
 					$where_sent = $where_sent." `anchor_id` = ".$hold->id." ";
 				}
+				$where_sent = $where_sent."OR `anchor_id` = ".$anchor_id." ";
 				$this->db->where("(".$where_sent.")");
 				if($month){get_type_select_month('wholesale',$this);}
 				else{get_type_select('wholesale',$this);}

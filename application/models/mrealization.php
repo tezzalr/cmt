@@ -74,7 +74,7 @@ class Mrealization extends CI_Model {
     	if($kind == 'volume'){$colom = $product.'_vol';}
     	else{$colom = $product.'_'.get_product_income_type($product);}
     	$db = return_ws_or_al($product).'_realization';
-    	$this->manchor->check_group($anchor_id,"","realization",return_ws_or_al($product));
+    	$this->manchor->check_group($anchor_id,"month","realization",return_ws_or_al($product));
     	//$this->db->where('anchor_id',$anchor_id);
     	$this->db->where('year',$year);
     	$this->db->where('month',$month);
@@ -85,7 +85,8 @@ class Mrealization extends CI_Model {
     }
     
     function get_anchor_prd_realization_annual($anchor_id, $product, $kind, $year,$anc_not){
-    	$type = return_ws_or_al($product);
+		$type = return_ws_or_al($product);
+		//$this->manchor->check_group($anchor_id,"month","realization",$type);
     	$list_month_avl = $this->check_prd_tren($anchor_id,$year,$anc_not,$product);
     	$last_month_data = $this->get_last_month($year,$type);
     	$arr_prod = array();
@@ -101,8 +102,21 @@ class Mrealization extends CI_Model {
     }
     
     function check_prd_tren($anchor_id,$year,$anc_not,$product){
-    	if($anc_not=="anchor"){
-    		$this->db->where('anchor_id',$anchor_id);
+    	//$this->manchor->check_group($anchor_id,"month","realization",return_ws_or_al($product));
+		if($anc_not=="anchor"){
+    		$anchor = $this->manchor->get_anchor_by_id($anchor_id);
+			if($anchor->is_group_holding){
+				$holding = $this->manchor->get_anchor_by_holding_name($anchor->name);
+				$where_sent = "";
+				foreach($holding as $hold){
+					if($where_sent){$where_sent = $where_sent." OR ";}
+					$where_sent = $where_sent." `anchor_id` = ".$hold->id." ";
+				}
+				$where_sent = $where_sent."OR `anchor_id` = ".$anchor_id." ";
+				$this->db->where("(".$where_sent.")");
+			}else{
+				$this->db->where('anchor_id',$anchor_id);
+			}
     	}
     	$this->db->where('year',$year);
     	$db = return_ws_or_al($product)."_realization";

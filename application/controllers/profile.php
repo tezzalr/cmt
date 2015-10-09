@@ -12,11 +12,11 @@ class Profile extends CI_Controller {
         $this->load->model('msummary_desc');
         $this->load->library('excel');
         
-        $session = $this->session->userdata('userdb');
+        /*$session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
-        }
+        }*/
     }
     /**
      * Method for page (public)

@@ -9,11 +9,11 @@ class Scorecard extends CI_Controller {
         $this->load->model('mrealization');
         $this->load->model('mwallet');
         
-        $session = $this->session->userdata('userdb');
+        /*$session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
-        }
+        }*/
     }
     /**
      * Method for page (public)

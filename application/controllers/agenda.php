@@ -8,7 +8,7 @@ class Agenda extends CI_Controller {
         $this->load->model('muser');
         $this->load->model('magenda');
         
-        $session = $this->session->userdata('user_cmt');
+        $session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
@@ -64,7 +64,7 @@ class Agenda extends CI_Controller {
     	else{$data['title'] = "Input Agenda";}
 		
 		$users = $this->muser->get_all_user();
-		$user = $this->session->userdata('user_cmt');
+		$user = $this->session->userdata('userdb');
 		$agenda = "";
 		if($id){
 			$agenda = $this->magenda->get_agenda_by_id($id);
@@ -79,7 +79,7 @@ class Agenda extends CI_Controller {
     
     public function submit_agenda(){
       	$id = $this->uri->segment(3);
-      	$user = $this->session->userdata('user_cmt');
+      	$user = $this->session->userdata('userdb');
       	
       	$program['title'] = $this->input->post('title');
         $program['location'] = $this->input->post('location');
