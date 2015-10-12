@@ -77,4 +77,8 @@ class Mscoring extends CI_Model {
         $this->db->where('id',$id);
         return $this->db->update('scoring_comp', $data);
     }
+	
+	function truncate_table_anchor_comp_val(){
+		$this->db->truncate('anchor_comp_val'); 
+	}
 }

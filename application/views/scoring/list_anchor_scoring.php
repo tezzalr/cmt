@@ -68,7 +68,9 @@
 				<?php $class=""; foreach($anchors as $anchor){?>
 				<?php if($class != $anchor->class){if($class){echo "</div>";}?><div class="each_menu" style="width:25%; padding:0 15px 0 15px;"><h4 style="border-bottom:3px solid #007aff; padding-bottom:10px;"><?php echo $anchor->class?></h4><?php }?>
 					<div>
-						<?php echo $anchor->srt_name." - ".number_format($anchor->scoring,2); ?>
+						<div style="width:80%; float:left; text-align:left"><?php echo $anchor->srt_name; ?></div>
+						<div style="width:10%; float:left;"><?php echo number_format($anchor->scoring,2); ?></div>
+						<div style="clear:both"></div>
 					</div>
 				<?php $class=$anchor->class;}?>
 				</div>

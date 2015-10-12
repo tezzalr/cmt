@@ -99,6 +99,15 @@ class Manchor extends CI_Model {
     	return $result->result();
 	}
 	   
+	function get_all_anchor_scoring(){
+		$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
+    	$this->db->order_by("class","asc");
+		$this->db->order_by("scoring","desc");
+    	$result = $this->db->get('anchor');
+    	return $result->result();
+	}   
+	   
     function get_anchor_sc($dir){
 		$this->db->where('show_anc', 1);
     	$this->db->where('holding', "");

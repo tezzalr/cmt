@@ -12,11 +12,6 @@ class Scoring extends CI_Controller {
         $this->load->model('mscoring');
         $this->load->library('excel');
         
-        $session = $this->session->userdata('userdb');
-        
-        if(!$session){
-            redirect('user/login');
-        }
     }
     /**
      * Method for page (public)
@@ -46,7 +41,7 @@ class Scoring extends CI_Controller {
     	$year = $rpttime['year']; 
     	$content['year'] = $year; $content['month'] = $rpttime['month'];
     	
-    	$content['anchors'] = $this->manchor->get_all_anchor_show_order_by("scoring","desc");
+    	$content['anchors'] = $this->manchor->get_all_anchor_scoring();
     	
     	$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
@@ -83,17 +78,24 @@ class Scoring extends CI_Controller {
     	usort($arr_anch, function($a, $b) {
 			return ($b['value']*100) - ($a['value']*100);
 		});
+		$top_limit = round(76*0.1); $top_limit_val = $arr_anch[$top_limit]['value'];
+    	$med_limit = round(76*0.2); $med_limit_val = $arr_anch[$top_limit+$med_limit]['value'];
+    	$low_limit = round(76*0.4); $low_limit_val = $arr_anch[76-$low_limit-1]['value'];
 		$sum_anc = 0;
 		foreach($arr_anch as $anch){
-    		if($sum_anc<7){
+    		if($anch['value'] > $top_limit_val){
     			$data['class'] = "A";
-    		}elseif($sum_anc<23){
-    			$data['class'] = "B";
-    		}elseif($sum_anc<47){
-    			$data['class'] = "C";
-    		}else{
+    		}
+    		elseif($anch['value'] < $low_limit_val){
     			$data['class'] = "D";
     		}
+    		elseif($anch['value'] <= $top_limit_val && $anch['value'] > $med_limit_val){
+    			$data['class'] = "B";
+    		}
+    		else{
+    			$data['class'] = "C";
+    		}
+			
     		$data['scoring'] = $anch['value'];
     		$this->manchor->update_anchor($data, $anch['anchor']->id);
     		
@@ -106,7 +108,8 @@ class Scoring extends CI_Controller {
     }
     
     public function anchor_scoring(){
-    	//PROFILE
+    	$this->mscoring->truncate_table_anchor_comp_val();
+		//PROFILE
     	$this->count_anchor_comp_val("num_of_comp","anchor");
     	
     	//WALLET
@@ -120,6 +123,8 @@ class Scoring extends CI_Controller {
     	//REALIZATION
     	$this->count_anchor_comp_val("Loan","realization");
     	$this->count_anchor_comp_val("","ws_income");
+		
+		redirect('scoring/input_bobot');
     }
     
     public function count_anchor_comp_val($prod,$db_kind)
@@ -136,19 +141,19 @@ class Scoring extends CI_Controller {
     	foreach($anchors as $anchor){
     		if($db_kind=="wallet_size"){
     			$scor_comp_val = $this->mwallet->get_anchor_ws_wallet($anchor->id, $year,return_ws_or_al($prod));
-    			if($prod == "Loan"){$val = $scor_comp_val->WCL_vol + $scor_comp_val->KI_vol;}
+    			if($prod == "Loan"){$val = $scor_comp_val->WCL_vol + $scor_comp_val->KI_vol + $scor_comp_val->TR_vol;}
     			else{$val = $scor_comp_val->$prod_vol;}
     			
     			$scoring_comp_id = $this->mscoring->get_scoring_comp($db_kind, $prod_vol)->id;
     		}elseif($db_kind=="realization"){
     			$scor_comp_val = $this->mrealization->get_anchor_realization($anchor->id, $year,"",return_ws_or_al($prod));
-    			if($prod == "Loan"){$val = ($scor_comp_val->WCL_vol) + ($scor_comp_val->IL_vol);}
+    			if($prod == "Loan"){$val = ($scor_comp_val->WCL_vol + $scor_comp_val->IL_vol + $scor_comp_val->TR_vol)/1000000000;}
     			else{$val = $scor_comp_val->$prod_vol;}
     			
     			$scoring_comp_id = $this->mscoring->get_scoring_comp($db_kind, $prod_vol)->id;
     		}elseif($db_kind=="ws_income"){
     			$scor_comp_val = $this->mrealization->return_income_ws_month($anchor->id, $year, $month);
-    			$val = $scor_comp_val['tot'];
+    			$val = $scor_comp_val['tot']/1000000000;
     			
     			$scoring_comp_id = $this->mscoring->get_scoring_comp("realization", "WH_inc")->id;
     		}elseif($db_kind=="anchor"){
@@ -175,6 +180,8 @@ class Scoring extends CI_Controller {
     	$med_limit = round($tot*0.2); $med_limit_val = $arr_anch[$top_limit+$med_limit]['value'];
     	$low_limit = round($tot*0.4); $low_limit_val = $arr_anch[$tot-$low_limit-1]['value'];
     	
+		//echo $prod." - ".$db_kind." - ".$top_limit." - ".$med_limit." - ".$low_limit." - ".$top_limit_val." - ".$med_limit_val." - ".$low_limit_val."<br>";
+		
     	$anc_val = 0;
     	
     	$comp['scoring_comp_id'] = $scoring_comp_id;
@@ -192,7 +199,7 @@ class Scoring extends CI_Controller {
     		else{
     			$anc_val = 2;
     		}
-    		
+			//echo $prod." - ".$anch['anchor']->name." - ".number_format($anch['value'],0,".",",")."<br>";
     		$comp['anchor_id'] = $anch['anchor']->id;
     		$comp['value'] = $anc_val;
     		$this->mscoring->insert_scoring($comp);

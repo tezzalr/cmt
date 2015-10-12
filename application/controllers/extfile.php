@@ -29,7 +29,10 @@ class Extfile extends CI_Controller {
     	$year = $this->input->post('year');
     	$filetype = $this->input->post('filetype');
     	
-    	if($filetype == "detail"){
+    	if($filetype == "scoring"){
+			redirect('scoring/anchor_scoring');
+		}
+		elseif($filetype == "detail"){
     		$this->manchor->delete_detail($year,$month);
     		$this->input_detail($year,$month);
     	}

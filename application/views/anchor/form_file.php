@@ -12,6 +12,7 @@
 					<option value="realization">Realisasi</option>
 					<option value="realization_company">Realisasi Company</option>
 					<option value="detail">Detail</option>
+					<option value="scoring">Scoring</option>
 				</select>
 			</div>
 			<div class="form-group">
