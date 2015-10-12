@@ -38,8 +38,8 @@ class Manchor extends CI_Model {
 				}
 				$where_sent = $where_sent."OR `anchor_id` = ".$anchor_id." ";
 				$this->db->where("(".$where_sent.")");
-				if($month){get_type_select_month('wholesale',$this);}
-				else{get_type_select('wholesale',$this);}
+				if($month){get_type_select_month($type,$this);}
+				else{get_type_select($type,$this);}
 			}
 			else{
 				$this->db->where('anchor_id',$anchor_id);
@@ -83,6 +83,22 @@ class Manchor extends CI_Model {
     //GET FUNCTION
     
     /*Anchor Function*/
+   
+	function get_all_anchor_show(){
+		$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
+    	$result = $this->db->get('anchor');
+    	return $result->result();
+	}
+	
+	function get_all_anchor_show_order_by($col,$type){
+		$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
+    	$this->db->order_by($col,$type);
+    	$result = $this->db->get('anchor');
+    	return $result->result();
+	}
+	   
     function get_anchor_sc($dir){
 		$this->db->where('show_anc', 1);
     	$this->db->where('holding', "");

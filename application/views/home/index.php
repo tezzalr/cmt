@@ -43,7 +43,7 @@
 	}
 	.each_menu{
 		float:left;
-		width:33%;
+		width:25%;
 	}
 	.logo_outer{
 		background-color: #c3c3c3;
@@ -99,6 +99,14 @@
 						<img src="<?php echo base_url()?>assets/img/icon/product - white.png">
 					</div>
 					<h3>Product Analysis</h3>
+					</a>
+				</div>
+				<div class="each_menu">
+					<a href="<?php echo base_url()?>scoring/input_bobot">
+					<div class="logo_outer">
+						<img src="<?php echo base_url()?>assets/img/icon/rank - white.png">
+					</div>
+					<h3>Client Scoring</h3>
 					</a>
 				</div>
 				<div style="clear:both"></div>

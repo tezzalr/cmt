@@ -43,7 +43,7 @@ class Mrealization extends CI_Model {
     }
     
     function get_anchor_ws_realization_month($anchor_id, $year,$month){
-    	$this->manchor->check_group($anchor_id,"month","realization");
+    	$this->manchor->check_group($anchor_id,"month","realization","wholesale");
     	$this->db->where('month',$month);
     	$this->db->where('year',$year);
     	$result = $this->db->get('wholesale_realization');

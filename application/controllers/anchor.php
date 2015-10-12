@@ -510,7 +510,7 @@ class Anchor extends CI_Controller {
     public function input_data_gas(){
     	$objReader = PHPExcel_IOFactory::createReader('Excel2007');
 		$objReader->setReadDataOnly(TRUE);
-		$objPHPExcel = $objReader->load("assets/datadashboard/GAS anchor.xlsx");
+		$objPHPExcel = $objReader->load("assets/datadashboard/Anchor Profile.xlsx");
 
 		$objWorksheet = $objPHPExcel->getActiveSheet();
 		// Get the highest row and column numbers referenced in the worksheet
@@ -525,6 +525,7 @@ class Anchor extends CI_Controller {
 			$anchor['gas'] = $arrres[$row][1];
 			$anchor['bank_comp'] = $arrres[$row][2];
 			$anchor['srt_name'] = $arrres[$row][3];
+			$anchor['num_of_comp'] = $arrres[$row][4];
 			$anchor_id = $this->manchor->get_anchor_id($arrres[$row][0],"");
 			
 			$this->manchor->update_anchor($anchor, $anchor_id);

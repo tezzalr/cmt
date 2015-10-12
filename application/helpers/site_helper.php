@@ -255,7 +255,7 @@
     }
     
     function return_ws_or_al($product){
-    	$ws = array("CASA","TD","WCL","IL","SL","TR","FX","SCF","Trade","BG","OIR","PWE","ECM","DCM","MA");
+    	$ws = array("CASA","TD","WCL","IL","SL","TR","FX","SCF","Trade","BG","OIR","PWE","ECM","DCM","MA","Loan");
     	if(in_array($product,$ws)){return "wholesale";}
     	else{return "alliance";}
     }
