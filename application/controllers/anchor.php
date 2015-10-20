@@ -11,11 +11,11 @@ class Anchor extends CI_Controller {
         $this->load->model('mwallet');
         $this->load->library('excel');
         
-        $session = $this->session->userdata('userdb');
+        /*$session = $this->session->userdata('userdb');
         
         if(!$session){
             redirect('user/login');
-        }
+        }*/
     }
     /**
      * Method for page (public)
