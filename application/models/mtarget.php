@@ -38,7 +38,12 @@ class Mtarget extends CI_Model {
     	$this->db->where('year',$year);
     	$result = $this->db->get($type.'_target');
     	$query = $result->result();
-        return $query[0];
+        if($query){
+        	return $query[0];
+        }
+        else{
+        	return 0;
+        }
     }
     
     function get_anchor_al_target($anchor_id){

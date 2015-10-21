@@ -20,8 +20,12 @@
 		else{$inc_name = $this->uri->segment(5)."_fbi";}
 		$target_vol = $tgt_ws->$prd_name;
 		$target_vol_ly = $tgt_ws_ly->$prd_name;	
+		$target_vol_two_ly = $tgt_ws_two_ly->$prd_name;	
+		$target_vol_tri_ly = 0;//$tgt_ws_tri_ly->$prd_name;	
 		$target_inc = $tgt_ws->$inc_name;
 		$target_inc_ly = $tgt_ws_ly->$inc_name;
+		$target_inc_two_ly = $tgt_ws_two_ly->$inc_name;
+		$target_inc_tri_ly = 0;//$tgt_ws_tri_ly->$inc_name;
 		
 		$usd_arr = array("FX","Trade");
 		$item_arr = array("EDC","ATM");
@@ -72,42 +76,70 @@
 				</div>
 			</div>
 		</div>
-		<div style="width:25%; float:left; padding:0 5px 0 5px">
+		<div style="width:30%; float:left; padding:0 5px 0 5px">
 			<div class="panel panel-wsa">
 				<div class="panel-heading">Product Performance</div>
 				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
 					<div>
 						<table style="width:100%;">
 							<tr style="color:#bbbbbb">
-								<td style="width:30%">Realization</td><td class="al-right" style="width:10%"><?php echo $year?></td><td class="al-right" style="width:10%"><?php echo $year-1?></td>
+								<td style="width:30%">Realization</td><td class="al-right" style="width:10%"><?php echo $year?></td><td class="al-right" style="width:10%"><?php echo $year-1?></td><td class="al-right" style="width:10%"><?php echo $year-2?></td><td class="al-right" style="width:10%"><?php echo $year-3?></td>
 							</tr>
 							<tr class="pp_tit">
-								<td>Volume</td><td class="al-right"><?php if($target_vol){$real_vol_ty = $rlz[$prd_name]/$target_vol*100;}else{$real_vol_ty=100;}echo round($real_vol_ty,0)?>%</td><td class="al-right"><?php if($target_vol_ly){echo round($rlzly[$prd_name]/$target_vol_ly*100,0);}else{echo 100;}?>%</td>
+								<td>Volume</td>
+								<td class="al-right"><?php if($target_vol){$real_vol_ty = $rlz[$prd_name]/$target_vol*100;}else{$real_vol_ty=100;}echo round($real_vol_ty,0)?>%</td>
+								<td class="al-right"><?php if($target_vol_ly){echo round($rlzly[$prd_name]/$target_vol_ly*100,0);}else{echo 100;}?>%</td>
+								<td class="al-right"><?php if($target_vol_two_ly){echo round($rlz_two_ly[$prd_name]/$target_vol_two_ly*100,0);}else{echo 100;}?>%</td>
+								<td class="al-right"><?php if($target_vol_tri_ly){echo round($rlz_tri_ly[$prd_name]/$target_vol_tri_ly*100,0);}else{echo 100;}?>%</td>
 							</tr>
 							<tr>
-								<td>Ann.</td><td class="al-right"><?php echo number_format($rlz[$prd_name],1,'.',',')?></td><td class="al-right"><?php echo number_format($rlzly[$prd_name],1,'.',',')?></td>
+								<td>Ann.</td>
+								<td class="al-right"><?php echo number_format($rlz[$prd_name],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlzly[$prd_name],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name],1,'.',',')?></td>
 							</tr>
 							<tr>
-								<td>Target</td><td class="al-right"><?php echo number_format($target_vol,1,'.',',')?></td><td class="al-right"><?php echo number_format($target_vol_ly,1,'.',',')?></td>
+								<td>Target</td>
+								<td class="al-right"><?php echo number_format($target_vol,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_vol_ly,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_vol_two_ly,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_vol_tri_ly,1,'.',',')?></td>
 							</tr>
 							<tr class="pp_tit" style="border-top:1px solid #ebebeb">
-								<td>Income</td><td class="al-right"><?php if($target_inc){$real_inc_ty = $rlz[$prd_name_inc]/$target_inc*100;}else{$real_inc_ty=100;}echo round($real_inc_ty,0)?>%</td><td class="al-right"><?php if($target_inc_ly){echo round($rlzly[$prd_name_inc]/$target_inc_ly*100,0);}else{echo 100;}?>%</td>
+								<td>Income</td>
+								<td class="al-right"><?php if($target_inc){$real_inc_ty = $rlz[$prd_name_inc]/$target_inc*100;}else{$real_inc_ty=100;}echo round($real_inc_ty,0)?>%</td>
+								<td class="al-right"><?php if($target_inc_ly){echo round($rlzly[$prd_name_inc]/$target_inc_ly*100,0);}else{echo 100;}?>%</td>
+								<td class="al-right"><?php if($target_inc_two_ly){echo round($rlz_two_ly[$prd_name_inc]/$target_inc_two_ly*100,0);}else{echo 100;}?>%</td>
+								<td class="al-right"><?php if($target_inc_tri_ly){echo round($rlz_tri_ly[$prd_name_inc]/$target_inc_tri_ly*100,0);}else{echo 100;}?>%</td>
 							</tr>
 							<tr>
-								<td>Ann.</td><td class="al-right"><?php echo number_format($rlz[$prd_name_inc],1,'.',',')?></td><td class="al-right"><?php echo number_format($rlzly[$prd_name_inc],1,'.',',')?></td>
+								<td>Ann.</td>
+								<td class="al-right"><?php echo number_format($rlz[$prd_name_inc],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlzly[$prd_name_inc],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name_inc],1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name_inc],1,'.',',')?></td>
 							</tr>
 							<tr>
-								<td>Target</td><td class="al-right"><?php echo number_format($target_inc,1,'.',',')?></td><td class="al-right"><?php echo number_format($target_inc_ly,1,'.',',')?></td>
+								<td>Target</td>
+								<td class="al-right"><?php echo number_format($target_inc,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_inc_ly,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_inc_two_ly,1,'.',',')?></td>
+								<td class="al-right"><?php echo number_format($target_inc_tri_ly,1,'.',',')?></td>
 							</tr>
 							<tr class="pp_tit" style="border-top:1px solid #ebebeb">
-								<td>Margin</td><td class="al-right"><?php if($rlz[$prd_name]){echo number_format($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2,'.',',');}else{echo 0;}?>%</td><td class="al-right"><?php if($rlzly[$prd_name]){echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<td>Margin</td>
+								<td class="al-right"><?php if($rlz[$prd_name]){echo number_format($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2,'.',',');}else{echo 0;}?>%</td>
+								<td class="al-right"><?php if($rlzly[$prd_name]){echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<td class="al-right"><?php if($rlz_two_ly[$prd_name]){echo round($rlz_two_ly[$prd_name_inc]/$rlz_two_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<td class="al-right"><?php if($rlz_tri_ly[$prd_name]){echo round($rlz_tri_ly[$prd_name_inc]/$rlz_tri_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div style="width:50%; float:left; padding:0 5px 0 5px">
+		<div style="width:45%; float:left; padding:0 5px 0 5px">
 			<div class="panel panel-wsa">
 				<div class="panel-heading">Share of Wallet Volume (<?php echo $lkp." ".$cur?>)</div>
 				<div class="panel-body" style="padding:5px 10px 5px 10px;" id="body-info">
@@ -423,6 +455,16 @@
 	"titles": [],
 	"dataProvider": [
 		
+		{
+			"year": <?php echo $year-3?> +"<br>(SoW : "+<?php if($wlt_tri_ly && $wlt_tri_ly->$prd_name){echo round($rlz_tri_ly[$prd_name]/$wlt_tri_ly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+			"Wallet": <?php if($wlt_tri_ly && $wlt_tri_ly->$prd_name){echo round($wlt_tri_ly->$prd_name,1);}else{echo 0;}?>,
+			"Realization": <?php echo round($rlz_tri_ly[$prd_name],1);?>
+		},
+		{
+			"year": <?php echo $year-2?> +"<br>(SoW : "+<?php if($wlt_two_ly->$prd_name){echo round($rlz_two_ly[$prd_name]/$wlt_two_ly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+			"Wallet": <?php if($wlt_two_ly->$prd_name){echo round($wlt_two_ly->$prd_name,1);}else{echo 0;}?>,
+			"Realization": <?php echo round($rlz_two_ly[$prd_name],1);?>
+		},
 		{
 			"year": <?php echo $year-1?> +"<br>(SoW : "+<?php if($wltly->$prd_name){echo round($rlzly[$prd_name]/$wltly->$prd_name*100,1);}else{echo 0;}?>+" %)",
 			"Wallet": <?php if($wltly->$prd_name){echo round($wltly->$prd_name,1);}else{echo 0;}?>,

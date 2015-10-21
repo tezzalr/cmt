@@ -25,7 +25,7 @@
 				</tr>
 				<?php $i=1; $kc=0; $tot=0; foreach($comps as $comp){?>
 					<?php if($comp->$prd_name){
-						if($kc<80){$color="#eda23b";}
+						if($kc<80){$color="#08c";}
 						else{$color="#ababab";}
 					?>
 					<tr>
