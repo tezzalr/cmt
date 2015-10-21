@@ -120,6 +120,7 @@
 	elseif(in_array($this->uri->segment(5),$item_arr)){$cur=""; $sep=" Mesin"; $lkp=" Mesin";}
 	elseif($this->uri->segment(5) == "CC"){$cur=""; $sep=" Kartu"; $lkp=" Kartu";}
 	elseif($this->uri->segment(5) == "PCD"){$cur=""; $sep=" Rek"; $lkp=" Rekening";}
+	elseif($this->uri->segment(5) == "OIR"){$cur=""; $sep=" Trx"; $lkp=" Transaksi";}
 	else{$cur="Rp"; $sep="M"; $lkp="Milyar";}
 ?>
 

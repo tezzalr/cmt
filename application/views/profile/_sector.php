@@ -3,6 +3,10 @@
 	<div>BMRI Industry Class</div>
 	<h2 style="color:green; margin-top:0px;">Menarik</h2>
 	<div style="text-align:left">
+		<label>Industry Outlook</label><br>
+		<a style="color:#08c" href="<?php echo base_url()?>assets/upload/industry_outlook/Mamin.pdf">Industry Rating 2015 - Makanan dan Minuman</a>
+	</div>
+	<div style="text-align:left">
 		<label>Growth</label>
 		<p>
 			Th 2011 = 10,98%<br>

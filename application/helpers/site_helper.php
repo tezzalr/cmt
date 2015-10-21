@@ -487,7 +487,7 @@
     
     function get_produk_pow($product){
     	$bagi=9; 
-    	$item_arr = array("PCD","CC","EDC","ATM");
+    	$item_arr = array("PCD","CC","EDC","ATM","OIR");
     	if($product == 'FX' || $product == 'Trade'){$bagi=6;}
     	elseif(in_array($product,$item_arr)){$bagi=0;}
     	return $bagi;

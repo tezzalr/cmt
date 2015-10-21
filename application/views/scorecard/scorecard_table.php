@@ -36,7 +36,7 @@
 									if(($s==3&&$sc['casx']<0.05)||($s==2&&$sc['casx']<0.1)){$casx_col = "red";}else{$casx_col = "#656565";}*/
 								?>
 								<tr>
-									<td><a href="<?php echo base_url()."profile/show/anchor/".$sc['anchor']->id?>"><?php echo $sc['anchor']->srt_name?></a></td>
+									<td><a href="<?php echo base_url()."profile/summary/anchor/".$sc['anchor']->id?>"><?php echo $sc['anchor']->srt_name?></a></td>
 									<td><?php echo number_format($sc['anchor']->gas,0)?></td>
 									<td><?php echo number_format($sc['wal']['ws'],0)?></td>
 									<td><?php echo number_format($sc['inc']['ws'],0)?></td>
