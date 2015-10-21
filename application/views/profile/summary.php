@@ -71,7 +71,7 @@
 			<h3>Key Companies</h3>
 			<div style="text-align:left">
 				<div>
-					<div style="font-size:20px;"><a href="<?php echo base_url()?>profile/key_company" style="color:#08c;">Pt. Indomarco Prismatama</a></div>
+					<div style="font-size:20px;"><a href="<?php echo base_url()?>assets/upload/anchor/cbi.pdf" style="color:#08c;">Pt. Indomarco Prismatama</a></div>
 					<div><span class="glyphicon glyphicon-home" aria-hidden="true"></span> : Jl. Ancol No. 9-10 Ancol Barat, Jakarta 14430</div>
 					<div><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> : Retailers Consumer Goods / Convenience Store</div>
 				</div><br><br>
@@ -150,10 +150,10 @@
 				</button>
 			</div>
 			<div style="width:25%; float:left;">
-				<button class="btn btn-link" onclick="show_lini_bisnis()">
+				<a  href="<?php echo base_url()?>assets/upload/anchor/ppt.pdf">
 				<img src="<?php echo base_url()?>assets/img/icon/map - color.png" style="height:100px;">
-				<h4>Strategi Group</h4>
-				</button>
+				<h4>Anchor Update</h4>
+				</a>
 			</div>
 			<div style="width:25%; float:left;">
 				<a href="<?php echo base_url()?>profile/show/anchor/2707">

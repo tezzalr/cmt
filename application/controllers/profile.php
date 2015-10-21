@@ -29,7 +29,7 @@ class Profile extends CI_Controller {
     	$anchor_id = $this->uri->segment(4);
     	
     	if($this->uri->segment(4)!=2707){
-    		redirect('profile/show');
+    		redirect('profile/show/anchor/'.$this->uri->segment(4));
     	}
     	
     	if($this->uri->segment(3)=='anchor'){
