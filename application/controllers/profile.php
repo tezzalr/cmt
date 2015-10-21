@@ -28,6 +28,10 @@ class Profile extends CI_Controller {
     	$data_rl_inc = array();
     	$anchor_id = $this->uri->segment(4);
     	
+    	if($this->uri->segment(4)!=2707){
+    		redirect('profile/show');
+    	}
+    	
     	if($this->uri->segment(3)=='anchor'){
 			$content['anchor'] = $this->manchor->get_anchor_by_id($anchor_id);
 			$data['title'] = $content['anchor']->name;
