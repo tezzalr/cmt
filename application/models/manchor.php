@@ -91,6 +91,14 @@ class Manchor extends CI_Model {
     	return $result->result();
 	}
 	
+	function get_all_anchor_show_with_score(){
+		$this->db->where('show_anc', 1);
+    	$this->db->where('holding', "");
+		$this->db->where('scoring <> 0');
+    	$result = $this->db->get('anchor');
+    	return $result->result();
+	}
+	
 	function get_all_anchor_show_order_by($col,$type){
 		$this->db->where('show_anc', 1);
     	$this->db->where('holding', "");
@@ -102,8 +110,10 @@ class Manchor extends CI_Model {
 	function get_all_anchor_scoring(){
 		$this->db->where('show_anc', 1);
     	$this->db->where('holding', "");
-    	$this->db->order_by("class","asc");
+		$this->db->where('scoring <> 0');
+    	//
 		$this->db->order_by("scoring","desc");
+		$this->db->order_by("class","asc");
     	$result = $this->db->get('anchor');
     	return $result->result();
 	}   
@@ -290,7 +300,7 @@ class Manchor extends CI_Model {
     
     function get_top_anchor_prd($product, $month, $year,$id,$type){
     	
-    	$this->db->select('ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
+    	$this->db->select('ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.id as anchor_id, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
     	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
     	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');
@@ -307,7 +317,7 @@ class Manchor extends CI_Model {
     }
     
     function get_top_anchor_prd_grw($product, $month, $year, $ly_month, $sort,$id,$type){
-    	$this->db->select('((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/ (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as grow,  (ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as nom_grow, ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
+    	$this->db->select('((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/ (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as grow,  (ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12) as nom_grow, ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.id as anchor_id, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
     	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
     	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');
@@ -333,7 +343,7 @@ class Manchor extends CI_Model {
     	else{
     		$nom_grow_set= '((ws_main.'.$product.'_vol/'.$month.'*12) - (ws_ly.'.$product.'_vol/'.$ly_month.'*12))/12*'.$ly_month.' as nom_grow,';
     	}
-    	$this->db->select($nom_grow_set.'ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
+    	$this->db->select($nom_grow_set.'ws_main.'.$product.'_vol as '.$product.'_vol, ws_main.month as month, ws_main.year as year, anchor.id as anchor_id, anchor.name, ws_ly.'.$product.'_vol as '.$product.'_vol_ly, '.$type.'_target.'.$product.'_vol as '.$product.'_vol_target');
     	$this->db->join('anchor', 'anchor.id = ws_main.anchor_id');
     	$this->db->join($type.'_realization as ws_ly', 'anchor.id = ws_ly.anchor_id');
     	$this->db->join($type.'_target', 'anchor.id = '.$type.'_target.anchor_id');

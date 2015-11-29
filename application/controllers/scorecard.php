@@ -9,6 +9,11 @@ class Scorecard extends CI_Controller {
         $this->load->model('mrealization');
         $this->load->model('mwallet');
         
+		$rpttime = $this->session->userdata('rpttime');
+		if(!$rpttime){
+			redirect ('home');
+		}
+		
         /*$session = $this->session->userdata('userdb');
         
         if(!$session){
@@ -61,26 +66,26 @@ class Scorecard extends CI_Controller {
 		$arrsc['silver'][1]=""; $arrsc['silver'][2]=""; $arrsc['silver'][3]="";
 		
 		foreach($sc as $each){
-			if($each['sow']<=0.3 /*|| $each['trx']<=0.5 || $each['casx']<=0.05*/){
+			if($each['sow']<=0.3 || $each['trx']<=0.5 || /*$each['casx']<=0.05*/){
 				$ring = 3;
 			}
-			elseif(($each['sow']>0.3 && $each['sow']<=0.6) /*|| ($each['trx']>0.5 && $each['trx']<=1) || ($each['casx']>0.05 && $each['casx']<=0.1)*/){
+			elseif(($each['sow']>0.3 && $each['sow']<=0.6) || ($each['trx']>0.5 && $each['trx']<=1) /*|| ($each['casx']>0.05 && $each['casx']<=0.1)*/){
 				$ring = 2;
 			}else{
 				$ring = 1;
 			}
 			
-			if($each['anchor']->gas >20000){
+			if($each['anchor']->gas >30000){
 				if($ring==1){$x=$p1;}elseif($ring==2){$x=$p2;}else{$x=$p3;}
 				$arrsc['platinum'][$ring][$x] = $each;
 				if($ring==1){$p1++;}elseif($ring==2){$p2++;}else{$p3++;}
 			}
-			elseif($each['anchor']->gas < 20000 && $each['anchor']->gas > 5000){
+			elseif($each['anchor']->gas < 30000 && $each['anchor']->gas > 5000){
 				if($ring==1){$x=$g1;}elseif($ring==2){$x=$g2;}else{$x=$g3;}
 				$arrsc['gold'][$ring][$x] = $each;
 				if($ring==1){$g1++;}elseif($ring==2){$g2++;}else{$g3++;}
 			}
-			elseif($each['anchor']->gas < 5000){
+			elseif($each['anchor']->gas < 10000){
 				if($ring==1){$x=$s1;}elseif($ring==2){$x=$s2;}else{$x=$s3;}
 				$arrsc['silver'][$ring][$x] = $each;
 				if($ring==1){$s1++;}elseif($ring==2){$s2++;}else{$s3++;}

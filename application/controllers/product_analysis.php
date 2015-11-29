@@ -12,6 +12,11 @@ class Product_analysis extends CI_Controller {
         $this->load->model('mwallet');
         $this->load->model('mplan');
         $this->load->library('excel');
+		
+		$rpttime = $this->session->userdata('rpttime');
+		if(!$rpttime){
+			redirect ('home');
+		}
         
         /*$session = $this->session->userdata('userdb');
         
@@ -70,15 +75,19 @@ class Product_analysis extends CI_Controller {
 		$content['rlzly'] = $this->mrealization->count_realization_value($content['real_ly'], $content['real_ly']->month,$content['type_prod']);
 		$content['sowly'] = $this->mwallet->get_sow($content['wltly'], $content['rlzly'], $content['type_prod']);
 		
-		$content['wlt_two_ly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $year-2,$content['type_prod']);
 		$content['real_two_ly'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year']-2,"ey",$content['type_prod']);
-		$content['rlz_two_ly'] = $this->mrealization->count_realization_value($content['real_two_ly'], $content['real_two_ly']->month,$content['type_prod']);
-		$content['sow_two_ly'] = $this->mwallet->get_sow($content['wlt_two_ly'], $content['rlz_two_ly'], $content['type_prod']);
+		if($content['real_two_ly']){
+			$content['wlt_two_ly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $year-2,$content['type_prod']);	
+			$content['rlz_two_ly'] = $this->mrealization->count_realization_value($content['real_two_ly'], $content['real_two_ly']->month,$content['type_prod']);
+			$content['sow_two_ly'] = $this->mwallet->get_sow($content['wlt_two_ly'], $content['rlz_two_ly'], $content['type_prod']);
+		}
 		
-		$content['wlt_tri_ly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $year-3,$content['type_prod']);
 		$content['real_tri_ly'] = $this->mrealization->get_anchor_realization($anchor_id, $rpttime['year']-3,"ey",$content['type_prod']);
-		$content['rlz_tri_ly'] = $this->mrealization->count_realization_value($content['real_tri_ly'], $content['real_tri_ly']->month,$content['type_prod']);
-		$content['sow_tri_ly'] = $this->mwallet->get_sow($content['wlt_tri_ly'], $content['rlz_tri_ly'], $content['type_prod']);
+		if($content['real_tri_ly']){
+			$content['wlt_tri_ly'] = $this->mwallet->get_anchor_ws_wallet($anchor_id, $year-3,$content['type_prod']);
+			$content['rlz_tri_ly'] = $this->mrealization->count_realization_value($content['real_tri_ly'], $content['real_tri_ly']->month,$content['type_prod']);
+			$content['sow_tri_ly'] = $this->mwallet->get_sow($content['wlt_tri_ly'], $content['rlz_tri_ly'], $content['type_prod']);
+		}
 		
 		$content['asu'] = 'ytd';
 		$content['total_prd'] = $this->manchor->get_total_vol_prd($product, $content['month'], $year, $content['type_prod'].'_realization','');

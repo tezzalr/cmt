@@ -21,8 +21,8 @@
    		$batas['bawah'] = 500;
    		
    		if($prd == "CASA"){
-   			$batas['atas'] = 1000;
-   			$batas['bawah'] = 500;
+   			$batas['atas'] = 800;
+   			$batas['bawah'] = 400;
    		}
    		elseif($prd == "TD"){
    			$batas['atas'] = 2000;
@@ -31,9 +31,11 @@
    		elseif($prd == "WCL" || $prd == "IL" || $prd == "SL" || $prd == "TR"){
    			$batas['atas'] = 3000;
    			$batas['bawah'] = 300;
-   		}
-   		elseif($prd == "BG" || $prd == "Trade" || $prd == "FX" || $prd == "SCF"){
-   			$batas['atas'] = 500;
+   		}elseif($prd == || "Trade"){
+			$batas['atas'] = 300;
+   			$batas['bawah'] = 100;
+		}elseif($prd == "BG" || $prd == "Trade" || $prd == "FX" || $prd == "SCF"){
+   			$batas['atas'] = 400;
    			$batas['bawah'] = 100;
    		}
    		
@@ -392,7 +394,7 @@
 			$income['trx'] = $rlz_ws->CASA_nii + $rlz_ws->FX_fbi + $rlz_ws->SCF_fbi + $rlz_ws->Trade_fbi + $rlz_ws->PWE_fbi + $rlz_ws->BG_fbi+$rlz_ws->OIR_fbi;
 			//$income['trd'] = $rlz_ws->TR_nii+$rlz_ws->OIR_fbi;
 			$income['lnfee'] = $rlz_ws->WCL_fbi +  $rlz_ws->IL_fbi +  $rlz_ws->SL_fbi;
-			$income['otr'] = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi;
+			$income['otr'] = $rlz_ws->TD_nii +  $rlz_ws->CASA_fbi +  $rlz_ws->OW_fbi + $rlz_ws->OW_nii;
 			$income['tot'] = $income['loan']+$income['trx']+$income['lnfee']+$income['otr'];
 			$income['tot_ytd'] = (($income['loan']+$income['trx']+$income['otr'])/$month*12)+$income['lnfee'];
 		}

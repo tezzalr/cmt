@@ -46,7 +46,7 @@
 		width:25%;
 	}
 	.logo_outer{
-		background-color: #c3c3c3;
+		
 		width:160px;
 		height:160px;
 		border-radius:40px;
@@ -63,13 +63,13 @@
 		<center>
 			<div style="color:grey; font-size:14px;">ACCOUNT PLAN BANK MANDIRI</div>
 			<div style="font-size:48px">
-				Relationship Deepening Web
+				Relationship Deepening Portal
 			</div>
 			<div id="menu-RINGWeb" style="margin-top:80px;">
 				<div class="each_menu">
 					<button class="btn btn-link" style="color:#656565; margin:0; padding:0;" href="#" onclick="toggle_visibility('list_group_cb');">
 					<div class="logo_outer">
-						<img src="<?php echo base_url()?>assets/img/icon/library - white.png">
+						<img src="<?php echo base_url()?>assets/img/icon/group - color.png">
 					</div>
 					<h3>Group Analysis</h3>
 					</button>
@@ -88,7 +88,7 @@
 				<div class="each_menu">
 					<a href="<?php echo base_url()?>scorecard/show/CB">
 					<div class="logo_outer">
-						<img src="<?php echo base_url()?>assets/img/icon/conf - white.png">
+						<img src="<?php echo base_url()?>assets/img/icon/nasabah - color.png">
 					</div>
 					<h3>Anchor Analysis</h3>
 					</a>
@@ -96,7 +96,7 @@
 				<div class="each_menu">
 					<a href="<?php echo base_url()?>scorecard/product/CASA">
 					<div class="logo_outer">
-						<img src="<?php echo base_url()?>assets/img/icon/product - white.png">
+						<img src="<?php echo base_url()?>assets/img/icon/box - color.png">
 					</div>
 					<h3>Product Analysis</h3>
 					</a>
@@ -104,7 +104,7 @@
 				<div class="each_menu">
 					<a href="<?php echo base_url()?>scoring/input_bobot">
 					<div class="logo_outer">
-						<img src="<?php echo base_url()?>assets/img/icon/rank - white.png">
+						<img src="<?php echo base_url()?>assets/img/icon/rank - color.png">
 					</div>
 					<h3>Client Scoring</h3>
 					</a>

@@ -80,8 +80,11 @@ class Mrealization extends CI_Model {
     	$this->db->where('month',$month);
     	$result = $this->db->get($db);
     	$month=$result->result();
-    	
-    	return $month[0]->$colom;
+    	if($month){
+			return $month[0]->$colom;
+		}else{
+			return 0;
+		}
     }
     
     function get_anchor_prd_realization_annual($anchor_id, $product, $kind, $year,$anc_not){
@@ -90,12 +93,17 @@ class Mrealization extends CI_Model {
     	$list_month_avl = $this->check_prd_tren($anchor_id,$year,$anc_not,$product);
     	$last_month_data = $this->get_last_month($year,$type);
     	$arr_prod = array();
-    	for($i=1;$i<=$last_month_data;$i++){
-			if(in_array($i,$list_month_avl)){
-				$arr_prod[$i] = $this->get_anchor_prd_real_month($anchor_id, $product, $kind, $i, $year,$anc_not);
+    	for($i=0;$i<=$last_month_data;$i++){
+			if($i==0){
+				$arr_prod[$i] = $this->get_anchor_prd_real_month($anchor_id, $product, $kind, 12, $year-1,$anc_not);
 			}
 			else{
-				$arr_prod[$i] = 0;
+				if(in_array($i,$list_month_avl)){
+					$arr_prod[$i] = $this->get_anchor_prd_real_month($anchor_id, $product, $kind, $i, $year,$anc_not);
+				}
+				else{
+					$arr_prod[$i] = 0;
+				}
 			}
 		}
 		return $arr_prod;
@@ -120,7 +128,7 @@ class Mrealization extends CI_Model {
     	}
     	$this->db->where('year',$year);
     	$db = return_ws_or_al($product)."_realization";
-    	$result = $this->db->get('wholesale_realization');
+    	$result = $this->db->get($db);
     	$months=$result->result();
     	$arrmonth = array(); $i=0;
     	foreach($months as $mon){

@@ -12,6 +12,11 @@ class Profile extends CI_Controller {
         $this->load->model('msummary_desc');
         $this->load->library('excel');
         
+		$rpttime = $this->session->userdata('rpttime');
+		if(!$rpttime){
+			redirect ('home');
+		}
+		
         /*$session = $this->session->userdata('userdb');
         
         if(!$session){
@@ -28,7 +33,7 @@ class Profile extends CI_Controller {
     	$data_rl_inc = array();
     	$anchor_id = $this->uri->segment(4);
     	
-    	if($this->uri->segment(4)!=2707){
+    	if($this->uri->segment(4)!=2707 && $this->uri->segment(4)!=2650){
     		redirect('profile/show/anchor/'.$this->uri->segment(4));
     	}
     	
@@ -66,16 +71,23 @@ class Profile extends CI_Controller {
 		
 		$data['header'] = $this->load->view('shared/header','',TRUE);	
 		$data['footer'] = $this->load->view('shared/footer','',TRUE);
-		$data['content'] = $this->load->view('profile/summary',$content,TRUE);
+		if($this->uri->segment(4)==2650){
+			$data['content'] = $this->load->view('profile/summary_bpjs',$content,TRUE);
+		}
+		else{
+			$data['content'] = $this->load->view('profile/summary',$content,TRUE);
+		}
 
 		$this->load->view('front',$data);
         
     }
     
     public function get_pic_bmri(){
-    	
+    	$id = $this->input->get('id');
+		$data['anchor_id'] = $id;
+		
 		$json['status'] = 1;
-        $json['message'] = $this->load->view('profile/_pic','',TRUE);
+        $json['message'] = $this->load->view('profile/_pic',$data,TRUE);
         
 		$this->output->set_content_type('application/json')
                      ->set_output(json_encode($json));

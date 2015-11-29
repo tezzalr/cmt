@@ -127,7 +127,11 @@
 <script type="text/javascript">
 	var chartData = [
     <?php 
-    	for($i=1;$i<=12;$i++){
+    	$start_from = 0;
+		if(not_avg_bal($this->uri->segment(5))){
+			$start_from = 1;
+		}
+		for($i=$start_from;$i<=12;$i++){
     		
     		$pengali = 1;
     		
@@ -141,13 +145,18 @@
     		$mth = 'mth_'.$i;
     		$prd_name = $this->uri->segment(5)."_vol";
     		$last_mth = $ly[$i]/pow(10,$bagi)*$pengali;
-    		if(!$ly[$i]){
-				if(not_avg_bal($this->uri->segment(5))){
-					$target=$tgt_ws->$prd_name/12*$i;
+    		if($i==0){
+				$target = $tgt_ws_ly->$prd_name;
+			}
+			else{
+				if(!$ly[$i]){
+					if(not_avg_bal($this->uri->segment(5))){
+						$target=$tgt_ws->$prd_name/12*$i;
+					}
+					else{$target= $tgt_ws->$prd_name;}
+				}else{
+					$target = (($tgt_ws->$prd_name)*$ly[$i]/$ly[12]);
 				}
-				else{$target= $tgt_ws->$prd_name;}
-			}else{
-				$target = (($tgt_ws->$prd_name)*$ly[$i]/$ly[12]);
 			}
     		if($i<=$month){
     			$this_mth = $now[$i]/pow(10,$bagi)*$pengali;
@@ -166,16 +175,23 @@
     		
     	?>
     {
-        "month":"<?php echo $month_name?>",
-        <?php if($i<=$month){?>
-        "this_year": <?php echo round(abs($this_mth),1)?>,
-        "growth": <?php echo round($gwth,2)?>,
-        "real": <?php echo round($real,1)?>,
-        <?php if($i==$month){?>
-        "bulletClass":'lastBullet',
+		<?php if($i>0){?>
+			"month":"<?php echo $month_name?>",
+		<?php }else{?>
+			"month":"<?php echo $year-1?>",
+		<?php }?>
+		<?php if(($i<=$month && $this_mth && !$start_from) || $start_from){?>
+			"this_year": <?php echo round(abs($this_mth),1)?>,
+			"growth": <?php echo round($gwth,2)?>,
+			"real": <?php echo round($real,1)?>,
+			<?php if($i==$month){?>
+				//"bulletClass":'lastBullet',
         <?php }}?>
-        "last_year": <?php echo round(abs($last_mth),1)?>,
-        "target": <?php echo round($target,1)?>,
+		<?php if(($last_mth && !$start_from) || $start_from){?>
+			"last_year": <?php echo round(abs($last_mth),1)?>,
+		<?php }?>
+		"target": <?php echo round($target,1)?>,
+		
         
     },
     <?php }?>
@@ -328,7 +344,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "growth": <?php echo round($gwthic,2)?>,
         "real": <?php echo round($realic,1)?>,
         <?php if($i==$month){?>
-        "bulletClass":'lastBullet',
+        //"bulletClass":'lastBullet',
         <?php }}?>
         "last_year": <?php echo round(abs($last_mth),2)?>,
         "target": <?php echo round($targetic,2)?>,

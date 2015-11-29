@@ -68,34 +68,36 @@
 				<div>
 					<hr>
 					<div>
-						<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),1,'.',',')?> M </span></h5></div>
+						<div><h5>Loans : <span class="pull-right">Rp <?php echo number_format($loan_income/pow(10,9),0,'.',',')?> M </span></h5></div>
 						<div class="hide_temp_inc">
-							<?php if($ty['CASA_inc']){?><div><h5>WCL : <span class="pull-right">Rp <?php echo number_format($ty['WCL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['CASA_inc']){?><div><h5>IL : <span class="pull-right">Rp <?php echo number_format($ty['IL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['CASA_inc']){?><div><h5>SL : <span class="pull-right">Rp <?php echo number_format($ty['SL_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['CASA_inc']){?><div><h5>TR : <span class="pull-right">Rp <?php echo number_format($ty['TR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>WCL : <span class="pull-right">Rp <?php echo number_format($ty['WCL_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>IL : <span class="pull-right">Rp <?php echo number_format($ty['IL_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>SL : <span class="pull-right">Rp <?php echo number_format($ty['SL_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>TR : <span class="pull-right">Rp <?php echo number_format($ty['TR_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
 						</div>
 						
-						<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),1,'.',',')?> M </span></h5></div>
+						<div><h5>Trx-CASA : <span class="pull-right">Rp <?php echo number_format($trx_income/pow(10,9),0,'.',',')?> M </span></h5></div>
 						<div class="hide_temp_inc">
-							<?php if($ty['CASA_inc']){?><div><h5>CASA : <span class="pull-right">Rp <?php echo number_format($ty['CASA_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['FX_inc']){?><div><h5>FX : <span class="pull-right">Rp <?php echo number_format($ty['FX_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['Trade_inc']){?><div><h5>Trade : <span class="pull-right">Rp <?php echo number_format($ty['Trade_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['BG_inc']){?><div><h5>BG : <span class="pull-right">Rp <?php echo number_format($ty['BG_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['SCF_inc']){?><div><h5>SCF : <span class="pull-right">Rp <?php echo number_format($ty['SCF_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['PWE_inc']){?><div><h5>PWE : <span class="pull-right">Rp <?php echo number_format($ty['PWE_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
-							<?php if($ty['OIR_inc']){?><div><h5>OIR : <span class="pull-right">Rp <?php echo number_format($ty['OIR_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['CASA_inc']){?><div><h5>CASA : <span class="pull-right">Rp <?php echo number_format($ty['CASA_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['FX_inc']){?><div><h5>FX : <span class="pull-right">Rp <?php echo number_format($ty['FX_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['Trade_inc']){?><div><h5>Trade : <span class="pull-right">Rp <?php echo number_format($ty['Trade_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['BG_inc']){?><div><h5>BG : <span class="pull-right">Rp <?php echo number_format($ty['BG_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['SCF_inc']){?><div><h5>SCF : <span class="pull-right">Rp <?php echo number_format($ty['SCF_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['PWE_inc']){?><div><h5>PWE : <span class="pull-right">Rp <?php echo number_format($ty['PWE_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['OIR_inc']){?><div><h5>OIR : <span class="pull-right">Rp <?php echo number_format($ty['OIR_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
 						</div>
-						<!--<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),1,'.',',')?> M </span></h5></div>-->
-						<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),1,'.',',')?> M </span></h5></div>
-						<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),1,'.',',')?> M </span></h5></div>
+						<!--<div><h5>Trade Finance : <span class="pull-right">Rp <?php echo number_format($trd_income/pow(10,9),0,'.',',')?> M </span></h5></div>-->
+						<div><h5>Loan Fee : <span class="pull-right">Rp <?php echo number_format($lnfee_income/pow(10,9),0,'.',',')?> M </span></h5></div>
+						<div><h5>Others : <span class="pull-right">Rp <?php echo number_format($otr_income/pow(10,9),0,'.',',')?> M </span></h5></div>
 						<div class="hide_temp_inc" style="border-bottom:0px">
 							<?php if($ty['TD_inc']){?><div><h5>TD : <span class="pull-right">Rp <?php echo number_format($ty['TD_inc']/pow(10,9),2,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['OW_nii_inc']){?><div><h5>Other Nii : <span class="pull-right">Rp <?php echo number_format($ty['OW_nii_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
+							<?php if($ty['OW_fbi_inc']){?><div><h5>Other Fbi : <span class="pull-right">Rp <?php echo number_format($ty['OW_fbi_inc']/pow(10,9),0,'.',',')?> M </span></h5></div><?php }?>
 						</div>
 						<div style="border-top:1px dashed #ddd">
 							<h4>
 								<button class="btn-link" style="color:black; padding:0px" onclick="$('.hide_temp_inc').animate({'height':'toggle','opacity':'toggle'});">Total <span class="caret"></span></button>
-								<span class="pull-right">Rp <?php echo number_format($tot/pow(10,9),2,'.',',')?> M </span>
+								<span class="pull-right">Rp <?php echo number_format($tot/pow(10,9),0,'.',',')?> M </span>
 							</h4>
 						</div>
 					</div>
@@ -144,8 +146,8 @@
 							<td class="align-right"><?php echo number_format($ty[$prod_name]/pow(10,9),1,'.',',');?></td>
 							<!--<td class="align-right"><?php echo number_format($ytd[$prod_name],1,'.',',');?></td>-->
 							<td class="align-right"><?php echo number_format($tgt,1,'.',',');?></td>
-							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>
-							<td class="align-right" style="color:<?php echo $color_gwt;?>"><?php echo number_format($gwt*100,1,'.',',')?>%</td>
+							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,0,'.',',')?>%</td>
+							<td class="align-right" style="color:<?php echo $color_gwt;?>"><?php echo number_format($gwt*100,0,'.',',')?>%</td>
 						</tr>
 						<?php }?>
 					</tbody>
@@ -223,12 +225,12 @@
 								if($gwt>0){$color_gwt="green";}else{$color_gwt="red";}
 							?>
 							<td><a href="<?php echo base_url().'product_analysis/show/'.$is_anchor.'/'.$this_id.'/'.$prod['initial'];?>"><?php echo $prod['initial']?></a></td>
-							<td class="align-right"><?php echo number_format($ly_val_inc/pow(10,9),2,'.',',');?></td>
-							<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),2,'.',',');?></td>
+							<td class="align-right"><?php echo number_format($ly_val_inc/pow(10,9),1,'.',',');?></td>
+							<td class="align-right"><?php echo number_format($ty[$prd_name_arr]/pow(10,9),1,'.',',');?></td>
 							<!--<td class="align-right"><?php echo number_format($ytd[$prd_name_arr],1,'.',',');?></td>-->
-							<td class="align-right"><?php echo number_format($tgt,2,'.',',');?></td>
-							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,1,'.',',')?>%</td>
-							<td class="align-right" style="color:<?php echo $color_gwt;?>"><?php echo number_format($gwt*100,1,'.',',')?>%</td>
+							<td class="align-right"><?php echo number_format($tgt,1,'.',',');?></td>
+							<td class="align-right" style="color:<?php echo $color;?>"><?php echo number_format($pct*100,0,'.',',')?>%</td>
+							<td class="align-right" style="color:<?php echo $color_gwt;?>"><?php echo number_format($gwt*100,0,'.',',')?>%</td>
 						</tr>
 						<?php }?>
 					</tbody>

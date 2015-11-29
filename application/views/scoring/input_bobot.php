@@ -67,9 +67,9 @@
 			<div id="menu-RINGWeb" style="margin-top:10px;">
 				<form class="form-horizontal" action="<?php echo base_url()."scoring/calculate_anchor_scoring"?>" method ="post" id="formparamscor" role="form">
 				<div class="each_menu">
-					<h3>Profile</h3>
+					<h3>Value Co-creation</h3>
 					<div>
-						<?php foreach($profile as $pro){?>
+						<?php foreach($value_deal as $pro){?>
 							<div class="form-group">
 								<label class="col-sm-6 control-label"><?php echo $pro->desc_comp?></label>
 								<div class="col-sm-4">
@@ -86,6 +86,21 @@
 					<h3>Wallet</h3>
 					<div>
 						<?php foreach($wallet_size as $wal){?>
+							<div class="form-group">
+								<label class="col-sm-6 control-label"><?php echo $wal->desc_comp?></label>
+								<div class="col-sm-4">
+									<div class="input-group">
+										<input type="text" class="form-control" id="location" name="<?php echo $wal->id?>" value="<?php echo $wal->bobot?>">
+										<span class="input-group-addon">%</span>
+									</div>
+								</div>
+							</div>
+						<?php }?>
+					</div>
+					<hr>
+					<h3>Wallet Gap</h3>
+					<div>
+						<?php foreach($wallet_gap as $wal){?>
 							<div class="form-group">
 								<label class="col-sm-6 control-label"><?php echo $wal->desc_comp?></label>
 								<div class="col-sm-4">

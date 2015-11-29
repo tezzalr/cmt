@@ -66,13 +66,13 @@
 						$delta_vol = $rlz[$prd_name]-$rlzly[$prd_name]; if($delta_vol>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
 					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Volume</span> sebesar <span style="color:#007aff"> <?php echo $cur." ".number_format(abs($delta_vol),1,'.',',')." ".$sep?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#007aff">
-					<?php if($rlz[$prd_name]){if($rlzly[$prd_name]){echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
+					<?php if($rlz[$prd_name]){if($rlzly[$prd_name]){echo number_format((($rlz[$prd_name]/$rlzly[$prd_name])-1)*100,0);}else{echo 100;}}else{echo 0;}?>%</span></p>
 					<hr>
 					<?php 
 						$delta_inc = $rlz[$prd_name_inc]-$rlzly[$prd_name_inc]; if($delta_inc>0){$col = "green"; $word = "Peningkatan";}else{$col = "red"; $word = "Penurunan";}
 					?>
 					<p>Secara annualize terdapat <span style="color:<?php echo $col?>"><?php echo $word?> Income</span> sebesar <span style="color:#007aff"> <?php echo "Rp ".number_format(abs($delta_inc),1,'.',',')." M"?></span> dari <?php echo $year-1?>.<br><br>Growth : <span style="color:#007aff">
-					<?php if($rlz[$prd_name_inc]){if($rlzly[$prd_name_inc]){echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,2);}else{echo 100;}}else{echo 0;}?>%</span></p>
+					<?php if($rlz[$prd_name_inc]){if($rlzly[$prd_name_inc]){echo number_format((($rlz[$prd_name_inc]/$rlzly[$prd_name_inc])-1)*100,0);}else{echo 100;}}else{echo 0;}?>%</span></p>
 				</div>
 			</div>
 		</div>
@@ -83,56 +83,91 @@
 					<div>
 						<table style="width:100%;">
 							<tr style="color:#bbbbbb">
-								<td style="width:30%">Realization</td><td class="al-right" style="width:10%"><?php echo $year?></td><td class="al-right" style="width:10%"><?php echo $year-1?></td><td class="al-right" style="width:10%"><?php echo $year-2?></td><td class="al-right" style="width:10%"><?php echo $year-3?></td>
+								<td style="width:30%">Realization</td><td class="al-right" style="width:10%"><?php echo $year?></td><td class="al-right" style="width:10%"><?php echo $year-1?></td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right" style="width:10%"><?php echo $year-2?></td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right" style="width:10%"><?php echo $year-3?></td>
+								<?php }?>
+							
 							</tr>
 							<tr class="pp_tit">
 								<td>Volume</td>
 								<td class="al-right"><?php if($target_vol){$real_vol_ty = $rlz[$prd_name]/$target_vol*100;}else{$real_vol_ty=100;}echo round($real_vol_ty,0)?>%</td>
 								<td class="al-right"><?php if($target_vol_ly){echo round($rlzly[$prd_name]/$target_vol_ly*100,0);}else{echo 100;}?>%</td>
-								<td class="al-right"><?php if($target_vol_two_ly){echo round($rlz_two_ly[$prd_name]/$target_vol_two_ly*100,0);}else{echo 100;}?>%</td>
-								<td class="al-right"><?php if($target_vol_tri_ly){echo round($rlz_tri_ly[$prd_name]/$target_vol_tri_ly*100,0);}else{echo 100;}?>%</td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php if($target_vol_two_ly){echo round($rlz_two_ly[$prd_name]/$target_vol_two_ly*100,0);}else{echo 100;}?>%</td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php if($target_vol_tri_ly){echo round($rlz_tri_ly[$prd_name]/$target_vol_tri_ly*100,0);}else{echo 100;}?>%</td>
+								<?php }?>
 							</tr>
 							<tr>
 								<td>Ann.</td>
 								<td class="al-right"><?php echo number_format($rlz[$prd_name],1,'.',',')?></td>
 								<td class="al-right"><?php echo number_format($rlzly[$prd_name],1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name],1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name],1,'.',',')?></td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name],1,'.',',')?></td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name],1,'.',',')?></td>
+								<?php }?>
 							</tr>
 							<tr>
 								<td>Target</td>
 								<td class="al-right"><?php echo number_format($target_vol,1,'.',',')?></td>
 								<td class="al-right"><?php echo number_format($target_vol_ly,1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($target_vol_two_ly,1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($target_vol_tri_ly,1,'.',',')?></td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php echo number_format($target_vol_two_ly,1,'.',',')?></td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php echo number_format($target_vol_tri_ly,1,'.',',')?></td>
+								<?php }?>
 							</tr>
 							<tr class="pp_tit" style="border-top:1px solid #ebebeb">
 								<td>Income</td>
 								<td class="al-right"><?php if($target_inc){$real_inc_ty = $rlz[$prd_name_inc]/$target_inc*100;}else{$real_inc_ty=100;}echo round($real_inc_ty,0)?>%</td>
 								<td class="al-right"><?php if($target_inc_ly){echo round($rlzly[$prd_name_inc]/$target_inc_ly*100,0);}else{echo 100;}?>%</td>
-								<td class="al-right"><?php if($target_inc_two_ly){echo round($rlz_two_ly[$prd_name_inc]/$target_inc_two_ly*100,0);}else{echo 100;}?>%</td>
-								<td class="al-right"><?php if($target_inc_tri_ly){echo round($rlz_tri_ly[$prd_name_inc]/$target_inc_tri_ly*100,0);}else{echo 100;}?>%</td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php if($target_inc_two_ly){echo round($rlz_two_ly[$prd_name_inc]/$target_inc_two_ly*100,0);}else{echo 100;}?>%</td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php if($target_inc_tri_ly){echo round($rlz_tri_ly[$prd_name_inc]/$target_inc_tri_ly*100,0);}else{echo 100;}?>%</td>
+								<?php }?>
 							</tr>
 							<tr>
 								<td>Ann.</td>
 								<td class="al-right"><?php echo number_format($rlz[$prd_name_inc],1,'.',',')?></td>
 								<td class="al-right"><?php echo number_format($rlzly[$prd_name_inc],1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name_inc],1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name_inc],1,'.',',')?></td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php echo number_format($rlz_two_ly[$prd_name_inc],1,'.',',')?></td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php echo number_format($rlz_tri_ly[$prd_name_inc],1,'.',',')?></td>
+								<?php }?>
 							</tr>
 							<tr>
 								<td>Target</td>
 								<td class="al-right"><?php echo number_format($target_inc,1,'.',',')?></td>
 								<td class="al-right"><?php echo number_format($target_inc_ly,1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($target_inc_two_ly,1,'.',',')?></td>
-								<td class="al-right"><?php echo number_format($target_inc_tri_ly,1,'.',',')?></td>
+								<?php if(isset($rlz_two_ly)){?>
+									<td class="al-right"><?php echo number_format($target_inc_two_ly,1,'.',',')?></td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php echo number_format($target_inc_tri_ly,1,'.',',')?></td>
+								<?php }?>
 							</tr>
 							<tr class="pp_tit" style="border-top:1px solid #ebebeb">
 								<td>Margin</td>
 								<td class="al-right"><?php if($rlz[$prd_name]){echo number_format($rlz[$prd_name_inc]/$rlz[$prd_name]*100,2,'.',',');}else{echo 0;}?>%</td>
 								<td class="al-right"><?php if($rlzly[$prd_name]){echo round($rlzly[$prd_name_inc]/$rlzly[$prd_name]*100,2);}else{echo 0;}?>%</td>
-								<td class="al-right"><?php if($rlz_two_ly[$prd_name]){echo round($rlz_two_ly[$prd_name_inc]/$rlz_two_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
-								<td class="al-right"><?php if($rlz_tri_ly[$prd_name]){echo round($rlz_tri_ly[$prd_name_inc]/$rlz_tri_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<?php if(isset($rlz_two_ly)){?>	
+									<td class="al-right"><?php if($rlz_two_ly[$prd_name]){echo round($rlz_two_ly[$prd_name_inc]/$rlz_two_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<?php }?>
+								<?php if(isset($rlz_tri_ly)){?>
+									<td class="al-right"><?php if($rlz_tri_ly[$prd_name]){echo round($rlz_tri_ly[$prd_name_inc]/$rlz_tri_ly[$prd_name]*100,2);}else{echo 0;}?>%</td>
+								<?php }?>
 							</tr>
 						</table>
 					</div>
@@ -172,7 +207,7 @@
 		<?php if($kind=="anchor"){?>
 		<div class="panel panel-wsa">
 			<div class="panel-heading">
-				Activity Monitoring
+				<a href="<?php echo base_url()?>plan/summary/anchor/<?php echo $anchor_id?>">Activity Monitoring</a>
 				<!--<a href="<?php echo base_url()?>plan/show/anchor/<?php echo $anchor->id."/".$stg['strategy']->product?>"><?php echo $stg['name_prod']?></a>-->
 				<div style="font-size:10px; margin-top:5px;">
 					<span style="color:#007aff" class="glyphicon glyphicon-signal" aria-hidden="true"></span> : Progress
@@ -251,146 +286,160 @@
 	<div style="clear:both"></div>
 	<?php if($this->uri->segment(3)!="anchor"){?>
 	<div>
-		<div>
-		<h4>Top Volume (Rp M)</h4>
-		<table class="table table-bordered" style="font-size:14px;">
-			<thead class="headertab"><tr>
-				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
-			</tr><tr>
-				<th>Actual</th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Kontribusi (%)</th>
-			</tr></thead><tbody>
-			<?php 
-				$arr_avgbal = array("CASA","TD","WCL","IL","TR");
-				$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $sum_cmpny=1; $trgt = $vol."_target"; $trgt_tot=0;
-				$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-				foreach($top_anchor_vol as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
-				<tr>
-					<td><?php echo $anchor->name?></td>
-					<!--<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($anchor->$vol/$total_prd->$vol*100,1,',','.')?> %</td>-->
-					<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
-					
-					<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($anchor->$vol/$total_prd->$vol*100,1,',','.')?> %</td>
-				</tr>
-			<?php
-					
-					$temp_tot = $temp_tot + $anchor->$vol;
-					$ly_tot = $ly_tot + $anchor->$ly;
-					$trgt_tot = $trgt_tot + $anchor->$trgt;
-					$sum_cmpny++;
-					if(($temp_tot/$total_prd->$vol) > 0.7  && $sum_cmpny >5){break;}
-				}?>
-			 <!--<tr>
-				 <td><b>Sub-total</b></td><td><?php echo number_format($ly_tot/pow(10,$bagi),0,',','.')?></td>
-				 
-				 <td><?php echo number_format($temp_tot/pow(10,$bagi),0,',','.')?></td>
-				 <td><?php echo number_format($temp_tot/$anchor->month*12/pow(10,$bagi),0,',','.')?></td>
-				 <td><?php echo number_format($temp_tot/$total_prd->$vol*100,0,',','.')?> %</td>
-			 </tr>-->
-			</tbody>
-		</table>
-	</div>
-		<div>
-		<h4>Top Nominal Growth (Rp M)</h4>
-		<table class="table table-bordered" style="font-size:14px;">
-			<thead class="headertab"><tr>
-				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
-			</tr><tr>
-				<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Nominal Growth</th>
-			</tr></thead><tbody>
-			<?php 
-				$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $nomgrowtot=0; $trgt_tot=0;
-				$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-				foreach($top_anchor_nom_grow as $anchor){ $ytd = $anchor->$vol/$anchor->month*12;?>
-				<tr>
-					<td><?php echo $anchor->name?></td>
-					<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
-		
-					<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($anchor->nom_grow/pow(10,$bagi),0,',','.')?></td>
-				</tr>
-			<?php
-		
-					$temp_tot = $temp_tot + $anchor->$vol;
-					$ly_tot = $ly_tot + $anchor->$ly;
-					$nomgrowtot = $nomgrowtot+$anchor->nom_grow;
-				}?>
-			 <tr>
-				 <td><b>Sub-total</b></td><td><?php echo number_format($ly_tot/pow(10,$bagi),0,',','.')?></td>
-	 
-				 <td><?php echo number_format($temp_tot/pow(10,$bagi),0,',','.')?></td>
-				 <td><?php echo number_format($temp_tot/$anchor->month*12/pow(10,$bagi),0,',','.')?></td>
-				 <td><?php echo number_format($nomgrowtot/pow(10,$bagi),0,',','.')?></td>
-			 </tr>
-			 <tr style="background-color:grey"><td></td><td></td><td></td><td></td><td></td></tr>
-				<?php 
-				$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
-				$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-				foreach($top_anchor_nom_grow_min as $anchor){ $ytd = $anchor->$vol/$anchor->month*12;?>
-				<tr>
-					<td><?php echo $anchor->name?></td>
-					<td><?php echo number_format($anchor->$ly/pow(10,$bagi),1,',','.')?></td>
-					<td><?php echo number_format($anchor->$vol/pow(10,$bagi),1,',','.')?></td>
-					<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($anchor->nom_grow/pow(10,$bagi),2,',','.')?></td>
-				</tr>
-			<?php
-		
-					$temp_tot = $temp_tot + $anchor->$vol;
-					$ly_tot = $ly_tot + $anchor->$ly;
-				}?>
-			</tbody>
-		</table>
-	</div>
-		<div>
-		<h4>Top Growth (%)</h4>
-		<table class="table table-bordered" style="font-size:14px;">
-			<thead class="headertab"><tr>
-				<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
-			</tr><tr>
-				<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Growth</th>
-			</tr></thead><tbody>
-			<?php 
-				$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
-				$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-				foreach($top_anchor_grow as $anchor){ $ytd = $anchor->$vol/$anchor->month*12;?>
-				<tr>
-					<td><?php echo $anchor->name?></td>
-					<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
-				
-					<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
-					<td><?php echo number_format($ytd/pow(10,$bagi),1,',','.')?></td>
-					<td><?php echo number_format($anchor->grow*100,0,',','.')?> %</td>
-				</tr>
-			<?php
-		
-					$temp_tot = $temp_tot + $anchor->$vol;
-					$ly_tot = $ly_tot + $anchor->$ly;
-				}?>
-				<tr style="background-color:grey"><td></td><td></td><td></td><td></td><td></td></tr>
-				<?php 
-					$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
-					$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
-					foreach($top_anchor_grow_min as $anchor){ $ytd = $anchor->$vol/$anchor->month*12;?>
-					<tr>
-						<td><?php echo $anchor->name?></td>
-						<td><?php echo number_format($anchor->$ly/pow(10,$bagi),1,',','.')?></td>
-					
-						<td><?php echo number_format($anchor->$vol/pow(10,$bagi),1,',','.')?></td>
-						<td><?php echo number_format($ytd/pow(10,$bagi),1,',','.')?></td>
-						<td><?php echo number_format($anchor->grow*100,2,',','.')?> %</td>
-					</tr>
-				<?php
-		
-						$temp_tot = $temp_tot + $anchor->$vol;
-						$ly_tot = $ly_tot + $anchor->$ly;
-					}?>
-			</tbody>
-		</table>
-	</div>
+		<div class="panel panel-wsa">
+			<div class="panel-heading">Top Volume (<?php echo $cur." ".$lkp?>)</div>
+			<div class="panel-body" style="padding:5px 10px 5px 10px;">
+				<table class="table table-striped" style="font-size:16px;">
+					<thead><tr>
+						<th rowspan=2>No</th><th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
+					</tr><tr>
+						<th>Actual</th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Kontribusi (%)</th>
+					</tr></thead><tbody>
+					<?php 
+						$arr_avgbal = array("CASA","TD","WCL","IL","TR");
+						$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $sum_cmpny=1; $trgt = $vol."_target"; $trgt_tot=0;
+						$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+						$i=1; foreach($top_anchor_vol as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
+						<tr>
+							<td><?php echo $i?></td>
+							<td><a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->anchor_id?>"><?php echo $anchor->name?></a></td>
+							<!--<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
+							<td><?php echo number_format($anchor->$vol/$total_prd->$vol*100,1,',','.')?> %</td>-->
+							<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
+							
+							<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
+							<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
+							<td><?php echo number_format($anchor->$vol/$total_prd->$vol*100,1,',','.')?> %</td>
+						</tr>
+					<?php
+							
+							$temp_tot = $temp_tot + $anchor->$vol;
+							$ly_tot = $ly_tot + $anchor->$ly;
+							$trgt_tot = $trgt_tot + $anchor->$trgt;
+							$sum_cmpny++;
+							if(($temp_tot/$total_prd->$vol) > 0.8  && $sum_cmpny >5){break;}
+						$i++; }?>
+					 <tr>
+						 <td></td>
+						 <th><b>Sub-total</b></th>
+						 <th><?php echo number_format($ly_tot/pow(10,$bagi),0,',','.')?></th>
+						 <th><?php echo number_format($temp_tot/pow(10,$bagi),0,',','.')?></th>
+						 <th><?php echo number_format($temp_tot/$anchor->month*12/pow(10,$bagi),0,',','.')?></th>
+						 <th><?php echo number_format($temp_tot/$total_prd->$vol*100,0,',','.')?> %</th>
+					 </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-wsa">
+					<div class="panel-heading">Top Nominal Growth (<?php echo $cur." ".$lkp?>)</div>
+					<div class="panel-body" style="padding:5px 10px 5px 10px;">
+						<table class="table table-striped" style="font-size:16px;">
+							<thead><tr>
+								<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
+							</tr><tr>
+								<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Growth</th>
+							</tr></thead><tbody>
+							<?php 
+								$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0; $nomgrowtot=0; $trgt_tot=0;
+								$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+								foreach($top_anchor_nom_grow as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
+								<tr>
+									<td><a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->anchor_id?>"><?php echo $anchor->name?></a></td>
+									<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
+						
+									<td><?php echo number_format($anchor->$vol/pow(10,$bagi),0,',','.')?></td>
+									<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
+									<td><?php echo number_format($anchor->nom_grow/pow(10,$bagi),0,',','.')?></td>
+								</tr>
+							<?php
+						
+									$temp_tot = $temp_tot + $anchor->$vol;
+									$ly_tot = $ly_tot + $anchor->$ly;
+									$nomgrowtot = $nomgrowtot+$anchor->nom_grow;
+								}?>
+							<!-- <tr>
+								 <td><b>Sub-total</b></td><td><?php echo number_format($ly_tot/pow(10,$bagi),0,',','.')?></td>
+					 
+								 <td><?php echo number_format($temp_tot/pow(10,$bagi),0,',','.')?></td>
+								 <td><?php echo number_format($temp_tot/$anchor->month*12/pow(10,$bagi),0,',','.')?></td>
+								 <td><?php echo number_format($nomgrowtot/pow(10,$bagi),0,',','.')?></td>
+							 </tr>-->
+							 <tr style="background-color:grey"><td></td><td></td><td></td><td></td><td></td></tr>
+								<?php 
+								$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
+								$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+								foreach($top_anchor_nom_grow_min as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
+								<tr>
+									<td><a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->anchor_id?>"><?php echo $anchor->name?></a></td>
+									<td><?php echo number_format($anchor->$ly/pow(10,$bagi),1,',','.')?></td>
+									<td><?php echo number_format($anchor->$vol/pow(10,$bagi),1,',','.')?></td>
+									<td><?php echo number_format($ytd/pow(10,$bagi),0,',','.')?></td>
+									<td><?php echo number_format($anchor->nom_grow/pow(10,$bagi),2,',','.')?></td>
+								</tr>
+							<?php
+						
+									$temp_tot = $temp_tot + $anchor->$vol;
+									$ly_tot = $ly_tot + $anchor->$ly;
+								}?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-wsa">
+					<div class="panel-heading">Top Growth (%)</div>
+					<div class="panel-body" style="padding:5px 10px 5px 10px;">
+						<table class="table table-striped" style="font-size:16px;">
+							<thead><tr>
+								<th rowspan=2><center>Nama Anchor</center></th><th><?php echo $year-1?></th><th colspan=3><center><?php echo $year?></center></th>
+							</tr><tr>
+								<th><?php if($asu=='ytd'){echo 'Des';}else{echo get_month_name($month);}?></th><th><?php echo get_month_name($month)?></th><th>YTD <?php echo $year?></th><th>Growth</th>
+							</tr></thead><tbody>
+							<?php 
+								$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
+								$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+								foreach($top_anchor_grow as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
+								<tr>
+									<td><a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->anchor_id?>"><?php echo $anchor->name?></a></td>
+									<td><?php echo number_format($anchor->$ly/pow(10,$bagi),0,',','.')?></td>
+								
+									<td><?php echo number_format($anchor->$vol/pow(10,$bagi),1,',','.')?></td>
+									<td><?php echo number_format($ytd/pow(10,$bagi),1,',','.')?></td>
+									<td><?php echo number_format($anchor->grow*100,0,',','.')?> %</td>
+								</tr>
+							<?php
+						
+									$temp_tot = $temp_tot + $anchor->$vol;
+									$ly_tot = $ly_tot + $anchor->$ly;
+								}?>
+								<tr style="background-color:grey"><td></td><td></td><td></td><td></td><td></td></tr>
+								<?php 
+									$vol = $product."_vol"; $temp_tot=0; $ly = $vol.'_ly'; $ly_tot=0;
+									$bagi=9; if($product == 'FX' || $product == 'Trade'){$bagi=6;}elseif($product == 'OIR'){$bagi=0;}
+									foreach($top_anchor_grow_min as $anchor){ if(in_array($product,$arr_avgbal)){$ytd = $anchor->$vol;}else{$ytd = $anchor->$vol/$anchor->month*12;}?>
+									<tr>
+										<td><a href="<?php echo base_url()?>profile/show/anchor/<?php echo $anchor->anchor_id?>"><?php echo $anchor->name?></a></td>
+										<td><?php echo number_format($anchor->$ly/pow(10,$bagi),1,',','.')?></td>
+									
+										<td><?php echo number_format($anchor->$vol/pow(10,$bagi),1,',','.')?></td>
+										<td><?php echo number_format($ytd/pow(10,$bagi),1,',','.')?></td>
+										<td><?php echo number_format($anchor->grow*100,2,',','.')?> %</td>
+									</tr>
+								<?php
+						
+										$temp_tot = $temp_tot + $anchor->$vol;
+										$ly_tot = $ly_tot + $anchor->$ly;
+									}?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<?php }else{ echo $child_company;}?>
 </div>
@@ -455,23 +504,23 @@
 	"titles": [],
 	"dataProvider": [
 		
-		{
-			"year": <?php echo $year-3?> +"<br>(SoW : "+<?php if($wlt_tri_ly && $wlt_tri_ly->$prd_name){echo round($rlz_tri_ly[$prd_name]/$wlt_tri_ly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+		<?php if(isset($wlt_tri_ly)){?>{
+			"year": <?php echo $year-3?> +"<br>(SoW : "+<?php if($wlt_tri_ly && $wlt_tri_ly->$prd_name){echo round($rlz_tri_ly[$prd_name]/$wlt_tri_ly->$prd_name*100,0);}else{echo 0;}?>+" %)",
 			"Wallet": <?php if($wlt_tri_ly && $wlt_tri_ly->$prd_name){echo round($wlt_tri_ly->$prd_name,1);}else{echo 0;}?>,
 			"Realization": <?php echo round($rlz_tri_ly[$prd_name],1);?>
-		},
-		{
-			"year": <?php echo $year-2?> +"<br>(SoW : "+<?php if($wlt_two_ly->$prd_name){echo round($rlz_two_ly[$prd_name]/$wlt_two_ly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+		},<?php }?>
+		<?php if(isset($wlt_two_ly)){?>{
+			"year": <?php echo $year-2?> +"<br>(SoW : "+<?php if($wlt_two_ly->$prd_name){echo round($rlz_two_ly[$prd_name]/$wlt_two_ly->$prd_name*100,0);}else{echo 0;}?>+" %)",
 			"Wallet": <?php if($wlt_two_ly->$prd_name){echo round($wlt_two_ly->$prd_name,1);}else{echo 0;}?>,
 			"Realization": <?php echo round($rlz_two_ly[$prd_name],1);?>
-		},
+		},<?php }?>
 		{
-			"year": <?php echo $year-1?> +"<br>(SoW : "+<?php if($wltly->$prd_name){echo round($rlzly[$prd_name]/$wltly->$prd_name*100,1);}else{echo 0;}?>+" %)",
+			"year": <?php echo $year-1?> +"<br>(SoW : "+<?php if($wltly->$prd_name){echo round($rlzly[$prd_name]/$wltly->$prd_name*100,0);}else{echo 0;}?>+" %)",
 			"Wallet": <?php if($wltly->$prd_name){echo round($wltly->$prd_name,1);}else{echo 0;}?>,
 			"Realization": <?php echo round($rlzly[$prd_name],1);?>
 		},
 		{
-			"year": <?php echo $year?> +"<br>(SoW : "+<?php if($wlt->$prd_name){echo round($rlz[$prd_name]/$wlt->$prd_name*100,1);}else{echo 0;}?>+" %)",
+			"year": <?php echo $year?> +"<br>(SoW : "+<?php if($wlt->$prd_name){echo round($rlz[$prd_name]/$wlt->$prd_name*100,0);}else{echo 0;}?>+" %)",
 			"Wallet": <?php if($wlt->$prd_name){echo round($wlt->$prd_name,1);}else{echo 0;}?>,
 			"Realization": <?php echo round($rlz[$prd_name],1);?>
 		}

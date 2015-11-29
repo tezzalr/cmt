@@ -529,6 +529,10 @@ class Anchor extends CI_Controller {
 			$anchor['bank_comp'] = $arrres[$row][2];
 			$anchor['srt_name'] = $arrres[$row][3];
 			$anchor['num_of_comp'] = $arrres[$row][4];
+			$anchor['brances'] = $arrres[$row][5];
+			$anchor['priority_gov'] = $arrres[$row][6];
+			$anchor['sectors'] = $arrres[$row][7];
+			$anchor['corp_action'] = $arrres[$row][8];
 			$anchor_id = $this->manchor->get_anchor_id($arrres[$row][0],"");
 			
 			$this->manchor->update_anchor($anchor, $anchor_id);

@@ -68,6 +68,17 @@ class Mscoring extends CI_Model {
         if($query){return $query[0];}
         else{return false;}
     }
+	
+	function get_anchor_scoring_detail_by_id($anchor_id){
+		$this->db->where('anchor_id',$anchor_id);
+    	$this->db->where('bobot <> 0');
+		$this->db->join('anchor', 'anchor.id = anchor_comp_val.anchor_id');
+		$this->db->join('scoring_comp', 'anchor_comp_val.scoring_comp_id = scoring_comp.id');
+		$result = $this->db->get('anchor_comp_val');
+    	$query = $result->result();
+        if($query){return $query;}
+        else{return false;}
+	}
     
     function insert_scoring($iptdata){ 
     	return $this->db->insert('anchor_comp_val', $iptdata);
